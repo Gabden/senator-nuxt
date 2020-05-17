@@ -28,7 +28,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/vmask'],
+  plugins: ['~plugins/vmask', '~plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */

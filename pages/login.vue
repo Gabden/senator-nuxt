@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import requestsService from '../services/requestsService'
 export default {
   data() {
     return {
@@ -71,12 +72,16 @@ export default {
   },
   methods: {
     login() {
-      this.$auth.loginWith('local', {
-        data: {
-          username: this.username,
-          password: this.password
-        }
-      })
+      this.$auth
+        .loginWith('local', {
+          data: {
+            username: this.username,
+            password: this.password
+          }
+        })
+        .then(({ data }) => {
+          requestsService.setAuthToken(data.token)
+        })
     }
   }
 }

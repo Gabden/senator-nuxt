@@ -12,12 +12,12 @@
 
     <v-btn v-else text rounded to="/login">Login</v-btn>
     <v-btn rounded to="/registration">Регистрация</v-btn>
-    <v-btn @click="checkAuth">Check auth</v-btn>
   </v-app-bar>
 </template>
 
 <script>
 import { authComputed } from '../services/helpers'
+import requestsService from '../services/requestsService'
 export default {
   computed: {
     ...authComputed
@@ -27,7 +27,15 @@ export default {
       console.log(authComputed)
     },
     logout() {
-      this.$store.dispatch('logout')
+      this.$auth
+        .logout()
+        .then((result) => {
+          requestsService.setAuthToken('empty')
+        })
+        // eslint-disable-next-line handle-callback-err
+        .catch((err) => {
+          requestsService.setAuthToken('empty')
+        })
     },
     checkAuth() {
       console.log(this.$auth)
