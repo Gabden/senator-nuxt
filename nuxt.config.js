@@ -1,5 +1,3 @@
-import colors from 'vuetify/es5/util/colors'
-
 export default {
   mode: 'universal',
   /*
@@ -30,7 +28,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~plugins/vmask'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -45,13 +43,33 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/auth'
   ],
   proxy: {
     '/api': {
       target: 'http://localhost:8098',
       pathRewrite: {
         '^/api': '/'
+      }
+    }
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/api/logout', method: 'post' },
+          user: {
+            url: '/api/api/public/user',
+            method: 'get',
+            propertyName: 'username'
+          }
+        }
+        // tokenRequired: true,
+        // tokenType: 'Bearer'
+        // globalToken: true,
+        // autoFetchUser: true
       }
     }
   },

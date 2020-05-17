@@ -5,12 +5,14 @@
     <v-btn text rounded router to="/">Home</v-btn>
     <v-btn text rounded router to="/secured">Secured</v-btn>
     <v-btn text rounded router to="/admin">Only for admin</v-btn>
-    <v-btn v-if="loggedIn" text rounded router to="/" @click="logout"
+    <p v-if="$auth.loggedIn">{{ $auth.user }}</p>
+    <v-btn v-if="$auth.loggedIn" text rounded router to="/" @click="logout"
       >Logout</v-btn
     >
+
     <v-btn v-else text rounded to="/login">Login</v-btn>
     <v-btn rounded to="/registration">Регистрация</v-btn>
-    <v-btn @click="show">click</v-btn>
+    <v-btn @click="checkAuth">Check auth</v-btn>
   </v-app-bar>
 </template>
 
@@ -26,6 +28,9 @@ export default {
     },
     logout() {
       this.$store.dispatch('logout')
+    },
+    checkAuth() {
+      console.log(this.$auth)
     }
   }
 }

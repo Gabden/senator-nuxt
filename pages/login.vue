@@ -71,18 +71,12 @@ export default {
   },
   methods: {
     login() {
-      this.$store
-        .dispatch('login', {
+      this.$auth.loginWith('local', {
+        data: {
           username: this.username,
           password: this.password
-        })
-        .then(() => {
-          this.$router.push({ name: 'secured' })
-        })
-        // eslint-disable-next-line handle-callback-err
-        .catch((err) => {
-          this.error = true
-        })
+        }
+      })
     }
   }
 }
