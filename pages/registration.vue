@@ -140,7 +140,7 @@ export default {
       phoneRules: [
         (value) =>
           value.length === 3 ||
-          value.length - 16 >= 0 ||
+          value.length - 15 >= 0 ||
           'Неправильный формат номера телефона'
       ],
       agreeToTerms: false,

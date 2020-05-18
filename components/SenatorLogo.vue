@@ -1,11 +1,14 @@
 <template>
-  <img class="VuetifyLogo" alt="Vuetify Logo" src="/vuetify-logo.svg" />
+  <nuxt-link to="/">
+    <img class="VuetifyLogo" alt="Vuetify Logo" src="../assets/senator-logo.svg"
+  /></nuxt-link>
 </template>
 
 <style>
 .VuetifyLogo {
-  height: 180px;
-  width: 180px;
+  filter: invert(0.99);
+  height: 70px;
+  width: 70px;
   transform: rotateY(560deg);
   animation: turn 3.5s ease-out forwards 1s;
 }
