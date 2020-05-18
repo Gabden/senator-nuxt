@@ -1,10 +1,11 @@
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 0.7s ease-out;
+  transition: all 0.7s ease-out;
 }
 .page-enter,
 .page-leave-active {
   opacity: 0;
+  transform: translate(30px, 0);
 }
 
 .bounce-enter-active {
