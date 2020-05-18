@@ -10,8 +10,13 @@ import requestsService from '../services/requestsService'
 export default {
   middleware: 'auth',
   meta: { requiresAuth: true },
-  fetch() {
-    requestsService
+  data() {
+    return {
+      msg: ''
+    }
+  },
+  async mounted() {
+    await requestsService
       .getOpenData()
       .then((response) => {
         this.msg = response.data
@@ -19,11 +24,6 @@ export default {
       .catch((err) => {
         this.msg = 'error' + err
       })
-  },
-  data() {
-    return {
-      msg: ''
-    }
   }
 }
 </script>

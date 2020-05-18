@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 function tokenHandler(config, store) {
-  console.log(store.state.auth.user.token)
   if (store.state.auth && store.state.auth.user.token) {
     config.headers.common.Authorization = store.state.auth.user.token
   }

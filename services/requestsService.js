@@ -11,7 +11,7 @@ export const apiClient = axios.create({
 
 export default {
   setAuthToken(token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
+    axios.defaults.headers.common.Authorization = token
   },
   login(credentials) {
     return axios.post(`/login`, credentials)

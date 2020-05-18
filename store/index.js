@@ -1,53 +1,12 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
-import requestsService from '../services/requestsService'
+export const actions = {
+  nuxtServerInit({ commit }, { req }) {
+    const tokenCookie = req.headers.cookie
+      .split(';')
+      .find((cook) => cook.includes('auth._token.local'))
+    const token = tokenCookie.split('=')[1]
 
-Vue.use(Vuex)
-
-const store = () =>
-  new Vuex.Store({
-    state: {
-      user: null
-    },
-    mutations: {
-      SET_USER_DATA(state, userData) {
-        state.user = userData
-        localStorage.setItem('user', JSON.stringify(userData))
-        requestsService.setAuthToken(userData.token)
-      },
-      CLEAR_USER_DATA() {
-        localStorage.removeItem('user')
-        location.reload()
-      }
-    },
-    actions: {
-      register({ commit }, credentials) {
-        return axios.post('/register', credentials).then(({ data }) => {
-          commit('SET_USER_DATA', data)
-        })
-      },
-      login({ commit }, credentials) {
-        return requestsService.login(credentials).then((response) => {
-          commit('SET_USER_DATA', response.data)
-        })
-      },
-      logout({ commit }) {
-        commit('CLEAR_USER_DATA')
-      }
-    },
-    getters: {
-      loggedIn(state) {
-        return !!state.user
-      },
-      isAdmin(state, getters) {
-        let isAdmin = false
-        if (getters.loggedIn) {
-          isAdmin = state.user.rolesList.includes('ADMIN')
-        }
-        return isAdmin
-      }
+    if (token) {
+      commit('main/SET_USER_TOKEN', token)
     }
-  })
-
-export default store
+  }
+}
