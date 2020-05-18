@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="grey lighten-5" height="80">
+  <v-app-bar color="grey lighten-5" height="80">
     <div v-if="$auth.loggedIn">
       <v-btn text="">{{ $auth.user.username }}</v-btn> |
       <v-btn v-if="isAdmin" text to="/registration">Администрирование</v-btn>
