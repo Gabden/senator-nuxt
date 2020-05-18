@@ -10,12 +10,7 @@ import requestsService from '../services/requestsService'
 export default {
   middleware: 'auth',
   meta: { requiresAuth: true },
-  data() {
-    return {
-      msg: ''
-    }
-  },
-  created() {
+  fetch() {
     requestsService
       .getOpenData()
       .then((response) => {
@@ -24,6 +19,11 @@ export default {
       .catch((err) => {
         this.msg = 'error' + err
       })
+  },
+  data() {
+    return {
+      msg: ''
+    }
   }
 }
 </script>

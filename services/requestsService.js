@@ -11,15 +11,15 @@ export const apiClient = axios.create({
 
 export default {
   setAuthToken(token) {
-    apiClient.defaults.headers.common.Authorization = `Bearer ${token}`
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`
   },
   login(credentials) {
-    return apiClient.post(`/login`, credentials)
+    return axios.post(`/login`, credentials)
   },
   getOpenData() {
-    return apiClient.get('/api/public/manager/hello')
+    return axios.get('/api/api/public/manager/hello')
   },
   getAdminData() {
-    return apiClient.get('/api/public/admin/hello')
+    return axios.get('/api/api/public/admin/hello')
   }
 }

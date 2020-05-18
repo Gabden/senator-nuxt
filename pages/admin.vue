@@ -10,16 +10,16 @@ import requestsService from '../services/requestsService'
 export default {
   middleware: 'auth',
   meta: { requiresAuth: true, requiresAuthAdmin: true },
-  data() {
-    return {
-      msg: ''
-    }
-  },
-  created() {
+  fetch() {
     requestsService.getAdminData().then((response) => {
       this.msg = response.data
       console.log(response.data)
     })
+  },
+  data() {
+    return {
+      msg: ''
+    }
   }
 }
 </script>

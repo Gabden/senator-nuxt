@@ -63,7 +63,7 @@ export default {
           user: {
             url: '/api/api/public/user',
             method: 'get',
-            propertyName: 'username'
+            propertyName: false
           }
         }
         // tokenRequired: true,

@@ -5,7 +5,7 @@
     <v-btn text rounded router to="/">Home</v-btn>
     <v-btn text rounded router to="/secured">Secured</v-btn>
     <v-btn text rounded router to="/admin">Only for admin</v-btn>
-    <p v-if="$auth.loggedIn">{{ $auth.user }}</p>
+    <v-btn v-if="$auth.loggedIn">{{ $auth.user.username }}</v-btn>
     <v-btn v-if="$auth.loggedIn" text rounded router to="/" @click="logout"
       >Logout</v-btn
     >
