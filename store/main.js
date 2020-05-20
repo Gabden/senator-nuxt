@@ -1,7 +1,8 @@
 import requestsService from '../services/requestsService'
 
 export const state = () => ({
-  user: null
+  user: null,
+  isScrolled: false
 })
 export const mutations = {
   SET_USER_DATA(state, userData) {
@@ -15,9 +16,15 @@ export const mutations = {
   CLEAR_USER_DATA() {
     localStorage.removeItem('user')
     location.reload()
+  },
+  SET_SCROLLED(state, scrolled) {
+    state.isScrolled = scrolled
   }
 }
 export const actions = {
+  isScrolled({ commit }, scrolled) {
+    commit('SET_SCROLLED', scrolled)
+  },
   register({ commit }, credentials) {
     return requestsService.post('/register', credentials).then(({ data }) => {
       commit('SET_USER_DATA', data)

@@ -19,6 +19,22 @@ export default {
     Footer,
     Infobar
   },
-  mounted() {}
+  data() {
+    return {
+      scrolled: false
+    }
+  },
+  beforeMount() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+      this.scrolled = window.scrollY > 0
+      this.$store.dispatch('main/isScrolled', this.scrolled)
+    }
+  }
 }
 </script>

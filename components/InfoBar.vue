@@ -43,7 +43,7 @@
       rounded
       :href="`tel:+79209551894`"
     >
-      <v-icon class="white--text mr-1" style="font-size:0.8rem"
+      <v-icon class="green--text mr-1" style="font-size:0.8rem"
         >mdi-phone</v-icon
       >
       <span>+7(920)-955-18-94</span>
@@ -55,7 +55,7 @@
       rounded
       :href="`tel:+74912281937`"
     >
-      <v-icon class="white--text mr-1" style="font-size:0.8rem"
+      <v-icon class="green--text mr-1" style="font-size:0.8rem"
         >mdi-phone</v-icon
       >
       <span>+7(4912)-28-19-37</span>
@@ -64,7 +64,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  transition: 'page'
+}
 </script>
 
 <style scoped>

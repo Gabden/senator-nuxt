@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="grey lighten-5" height="80">
+  <v-app-bar :app="isScrolled" color="grey lighten-5" height="80">
     <div v-if="$auth.loggedIn">
       <v-btn text="">{{ $auth.user.username }}</v-btn> |
       <v-btn v-if="isAdmin" text to="/registration">Администрирование</v-btn>
@@ -13,6 +13,14 @@
     <v-spacer></v-spacer>
     <senator-logo />
     <v-spacer></v-spacer>
+    <!-- <v-text-field
+      hide-details
+      append-icon="mdi-magnify"
+      single-line
+      label="Поиск"
+      class="pa-0"
+    > -->
+    <!-- </v-text-field> -->
     <v-btn text rounded router to="/"><v-icon>mdi-magnify</v-icon>Поиск</v-btn>
     <v-btn text rounded router to="/secured"
       ><v-icon>mdi-heart-outline</v-icon>Избранное</v-btn
@@ -33,6 +41,9 @@ export default {
   computed: {
     isAdmin() {
       return this.$auth.user ? this.$auth.user.roles.includes('ADMIN') : false
+    },
+    isScrolled() {
+      return this.$store.state.main.isScrolled
     }
   },
   methods: {
