@@ -3,7 +3,9 @@
     <Infobar v-if="!isScrolled" />
     <Navbar />
     <v-content>
-      <nuxt />
+      <v-container>
+        <nuxt />
+      </v-container>
     </v-content>
     <Footer />
   </v-app>

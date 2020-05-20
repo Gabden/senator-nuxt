@@ -1,5 +1,5 @@
 <template>
-  <v-card width="400" class="mx-auto m-5">
+  <v-card width="400" class="mx-auto my-5">
     <v-card-title class="grey lighten-4">
       <h1 class="display-1 mx-auto">Личный кабинет</h1>
     </v-card-title>

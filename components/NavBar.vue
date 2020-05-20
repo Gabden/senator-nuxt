@@ -1,7 +1,9 @@
 <template>
   <nav>
     <v-app-bar app color="grey lighten-5" height="80">
-      <v-btn text @click="openNavDrawer"><v-icon>mdi-menu</v-icon></v-btn>
+      <v-btn v-if="$vuetify.breakpoint.mdAndDown" text @click="openNavDrawer"
+        ><v-icon>mdi-menu</v-icon></v-btn
+      >
       <div v-if="$auth.loggedIn" class="hidden-md-and-down">
         <v-btn text="">{{ $auth.user.username }}</v-btn> |
         <v-btn v-if="isAdmin" text to="/registration">Администрирование</v-btn>
@@ -23,22 +25,22 @@
       class="pa-0"
     > -->
       <!-- </v-text-field> -->
-      <div :class="$vuetify.breakpoint.mdAndDown ? 'formatIcons' : ''">
+      <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
         <v-btn text rounded router to="/" class="mr-0"
           ><v-icon>mdi-magnify</v-icon>
-          <span class="hidden-md-and-down">Поиск</span>
+          <span class="hidden-sm-and-down">Поиск</span>
         </v-btn>
       </div>
-      <div :class="$vuetify.breakpoint.mdAndDown ? 'formatIcons' : ''">
+      <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
         <v-btn text rounded router to="/secured"
           ><v-icon>mdi-heart-outline</v-icon>
-          <span class="hidden-md-and-down">Избранное</span>
+          <span class="hidden-sm-and-down">Избранное</span>
         </v-btn>
       </div>
-      <div :class="$vuetify.breakpoint.mdAndDown ? 'formatIcons' : ''">
+      <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
         <v-btn text rounded router to="/admin">
           <v-icon>mdi-cart-outline</v-icon>
-          <span class="hidden-md-and-down">Корзина</span>
+          <span class="hidden-sm-and-down">Корзина</span>
         </v-btn>
       </div>
     </v-app-bar>
@@ -57,7 +59,7 @@
 
       <v-divider></v-divider>
 
-      <v-list>
+      <v-list v-if="!$auth.loggedIn">
         <v-list-item class="p-0">
           <v-list-item-content>
             <v-list-item-title
@@ -77,6 +79,37 @@
             <v-list-item-title class="text-left ml-5"
               >Зарегистрироваться</v-list-item-title
             >
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <v-list v-else>
+        <v-list-item class="p-0">
+          <v-list-item-content>
+            <v-list-item-title
+              class="text-center grey--text text--darken-1 caption"
+            >
+              <span>Личный кабинет</span>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link to="/account">
+          <v-list-item-content>
+            <v-list-item-title class="text-left ml-5">{{
+              $auth.user.username
+            }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link to="/admin">
+          <v-list-item-content>
+            <v-list-item-title class="text-left ml-5"
+              >Администрирование</v-list-item-title
+            >
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="logout">
+          <v-list-item-content>
+            <v-list-item-title class="text-left ml-5">Выйти</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
