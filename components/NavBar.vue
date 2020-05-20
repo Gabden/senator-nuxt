@@ -6,7 +6,11 @@
       >
       <div v-if="$auth.loggedIn" class="hidden-md-and-down">
         <v-btn text="">{{ $auth.user.username }}</v-btn> |
-        <v-btn v-if="isAdmin" text to="/registration">Администрирование</v-btn>
+        <v-btn v-if="isAdmin" text to="/registration"
+          ><v-badge content="2" color="red" inline class="mt-0">
+            <span class="hidden-sm-and-down">Администрирование</span>
+          </v-badge></v-btn
+        >
         <span v-if="isAdmin">|</span>
         <v-btn text @click="logout">Выйти</v-btn>
       </div>
@@ -37,10 +41,15 @@
           <span class="hidden-sm-and-down">Избранное</span>
         </v-btn>
       </div>
-      <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
+      <div
+        :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''"
+        class="mr-2"
+      >
         <v-btn text rounded router to="/admin">
           <v-icon>mdi-cart-outline</v-icon>
-          <span class="hidden-sm-and-down">Корзина</span>
+          <v-badge content="2" color="red">
+            <span class="hidden-sm-and-down">Корзина</span>
+          </v-badge>
         </v-btn>
       </div>
     </v-app-bar>
@@ -100,10 +109,12 @@
             }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="/admin">
+        <v-list-item v-if="isAdmin" link to="/admin">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5"
-              >Администрирование</v-list-item-title
+              ><v-badge content="2" color="red" inline class="mt-0">
+                <span>Администрирование</span>
+              </v-badge></v-list-item-title
             >
           </v-list-item-content>
         </v-list-item>
