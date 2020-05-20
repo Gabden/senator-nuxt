@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar dark flat class="blue-grey darken-4" height="30">
+  <v-system-bar app dark flat class="blue-grey darken-4" height="30" cols="12">
     <a
       class="blue-grey darken-4 white--text text-center mr-5 links--info"
       text
@@ -60,7 +60,7 @@
       >
       <span>+7(4912)-28-19-37</span>
     </a>
-  </v-toolbar>
+  </v-system-bar>
 </template>
 
 <script>

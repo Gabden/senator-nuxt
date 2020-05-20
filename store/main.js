@@ -2,7 +2,8 @@ import requestsService from '../services/requestsService'
 
 export const state = () => ({
   user: null,
-  isScrolled: false
+  isScrolled: false,
+  drawer: false
 })
 export const mutations = {
   SET_USER_DATA(state, userData) {
@@ -19,9 +20,15 @@ export const mutations = {
   },
   SET_SCROLLED(state, scrolled) {
     state.isScrolled = scrolled
+  },
+  SWITCH_DRAWER(state, drawer) {
+    state.drawer = drawer
   }
 }
 export const actions = {
+  switchDrawer({ commit }, drawer) {
+    commit('SWITCH_DRAWER', drawer)
+  },
   isScrolled({ commit }, scrolled) {
     commit('SET_SCROLLED', scrolled)
   },

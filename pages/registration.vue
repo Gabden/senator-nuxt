@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card width="600" class="mx-auto mt-5">
+    <v-card width="600" class="mx-auto my-5">
       <v-row>
         <v-col>
           <v-card-title cols="12">

@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <Infobar />
+    <Infobar v-if="!isScrolled" />
     <Navbar />
     <v-content>
       <nuxt />
@@ -22,6 +22,11 @@ export default {
   data() {
     return {
       scrolled: false
+    }
+  },
+  computed: {
+    isScrolled() {
+      return this.$store.state.main.isScrolled
     }
   },
   beforeMount() {
