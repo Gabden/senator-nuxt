@@ -2,13 +2,13 @@
   <nav>
     <v-app-bar app color="grey lighten-5" height="80">
       <v-btn text @click="openNavDrawer"><v-icon>mdi-menu</v-icon></v-btn>
-      <div v-if="$auth.loggedIn">
+      <div v-if="$auth.loggedIn" class="hidden-md-and-down">
         <v-btn text="">{{ $auth.user.username }}</v-btn> |
         <v-btn v-if="isAdmin" text to="/registration">Администрирование</v-btn>
         <span v-if="isAdmin">|</span>
         <v-btn text @click="logout">Выйти</v-btn>
       </div>
-      <div v-if="!$auth.loggedIn">
+      <div v-if="!$auth.loggedIn" class="hidden-md-and-down">
         <v-btn text rounded to="/login">Вход</v-btn> |
         <v-btn text to="/registration">Регистрация</v-btn>
       </div>
@@ -23,15 +23,24 @@
       class="pa-0"
     > -->
       <!-- </v-text-field> -->
-      <v-btn text rounded router to="/"
-        ><v-icon>mdi-magnify</v-icon>Поиск</v-btn
-      >
-      <v-btn text rounded router to="/secured"
-        ><v-icon>mdi-heart-outline</v-icon>Избранное</v-btn
-      >
-      <v-btn text rounded router to="/admin">
-        <v-icon>mdi-cart-outline</v-icon> Корзина
-      </v-btn>
+      <div :class="$vuetify.breakpoint.mdAndDown ? 'formatIcons' : ''">
+        <v-btn text rounded router to="/" class="mr-0"
+          ><v-icon>mdi-magnify</v-icon>
+          <span class="hidden-md-and-down">Поиск</span>
+        </v-btn>
+      </div>
+      <div :class="$vuetify.breakpoint.mdAndDown ? 'formatIcons' : ''">
+        <v-btn text rounded router to="/secured"
+          ><v-icon>mdi-heart-outline</v-icon>
+          <span class="hidden-md-and-down">Избранное</span>
+        </v-btn>
+      </div>
+      <div :class="$vuetify.breakpoint.mdAndDown ? 'formatIcons' : ''">
+        <v-btn text rounded router to="/admin">
+          <v-icon>mdi-cart-outline</v-icon>
+          <span class="hidden-md-and-down">Корзина</span>
+        </v-btn>
+      </div>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" app class="grey lighten-4" temporary>
@@ -200,4 +209,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.formatIcons {
+  max-width: 45px;
+}
+</style>

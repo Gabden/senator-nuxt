@@ -1,42 +1,17 @@
 <template>
   <v-system-bar app dark flat class="blue-grey darken-4" height="30" cols="12">
     <a
-      class="blue-grey darken-4 white--text text-center mr-5 links--info"
+      v-for="link in links"
+      :key="`${link.name} - key`"
+      class="blue-grey darken-4 white--text text-center mr-5 links--info hidden-md-and-down"
       text
       rounded
-      href="/"
+      :href="link.url"
     >
-      <span>О нас</span>
+      <span>{{ link.name }}</span>
     </a>
 
-    <a
-      class="blue-grey darken-4 white--text d-block my-3 text-center mr-5 links--info"
-      text
-      rounded
-      href="/"
-    >
-      <span>Корпоративным клиентам</span>
-    </a>
-
-    <a
-      class="blue-grey darken-4 white--text d-block my-3 text-center mr-5 links--info"
-      text
-      rounded
-      href="/"
-    >
-      <span>Контакты</span>
-    </a>
-
-    <a
-      class="blue-grey darken-4 white--text d-block my-3 text-center mr-5 links--info"
-      text
-      rounded
-      href="/"
-    >
-      <span>Резерв</span>
-    </a>
-
-    <v-spacer></v-spacer>
+    <v-spacer class="hidden-md-and-down"></v-spacer>
     <a
       class="blue-grey darken-4 white--text d-block my-3 text-center mr-3 links--info"
       text
@@ -65,7 +40,16 @@
 
 <script>
 export default {
-  transition: 'page'
+  data() {
+    return {
+      links: [
+        { name: 'О нас', url: '/' },
+        { name: 'Корпоративным клиентам', url: '/buisness' },
+        { name: 'Контакты', url: '/contacts' },
+        { name: 'Резерв', url: '/reservation' }
+      ]
+    }
+  }
 }
 </script>
 
