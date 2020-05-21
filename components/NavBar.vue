@@ -1,7 +1,7 @@
 <template>
   <nav>
     <v-app-bar app color="grey lighten-5" height="80">
-      <v-btn v-if="$vuetify.breakpoint.mdAndDown" text @click="openNavDrawer"
+      <v-btn class="hidden-lg-and-up" text @click="openNavDrawer"
         ><v-icon>mdi-menu</v-icon></v-btn
       >
       <div v-if="$auth.loggedIn" class="hidden-md-and-down">
@@ -140,13 +140,36 @@
             <v-list-item-title class="text-left ml-5">Начало</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link>
-          <v-list-item-content>
-            <v-list-item-title class="text-left ml-5"
-              >Все товары</v-list-item-title
+
+        <v-expansion-panels flat class="grey lighten-4 pl-5">
+          <v-expansion-panel color="grey lighten-4">
+            <v-expansion-panel-header color="grey lighten-4" class="pl-4"
+              >Все товары</v-expansion-panel-header
             >
-          </v-list-item-content>
-        </v-list-item>
+            <v-expansion-panel-content class="grey lighten-5 px-0">
+              <v-divider></v-divider>
+              <div
+                v-for="item in allGoods"
+                :key="`${item.title} + key`"
+                class="grey lighten-5 px-0"
+              >
+                <v-list-item link to="item.url" class="grey lighten-5">
+                  <v-list-item-content class="grey lighten-5">
+                    <v-list-item-title
+                      class="text-left ml-5"
+                      color="grey lighten-5"
+                    >
+                      <v-icon color="red">{{ item.icon }}</v-icon>
+                      {{ item.title }}</v-list-item-title
+                    >
+                  </v-list-item-content>
+                </v-list-item>
+                <v-divider></v-divider>
+              </div>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+
         <v-list-item link to="/events">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5"
@@ -194,18 +217,6 @@
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
-
-      <!-- <v-list dense>
-        <v-list-item v-for="item in items" :key="item.title" link>
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list> -->
     </v-navigation-drawer>
   </nav>
 </template>
@@ -223,6 +234,23 @@ export default {
       accountItems: [
         { title: 'Home', icon: 'mdi-dashboard' },
         { title: 'About', icon: 'mdi-question-answer' }
+      ],
+      allGoods: [
+        { title: 'Акции', url: '/sales', icon: 'mdi-percent-outline' },
+        { title: 'Новинки', url: '/new', icon: 'mdi-glass-cocktail' },
+        { title: 'Алкоголь', url: '/alcohol', icon: 'mdi-bottle-wine-outline' },
+        { title: 'Напитки', url: '/drinks', icon: 'mdi-water-outline' },
+        {
+          title: 'Оливковое масло',
+          url: '/oil',
+          icon: 'mdi-bottle-tonic-plus-outline'
+        },
+        {
+          title: 'Посуда и аксессуары',
+          url: '/dishes',
+          icon: 'mdi-glass-tulip'
+        },
+        { title: 'Подарки', url: '/gifts', icon: 'mdi-gift-outline' }
       ]
     }
   },
