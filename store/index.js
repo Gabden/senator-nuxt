@@ -7,6 +7,7 @@ export const actions = {
     if (tokenCookie) {
       const token = tokenCookie.split('=')[1]
       commit('main/SET_USER_TOKEN', token)
+      // TODO create commit to fetch cart
     }
   }
 }
