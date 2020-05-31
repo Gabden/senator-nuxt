@@ -55,6 +55,7 @@ export default {
     }
   },
   auth: {
+    plugins: ['~/plugins/auth.js'],
     strategies: {
       local: {
         endpoints: {
