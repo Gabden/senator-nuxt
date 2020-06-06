@@ -40,10 +40,23 @@
         <img
           src="../assets/faceSenator.jpg"
           alt="Senator shop enter"
-          style="width: 100%"
+          style="width: 100%; height: 90%"
         />
       </v-col>
     </v-row>
+    <h2 class="text-center">Мы соберем коллекцию к вашему визиту</h2>
+    <h4 class="text-center my-3">
+      Консультации по телефону: +7(920)-955-18-94,<br
+        class="hidden-sm-and-up"
+      />
+      +7(4912)-28-19-37
+    </h4>
+    <p class="body-2 text-center">
+      В соответствии с рекомендациями ФС РАР от 25.06.18 уведомляем: алкогольная
+      продукция может быть приобретена непосредственно в магазине Сенатор. ООО
+      «Сенатор», ИНН: 6215012053, лицензия: 62РПА0001379 от 18.01.2018 действует
+      с 08.02.2018 по 07.02.2023, 390006 г. Рязань, ул.Свободы, д.24а
+    </p>
   </div>
 </template>
 
@@ -61,16 +74,16 @@ export default {
           content: 'Более 1000 товаров премиум класса'
         },
         {
-          icon: 'mdi-package',
-          content: 'Более 1000 товаров премиум класса'
+          icon: 'mdi-sale',
+          content: 'Скидки и акции'
         },
         {
-          icon: 'mdi-package',
-          content: 'Более 1000 товаров премиум класса'
+          icon: 'mdi-account-voice',
+          content: 'Бесплатные консультации'
         },
         {
-          icon: 'mdi-package',
-          content: 'Более 1000 товаров премиум класса'
+          icon: 'mdi-alert-decagram',
+          content: 'Индивидуальный подход к каждому клиенту'
         }
       ],
       colors: [

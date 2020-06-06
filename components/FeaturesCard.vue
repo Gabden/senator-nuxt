@@ -1,10 +1,8 @@
 <template>
-  <v-card class="my-5">
-    <v-card-title class="headline">
-      <v-icon>{{ card.icon }}</v-icon
-      >{{ card.content }}</v-card-title
-    >
-  </v-card>
+  <v-card-title class="my-3">
+    <v-icon class="mr-5" color="#d50000">{{ card.icon }}</v-icon
+    >{{ card.content }}
+  </v-card-title>
 </template>
 
 <script>
