@@ -201,7 +201,7 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="/buisness">
+        <v-list-item link to="/business">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5"
               >Корпоративным клиентам</v-list-item-title

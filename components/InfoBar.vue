@@ -1,15 +1,16 @@
 <template>
   <v-system-bar app dark flat class="blue-grey darken-4" height="30" cols="12">
-    <a
+    <router-link
       v-for="link in links"
       :key="`${link.name} - key`"
       class="blue-grey darken-4 white--text text-center mr-5 links--info hidden-md-and-down"
       text
       rounded
-      :href="link.url"
+      link
+      :to="link.url"
     >
       <span>{{ link.name }}</span>
-    </a>
+    </router-link>
 
     <v-spacer class="hidden-md-and-down"></v-spacer>
     <a
@@ -44,7 +45,7 @@ export default {
     return {
       links: [
         { name: 'О нас', url: '/about-us' },
-        { name: 'Корпоративным клиентам', url: '/buisness' },
+        { name: 'Корпоративным клиентам', url: '/business' },
         { name: 'Контакты', url: '/contacts' },
         { name: 'Резерв', url: '/reservation' }
       ]

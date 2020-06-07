@@ -142,7 +142,7 @@ export default {
       },
       {
         label: 'Корпоративным клиентам',
-        url: '/'
+        url: '/business'
       },
       {
         label: 'Контакты',
