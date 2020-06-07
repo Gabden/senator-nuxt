@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       links: [
-        { name: 'О нас', url: '/' },
+        { name: 'О нас', url: '/about-us' },
         { name: 'Корпоративным клиентам', url: '/buisness' },
         { name: 'Контакты', url: '/contacts' },
         { name: 'Резерв', url: '/reservation' }

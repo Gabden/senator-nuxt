@@ -150,7 +150,7 @@ export default {
       },
       {
         label: 'О нас',
-        url: '/'
+        url: '/about-us'
       }
     ]
   })

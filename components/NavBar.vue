@@ -177,7 +177,7 @@
             >
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="/aboutus">
+        <v-list-item link to="/about-us">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5">О нас</v-list-item-title>
           </v-list-item-content>

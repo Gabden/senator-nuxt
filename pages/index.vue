@@ -16,7 +16,7 @@
       </v-carousel-item>
     </v-carousel>
 
-    <v-row>
+    <v-row class="mt-5">
       <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 6" class="my-5">
         <h1 class="text-center">
           СЕН<span class="display-2">A</span>ТОР — бутик лучших вин мира и
