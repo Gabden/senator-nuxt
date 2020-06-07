@@ -93,7 +93,7 @@
             text
             rounded
             class="white--text d-block text-center"
-            to="/confidential"
+            to="/rules"
           >
             Пользовательское соглашение
           </router-link>
