@@ -44,7 +44,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/sitemap'
   ],
   proxy: {
     '/api': {
@@ -79,6 +80,11 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
+  sitemap: {
+    hostname: 'https://senator-wine.ru',
+    gzip: true,
+    exclude: ['/account', '/account/**', '/admin/**', '/admin']
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
