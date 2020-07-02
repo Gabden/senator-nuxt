@@ -86,7 +86,7 @@ export default {
   sitemap: {
     hostname: 'https://senator-wine.ru',
     gzip: true,
-    exclude: ['/account', '/account/**', '/admin/**', '/admin']
+    exclude: ['/admin/**']
   },
   toast: {
     position: 'top-center',
@@ -107,7 +107,7 @@ export default {
   },
   robots: {
     UserAgent: '*',
-    Disallow: '/'
+    Disallow: '/admin'
   },
   /*
    ** vuetify module configuration

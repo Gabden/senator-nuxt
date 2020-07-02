@@ -16,6 +16,10 @@
       </v-carousel-item>
     </v-carousel>
 
+    <v-row class="my-5">
+      <product-card />
+    </v-row>
+
     <v-row class="mt-5">
       <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 6" class="my-5">
         <h1 class="text-center">
@@ -62,9 +66,11 @@
 
 <script>
 import FeaturesCard from '@/components/FeaturesCard.vue'
+import ProductCard from '@/components/ProductCard.vue'
 export default {
   components: {
-    'features-card': FeaturesCard
+    'features-card': FeaturesCard,
+    'product-card': ProductCard
   },
   data() {
     return {
