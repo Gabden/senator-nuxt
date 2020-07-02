@@ -46,7 +46,8 @@ export default {
     '@nuxtjs/proxy',
     '@nuxtjs/auth',
     '@nuxtjs/sitemap',
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    '@nuxtjs/google-analytics'
   ],
   proxy: {
     '/api': {
@@ -98,6 +99,10 @@ export default {
         }
       }
     ]
+  },
+  // TODO ADD google analytics id
+  googleAnalytics: {
+    id: 'UA-12301-2'
   },
   /*
    ** vuetify module configuration
