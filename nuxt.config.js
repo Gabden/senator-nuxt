@@ -45,7 +45,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     '@nuxtjs/auth',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/toast'
   ],
   proxy: {
     '/api': {
@@ -84,6 +85,19 @@ export default {
     hostname: 'https://senator-wine.ru',
     gzip: true,
     exclude: ['/account', '/account/**', '/admin/**', '/admin']
+  },
+  toast: {
+    position: 'top-center',
+    register: [
+      // Register custom toasts
+      {
+        name: 'my-error',
+        message: 'Oops...Something went wrong',
+        options: {
+          type: 'error'
+        }
+      }
+    ]
   },
   /*
    ** vuetify module configuration
