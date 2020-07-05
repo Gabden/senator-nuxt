@@ -48,7 +48,7 @@
         small
         dark
         color="pink"
-        @click="increment"
+        @click="addToCart"
       >
         <v-icon>mdi-cart</v-icon>
       </v-btn>
@@ -71,6 +71,11 @@ export default {
     decrement() {
       const newValue = this.bpm - 1
       newValue < 0 ? (this.bpm = 0) : (this.bpm = newValue)
+    },
+    addToCart() {
+      this.$toasted
+        .success('Alba de Miros Verdejo 2017 успешно добавлен в корзину!')
+        .goAway(2000)
     }
   }
 }
