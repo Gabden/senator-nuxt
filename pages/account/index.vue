@@ -24,6 +24,7 @@
 
     <v-tabs-items v-model="tab" class="mx-auto">
       <v-tab-item v-for="item in items" :key="item">
+        <ListOrders v-if="item === 'Заказы'" :orders="orders" />
         <v-form
           v-if="item === 'Настройки'"
           v-model="formValidityMail"
@@ -156,9 +157,18 @@
 </template>
 
 <script>
+import ListOrders from '@/components/ListOrders.vue'
 export default {
+  components: {
+    ListOrders
+  },
   data() {
     return {
+      orders: [
+        'Заказ №4755 от 2020-03-27',
+        'Заказ №4755 от 2020-03-27',
+        'Заказ №4755 от 2020-03-27'
+      ],
       newPassword: '',
       oldPassword: '',
       secondPassword: '',
