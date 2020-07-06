@@ -6,7 +6,6 @@
       max-height="180"
       aspect-ratio="0.85"
       contain
-      :class="smallSize ? 'mt-5' : ''"
     ></v-img>
     <v-spacer v-if="!smallSize"></v-spacer>
     <v-col>
@@ -14,9 +13,6 @@
         Alba de Miros Verdejo 2017
       </p>
       <p class="mb-2">
-        <span class="caption">КОЛ-ВО: </span> <strong>1</strong>
-      </p>
-      <p class="mb-2" style="text-decoration: line-through;">
         <span class="caption">ЦЕНА: </span>
         <strong>1400</strong> руб.
       </p>
@@ -24,12 +20,23 @@
         <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
         <strong>950</strong> руб.
       </p>
+
       <p class="mb-2">
-        <span class="caption">СУММА: </span><strong>950</strong> руб.
+        <span class="caption">СКИДКА: </span> <strong>10%</strong>
       </p>
     </v-col>
-  </v-row>
-</template>
+    <v-spacer v-if="!smallSize"></v-spacer>
+    <v-col class="d-flex flex-column">
+      <v-btn icon><v-icon class="display-1">mdi-information</v-icon></v-btn>
+      <v-btn icon class="my-3"
+        ><v-icon class="display-1">mdi-pencil-box-multiple</v-icon></v-btn
+      >
+      <v-btn icon color="red"
+        ><v-icon class="display-1">mdi-delete</v-icon></v-btn
+      >
+    </v-col>
+  </v-row></template
+>
 
 <script>
 export default {

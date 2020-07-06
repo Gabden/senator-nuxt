@@ -27,7 +27,7 @@ export default {
       categories: [
         {
           name: 'Товары',
-          url: '/',
+          url: '/admin/goods',
           msg: 'Здесь вы можете просматривать и редактировать товар',
           icon: 'mdi-bottle-wine'
         },
