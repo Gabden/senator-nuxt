@@ -6,8 +6,9 @@
       max-height="180"
       aspect-ratio="0.85"
       contain
+      :class="smallSize ? 'mt-5' : ''"
     ></v-img>
-    <v-spacer></v-spacer>
+    <v-spacer v-if="!smallSize"></v-spacer>
     <v-col>
       <p class="font-weight-bold mb-1 subtitle">
         Alba de Miros Verdejo 2017
@@ -31,7 +32,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    smallSize() {
+      return this.$vuetify.breakpoint.smAndDown
+    }
+  }
+}
 </script>
 
 <style></style>

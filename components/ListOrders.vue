@@ -1,19 +1,30 @@
 <template>
-  <v-list>
+  <v-list :width="smallSize ? '350' : '900'">
     <v-list-item-group color="primary">
       <v-list-item v-for="(order, i) in orders" :key="i">
         <v-expansion-panels>
           <v-expansion-panel class="order--border-process my-2">
             <v-expansion-panel-header class="pa-0">
               <v-card-text class="d-flex justify-around"
-                ><span class="title mt-2">{{ order }}</span>
+                ><span
+                  class="title mt-2"
+                  :class="smallSize ? 'order-name-sm' : ''"
+                  >{{ order }} на сумму: 9580 руб.</span
+                >
                 <v-spacer></v-spacer>
 
                 <!-- <v-btn class="ma-2" tile outlined color="success">
               <v-icon left>mdi-check-bold</v-icon> ИСПОЛНЕН
             </v-btn> -->
-                <v-btn class="ma-2" tile outlined color="orange darken-1">
-                  <v-icon left>mdi-clock-check</v-icon> В обработке
+                <v-btn
+                  class="ma-2"
+                  tile
+                  outlined
+                  color="orange darken-1"
+                  :class="smallSize ? 'status-btn-sm' : ''"
+                >
+                  <v-icon :left="!smallSize">mdi-clock-check</v-icon>
+                  <span v-if="!smallSize">В обработке</span>
                 </v-btn>
 
                 <!-- <v-btn class="ma-2" tile outlined color="light-blue darken-1">
@@ -48,6 +59,11 @@ export default {
   },
   data() {
     return {}
+  },
+  computed: {
+    smallSize() {
+      return this.$vuetify.breakpoint.smAndDown
+    }
   }
 }
 </script>
@@ -61,5 +77,11 @@ export default {
 }
 .order--border-new {
   border-left: 5px solid #039be5;
+}
+.status-btn-sm {
+  font-size: 0.6rem !important;
+}
+.order-name-sm {
+  font-size: 0.9rem !important;
 }
 </style>
