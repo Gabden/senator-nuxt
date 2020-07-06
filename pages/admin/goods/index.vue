@@ -4,7 +4,15 @@
     <h3 class="text-center">
       Здесь вы можете создать, удалить или отредактировать товар
     </h3>
-    <v-btn class="my-5" tile outlined color="success darken-1">СОЗДАТЬ </v-btn>
+    <v-btn
+      class="my-5"
+      tile
+      outlined
+      color="success darken-1"
+      link
+      to="/admin/goods/create"
+      >СОЗДАТЬ
+    </v-btn>
     <v-text-field
       type="number"
       label="Поиск по ID"

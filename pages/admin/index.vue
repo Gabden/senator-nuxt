@@ -1,20 +1,21 @@
 <template>
   <div>
-    <v-card
+    <nuxt-link
       v-for="category in categories"
       :key="category.name"
-      class="my-5"
-      hover
-      shaped
+      :to="category.url"
+      style="text-decoration: none;"
     >
-      <v-row>
-        <v-icon class="display-3 ml-5">{{ category.icon }}</v-icon>
-        <v-col>
-          <v-card-title>{{ category.name }}</v-card-title>
-          <v-card-text>{{ category.msg }}</v-card-text>
-        </v-col>
-      </v-row>
-    </v-card>
+      <v-card class="my-5" hover shaped>
+        <v-row>
+          <v-icon class="display-3 ml-5">{{ category.icon }}</v-icon>
+          <v-col>
+            <v-card-title>{{ category.name }}</v-card-title>
+            <v-card-text>{{ category.msg }}</v-card-text>
+          </v-col>
+        </v-row>
+      </v-card>
+    </nuxt-link>
   </div>
 </template>
 
