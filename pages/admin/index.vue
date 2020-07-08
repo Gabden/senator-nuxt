@@ -34,7 +34,7 @@ export default {
         },
         {
           name: 'Групповые скидки',
-          url: '/',
+          url: '/admin/group-sale',
           msg: 'Здесь вы можете редактировать размер скидки на группу товаров',
           icon: 'mdi-label-percent'
         },
