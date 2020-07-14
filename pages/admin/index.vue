@@ -40,7 +40,7 @@ export default {
         },
         {
           name: 'Заказы',
-          url: '/',
+          url: '/admin/orders',
           msg: 'Здесь вы можете просматривать и редактировать заказы',
           icon: 'mdi-basket'
         },
