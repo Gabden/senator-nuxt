@@ -268,10 +268,12 @@ export default {
         .logout()
         .then((result) => {
           requestsService.setAuthToken('empty')
+          this.$axios.defaults.headers.common.Authorization = null
         })
         // eslint-disable-next-line handle-callback-err
         .catch((err) => {
           requestsService.setAuthToken('empty')
+          this.$axios.defaults.headers.common.Authorization = null
         })
     },
     openNavDrawer() {

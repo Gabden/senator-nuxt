@@ -6,24 +6,16 @@
 </template>
 
 <script>
-import requestsService from '../services/requestsService'
 export default {
   middleware: 'auth',
-  meta: { requiresAuth: true },
   data() {
     return {
       msg: ''
     }
   },
   async mounted() {
-    await requestsService
-      .getOpenData()
-      .then((response) => {
-        this.msg = response.data
-      })
-      .catch((err) => {
-        this.msg = 'error' + err
-      })
+    const response = await this.$axios.get('/api/api/public/manager/hello')
+    this.msg = response.data
   }
 }
 </script>

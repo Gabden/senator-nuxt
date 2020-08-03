@@ -1,12 +1,13 @@
 export const actions = {
-  nuxtServerInit({ commit }, { req }) {
-    const tokenCookie = req.headers.cookie
+  nuxtServerInit(vuexContext, context) {
+    const tokenCookie = context.req.headers.cookie
       .split(';')
       .find((cook) => cook.includes('auth._token.local'))
 
     if (tokenCookie) {
       const token = tokenCookie.split('=')[1]
-      commit('main/SET_USER_TOKEN', token)
+      context.$axios.defaults.headers.common.Authorization = token
+      vuexContext.commit('main/SET_USER_TOKEN', token)
       // TODO create commit to fetch cart
     }
   }

@@ -81,6 +81,8 @@ export default {
         })
         .then(({ data }) => {
           requestsService.setAuthToken(data.token)
+          this.$axios.defaults.headers.common.Authorization =
+            'Bearer ' + data.token
         })
     }
   }
