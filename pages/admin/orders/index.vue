@@ -24,6 +24,7 @@
 <script>
 import OrderListItem from '@/components/admin/OrderListItem.vue'
 export default {
+  middleware: 'auth-admin',
   components: {
     OrderListItem
   },

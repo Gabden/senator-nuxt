@@ -15,8 +15,10 @@ export const mutations = {
     requestsService.setAuthToken(token)
   },
   CLEAR_USER_DATA() {
-    localStorage.removeItem('user')
-    location.reload()
+    if (process.client) {
+      localStorage.removeItem('user')
+      location.reload()
+    }
   },
   SET_SCROLLED(state, scrolled) {
     state.isScrolled = scrolled
@@ -42,8 +44,9 @@ export const actions = {
       commit('SET_USER_DATA', response.data)
     })
   },
-  logout({ commit }) {
-    commit('CLEAR_USER_DATA')
+  logout(vuexContext) {
+    console.log(vuexContext)
+    vuexContext.commit('CLEAR_USER_DATA')
   }
 }
 export const getters = {

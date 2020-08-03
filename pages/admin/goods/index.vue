@@ -38,6 +38,7 @@
 <script>
 import ProductListItem from '../../../components/admin/ProductListItem'
 export default {
+  middleware: 'auth-admin',
   components: {
     ProductListItem
   },

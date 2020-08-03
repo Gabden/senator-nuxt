@@ -151,6 +151,7 @@
 <script>
 export default {
   name: 'GroupSale',
+  middleware: 'auth-admin',
   data() {
     return {
       categories: ['alcohol', 'drinks', 'oil', 'dishes', 'gifts'],
