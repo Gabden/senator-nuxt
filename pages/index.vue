@@ -51,7 +51,15 @@
         :total-visible="7"
         class="mb-5"
       ></v-pagination>
-      <v-col v-for="n in 5" :key="n" cols="10" sm="6" md="4" class="mx-auto">
+      <v-col
+        v-for="n in 6"
+        :key="n"
+        cols="10"
+        sm="6"
+        md="4"
+        xl="3"
+        class="mx-auto"
+      >
         <product-card />
       </v-col>
       <v-pagination

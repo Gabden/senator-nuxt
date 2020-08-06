@@ -18,7 +18,9 @@
       aspect-ratio="0.85"
       contain
     ></v-img>
-    <v-card-title class="text-center">Alba de Miros Verdejo 2017</v-card-title>
+    <v-card-title class="text-center d-flex justify-center"
+      >Alba de Miros Verdejo 2017</v-card-title
+    >
     <v-card-subtitle class="text-center">700 мл Испания 12.5%</v-card-subtitle>
     <v-card-text class="text-center pt-2">
       <p
@@ -34,7 +36,7 @@
         1 420 руб.
       </p>
     </v-card-text>
-    <v-card-actions class="d-flex justify-center mb-5">
+    <v-card-actions class="d-flex justify-center mb-5 pb-8">
       <v-btn class="mx-2 button-borders" fab small @click="decrement">
         <v-icon color="blue-grey">mdi-minus</v-icon>
       </v-btn>
