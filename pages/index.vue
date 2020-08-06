@@ -16,10 +16,6 @@
       </v-carousel-item>
     </v-carousel>
 
-    <v-row class="my-5">
-      <product-card />
-    </v-row>
-
     <v-row class="mt-5">
       <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 6" class="my-5">
         <h1 class="text-center">
@@ -48,6 +44,23 @@
         />
       </v-col>
     </v-row>
+    <v-row>
+      <v-pagination
+        v-model="page"
+        :length="5"
+        :total-visible="7"
+        class="mb-5"
+      ></v-pagination>
+      <v-col v-for="n in 5" :key="n" cols="10" sm="6" md="4" class="mx-auto">
+        <product-card />
+      </v-col>
+      <v-pagination
+        v-model="page"
+        :length="5"
+        :total-visible="7"
+        class="mb-5"
+      ></v-pagination>
+    </v-row>
     <h2 class="text-center">Мы соберем коллекцию к вашему визиту</h2>
     <h4 class="text-center my-3">
       Консультации по телефону: +7(920)-955-18-94,<br
@@ -74,6 +87,7 @@ export default {
   },
   data() {
     return {
+      page: 1,
       featuresCards: [
         {
           icon: 'mdi-package',
