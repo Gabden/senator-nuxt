@@ -47,7 +47,7 @@ export default {
         },
         {
           name: 'Учетные записи',
-          url: '/',
+          url: '/admin/accounts',
           msg: 'Здесь вы можете просматривать и редактировать заказы',
           icon: 'mdi-account'
         },
