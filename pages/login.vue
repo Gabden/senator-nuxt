@@ -84,6 +84,7 @@ export default {
           this.$axios.defaults.headers.common.Authorization =
             'Bearer ' + data.token
         })
+        .catch((e) => (this.error = true))
     }
   }
 }

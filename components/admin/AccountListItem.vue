@@ -32,7 +32,7 @@
     </v-col>
     <v-spacer v-if="!smallSize"></v-spacer>
     <v-col class="d-flex flex-column">
-      <v-btn icon class="my-3"
+      <v-btn icon class="my-3" link to="/admin/accounts/1255"
         ><v-icon class="display-1">mdi-pencil-box-multiple</v-icon></v-btn
       >
       <v-btn icon color="red"
