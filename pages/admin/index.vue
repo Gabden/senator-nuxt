@@ -60,7 +60,7 @@ export default {
         },
         {
           name: 'События',
-          url: '/',
+          url: '/admin/life-events',
           msg: 'Здесь вы можете просматривать и редактировать события',
           icon: 'mdi-calendar-star'
         }
