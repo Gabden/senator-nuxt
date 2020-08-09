@@ -83,6 +83,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
+  router: { middleware: 'auth-header' },
   sitemap: {
     hostname: 'https://senator-wine.ru',
     gzip: true,
