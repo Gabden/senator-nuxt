@@ -62,7 +62,7 @@
 export default {
   data() {
     return {
-      bpm: 0
+      bpm: 1
     }
   },
   methods: {
@@ -72,7 +72,7 @@ export default {
     },
     decrement() {
       const newValue = this.bpm - 1
-      newValue < 0 ? (this.bpm = 0) : (this.bpm = newValue)
+      newValue < 1 ? (this.bpm = 1) : (this.bpm = newValue)
     },
     addToCart() {
       this.$toasted
