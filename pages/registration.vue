@@ -83,12 +83,12 @@
               ></v-checkbox>
               <p class="caption">
                 Ознакомиться с
-                <router-link router to="/"
-                  >Пользовательским соглашением</router-link
+                <nuxt-link router to="/rules"
+                  >Пользовательским соглашением</nuxt-link
                 >
                 и
-                <router-link router to="/"
-                  >Политикой конфиденциальности</router-link
+                <nuxt-link router to="/confidential"
+                  >Политикой конфиденциальности</nuxt-link
                 >
               </p>
             </v-col>

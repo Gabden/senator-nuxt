@@ -58,8 +58,47 @@
         </p>
       </v-col>
       <v-col cols="4" class="d-flex justify-center">
-        <v-btn large link to="#" color="success">оформить резерв</v-btn></v-col
+        <v-btn large color="success" @click="confirmDialog = true"
+          >оформить резерв</v-btn
+        ></v-col
       >
+      <v-dialog v-model="confirmDialog" max-width="400">
+        <v-card class="text-justify">
+          <v-card-title class="headline d-flex justify-center"
+            >Внимание</v-card-title
+          >
+
+          <v-card-text class="text-center">
+            <span style="font-size: 1.2rem">
+              Зарезирвированные товары вы сможете забрать в магазине "Сенатор
+              Лучшие Вина Мира" по адресу г.Рязань ул.Свободы д.24а
+            </span>
+            <v-divider class="my-5"></v-divider>
+            <span class="text-justify" style="font-size: 0.8rem"
+              >Нажимая на кнопку оформить резерв, Вы соглашаетесь на обработку
+              Ваших персональных данных и подтверждаете, что ознакомились c
+              <nuxt-link router to="/rules"
+                >Пользовательским соглашением</nuxt-link
+              >
+              и
+              <nuxt-link router to="/confidential"
+                >Политикой конфиденциальности</nuxt-link
+              ></span
+            >
+          </v-card-text>
+
+          <v-card-actions class="d-flex justify-center">
+            <v-btn
+              color="red accent-4"
+              class="mb-5"
+              dark
+              @click="dialog = false"
+            >
+              оформить резерв
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </v-container>
 </template>
@@ -69,6 +108,11 @@ import CartItem from '@/components/cart/CartItem'
 export default {
   components: {
     CartItem
+  },
+  data() {
+    return {
+      confirmDialog: false
+    }
   }
 }
 </script>
