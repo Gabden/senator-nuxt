@@ -2,7 +2,7 @@
   <v-app dark>
     <Infobar v-if="!isScrolled" />
     <Navbar />
-    <v-content>
+    <v-content class="pt-0">
       <v-container>
         <nuxt />
       </v-container>
