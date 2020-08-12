@@ -1,6 +1,6 @@
 <template>
   <div class="blue-grey darken-4">
-    <v-container>
+    <v-container class="d-flex justify-center">
       <v-btn text dark color="dark">Все товары</v-btn>
       <v-btn text dark color="dark">Акции</v-btn>
       <v-btn text dark color="dark">Новинки</v-btn>

@@ -218,18 +218,15 @@
       </v-list>
       <v-divider></v-divider>
     </v-navigation-drawer>
-    <Panel style="margin-top: 25vh" />
   </nav>
 </template>
 
 <script>
 import requestsService from '../services/requestsService'
 import SenatorLogo from './SenatorLogo.vue'
-import Panel from '@/components/Panel.vue'
 export default {
   components: {
-    'senator-logo': SenatorLogo,
-    Panel
+    'senator-logo': SenatorLogo
   },
   data() {
     return {

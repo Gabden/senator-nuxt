@@ -1,25 +1,37 @@
 <template>
   <v-app dark>
     <Infobar v-if="!isScrolled" />
-    <Navbar />
-    <v-content class="pt-0">
+    <Navbar id="navbar" />
+    <Panel v-if="!$vuetify.breakpoint.mdAndDown" style="margin-top: 15vh" />
+    <v-content :class="!$vuetify.breakpoint.mdAndDown ? 'pt-0' : ''">
       <v-container>
         <nuxt />
       </v-container>
     </v-content>
     <Footer />
+    <v-btn
+      v-if="isScrolled"
+      fab
+      icon
+      color="blue-grey darken-1"
+      class="scroll-button"
+      @click="scrollToTop"
+      ><v-icon class="display-1">mdi-arrow-up-circle</v-icon></v-btn
+    >
   </v-app>
 </template>
 <script>
 import Footer from '@/components/Footer.vue'
 import Navbar from '@/components/Navbar.vue'
 import Infobar from '@/components/Infobar.vue'
+import Panel from '@/components/Panel.vue'
 
 export default {
   components: {
     Navbar,
     Footer,
-    Infobar
+    Infobar,
+    Panel
   },
   data() {
     return {
@@ -38,6 +50,13 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    },
     handleScroll() {
       this.scrolled = window.scrollY > 0
       this.$store.dispatch('main/isScrolled', this.scrolled)
@@ -45,3 +64,11 @@ export default {
   }
 }
 </script>
+<style scoped>
+.scroll-button {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+}
+</style>
