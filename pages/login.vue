@@ -30,7 +30,7 @@
             >Войти</v-btn
           >
           <v-spacer></v-spacer>
-          <router-link router to="/">Забыли пароль?</router-link>
+          <nuxt-link to="/restore">Забыли пароль?</nuxt-link>
         </v-card-actions>
       </v-form>
     </v-card-text>
@@ -38,7 +38,7 @@
     <v-card-actions class="caption grey lighten-4">
       <span>Еще нет аккаунта?</span>
       <v-spacer></v-spacer>
-      <router-link router to="/">Зарегистрироваться</router-link>
+      <nuxt-link to="/registration">Зарегистрироваться</nuxt-link>
     </v-card-actions>
   </v-card>
 </template>
