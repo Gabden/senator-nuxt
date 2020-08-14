@@ -170,7 +170,7 @@
           </v-expansion-panel>
         </v-expansion-panels>
 
-        <v-list-item link to="/events">
+        <v-list-item link to="/">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5"
               >События</v-list-item-title
