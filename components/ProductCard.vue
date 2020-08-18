@@ -18,16 +18,20 @@
       aspect-ratio="0.85"
       contain
     ></v-img>
-    <v-card-title class="text-center d-flex justify-center"
-      >Alba de Miros Verdejo 2017</v-card-title
+    <v-card-title class="text-center d-flex justify-center">{{
+      product.productName
+    }}</v-card-title>
+    <v-card-subtitle class="text-center"
+      >{{ product.productDetails.productVolume }}
+      {{ product.productDetails.productCountry }}
+      {{ product.productDetails.productAlcoholDegree }}</v-card-subtitle
     >
-    <v-card-subtitle class="text-center">700 мл Испания 12.5%</v-card-subtitle>
     <v-card-text class="text-center pt-2">
       <p
         class="ma-0 pink--text text--accent-3 font-weight-bold "
         style="font-size: 1.65rem !important"
       >
-        1 156 руб.
+        {{ product.productPrice }}руб.
       </p>
       <p
         class="ma-0 gray--text font-weight-bold "
@@ -60,6 +64,12 @@
 
 <script>
 export default {
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       bpm: 1

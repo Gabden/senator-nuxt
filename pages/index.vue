@@ -52,15 +52,15 @@
         class="mb-5"
       ></v-pagination>
       <v-col
-        v-for="n in 6"
-        :key="n"
+        v-for="(product, index) in products"
+        :key="index"
         cols="10"
         sm="6"
         md="4"
         xl="3"
         class="mx-auto"
       >
-        <product-card />
+        <product-card :product="product" />
       </v-col>
       <v-pagination
         v-model="page"
@@ -92,6 +92,19 @@ export default {
   components: {
     'features-card': FeaturesCard,
     'product-card': ProductCard
+  },
+  asyncData(context) {
+    return context.$axios
+      .get('/api/home/notifications')
+      .then((response) => {
+        const products = response.data.content
+        return { products }
+      })
+      .catch((error) => {
+        error({
+          message: 'Нет ответа от сервера. Повторите через несколько минут'
+        })
+      })
   },
   data() {
     return {
