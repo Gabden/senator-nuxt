@@ -1,13 +1,13 @@
 <template>
   <v-card max-width="400">
     <div class="d-flex">
-      <v-btn fab small dark color="pink darken-1" class="ma-3">-10%</v-btn>
+      <v-btn fab small dark color="pink darken-1" class="ma-3"
+        >-{{ discountOrSale }}</v-btn
+      >
       <v-spacer></v-spacer>
       <v-btn icon color="pink" class="ma-3">
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn icon color="pink" class="ma-3">
-        <v-icon>mdi-heart-outline</v-icon>
+        <v-icon v-if="isFavorite">mdi-heart</v-icon>
+        <v-icon v-else>mdi-heart-outline</v-icon>
       </v-btn>
     </div>
 
@@ -31,13 +31,13 @@
         class="ma-0 pink--text text--accent-3 font-weight-bold "
         style="font-size: 1.65rem !important"
       >
-        {{ product.productPrice }}руб.
+        {{ priceWithSale }}руб.
       </p>
       <p
         class="ma-0 gray--text font-weight-bold "
         style="text-decoration: line-through;"
       >
-        1 420 руб.
+        {{ product.productPrice }} руб.
       </p>
     </v-card-text>
     <v-card-actions class="d-flex justify-center mb-5 pb-8">
@@ -68,11 +68,29 @@ export default {
     product: {
       type: Object,
       required: true
+    },
+    isFavorite: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       bpm: 1
+    }
+  },
+  computed: {
+    priceWithSale() {
+      if (this.product.productSalePrice) {
+        return this.product.productSalePrice
+      }
+      return (+this.product.productPrice * (100 - this.product.discount)) / 100
+    },
+    discountOrSale() {
+      if (this.product.productSalePrice) {
+        return 'Акция'
+      }
+      return this.product.discount + '%'
     }
   },
   methods: {

@@ -100,9 +100,10 @@ export default {
         const products = response.data.content
         return { products }
       })
-      .catch((error) => {
-        error({
-          message: 'Нет ответа от сервера. Повторите через несколько минут'
+      .catch((e) => {
+        context.error({
+          statusCode: 500,
+          message: 'Сервер временно недоступен, повторите попытке позже'
         })
       })
   },
