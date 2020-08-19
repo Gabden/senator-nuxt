@@ -10,14 +10,15 @@
         <v-icon v-else>mdi-heart-outline</v-icon>
       </v-btn>
     </div>
-
-    <v-img
-      :src="imageSrc"
-      max-width="390"
-      max-height="350"
-      aspect-ratio="0.85"
-      contain
-    ></v-img>
+    <nuxt-link :to="'/product/' + product.productId">
+      <v-img
+        :src="imageSrc"
+        max-width="390"
+        max-height="350"
+        aspect-ratio="0.85"
+        contain
+      ></v-img>
+    </nuxt-link>
     <v-card-title class="text-center d-flex justify-center">{{
       product.productName
     }}</v-card-title>
