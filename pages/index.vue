@@ -137,6 +137,25 @@ export default {
       ],
       slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth']
     }
+  },
+  watch: {
+    page(newValue, oldValue) {
+      this.updateProducts(newValue)
+    }
+  },
+  methods: {
+    async updateProducts(newPage) {
+      await this.$axios
+        .get('/api/home/notifications?page=' + (newPage - 1))
+        .then((response) => {
+          this.products = response.data.content
+        })
+        .catch((e) => {
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+    }
   }
 }
 </script>
