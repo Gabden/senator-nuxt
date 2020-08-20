@@ -5,7 +5,7 @@
         ><v-icon>mdi-menu</v-icon></v-btn
       >
       <div v-if="$auth.loggedIn" class="hidden-md-and-down">
-        <v-btn text="">{{ $auth.user.username }}</v-btn> |
+        <v-btn text nuxt to="/account">{{ $auth.user.username }}</v-btn> |
         <v-btn v-if="isAdmin" text to="/registration"
           ><v-badge content="2" color="red" inline class="mt-0">
             <span class="hidden-sm-and-down">Администрирование</span>

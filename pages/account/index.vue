@@ -4,16 +4,19 @@
       <img
         src="../../assets/default-profile.png"
         alt="Profile"
-        width="100"
-        height="100"
+        width="115"
+        height="115"
       />
     </div>
     <v-col :class="smallSize ? 'mt-5' : 'mt-3'">
       <h3 :class="smallSize ? 'name-sm' : 'name-md'">
-        Габдулин Денис Валерьевич
+        {{ fullName }}
       </h3>
+      <p :class="smallSize ? 'mail-sm mb-0' : 'mail-md mb-0'">
+        {{ $auth.user.username }}
+      </p>
       <p :class="smallSize ? 'mail-sm' : 'mail-md'">
-        gabden5545@gmail.com
+        {{ $auth.user.userDetailsDescription.phone }}
       </p>
     </v-col>
     <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
@@ -24,7 +27,7 @@
 
     <v-tabs-items v-model="tab" class="mx-auto">
       <v-tab-item v-for="item in items" :key="item">
-        <ListOrders v-if="item === 'Заказы'" :orders="orders" />
+        <ListOrders v-if="item === 'Заказы'" :orders="$auth.user.orderTable" />
         <v-form
           v-if="item === 'Настройки'"
           v-model="formValidityMail"
@@ -124,18 +127,19 @@
             <v-card-title class="text-center">Изменить ФИО</v-card-title>
             <v-card-text>
               <v-text-field
-                label="Фамилия*"
+                v-model="fiolast"
+                label="Фамилия"
                 prepend-icon="mdi-account"
-                :rules="passwordRules"
-                required
               ></v-text-field>
               <v-text-field
+                v-model="fiofirst"
                 label="Имя*"
                 prepend-icon="mdi-account"
                 :rules="passwordRules"
                 required
               ></v-text-field>
               <v-text-field
+                v-model="fiomiddle"
                 label="Отчество"
                 prepend-icon="mdi-account"
               ></v-text-field>
@@ -164,6 +168,9 @@ export default {
   },
   data() {
     return {
+      fiofirst: '',
+      fiomiddle: '',
+      fiolast: '',
       orders: [
         'Заказ №4755 от 2020-03-27',
         'Заказ №4755 от 2020-03-27',
@@ -198,7 +205,21 @@ export default {
   computed: {
     smallSize() {
       return this.$vuetify.breakpoint.smAndDown
+    },
+    fullName() {
+      return (
+        this.$auth.user.userDetailsDescription.fiolast +
+        ' ' +
+        this.$auth.user.userDetailsDescription.fiofirst +
+        ' ' +
+        this.$auth.user.userDetailsDescription.fiomiddle
+      )
     }
+  },
+  created() {
+    this.fiofirst = this.$auth.user.userDetailsDescription.fiofirst
+    this.fiomiddle = this.$auth.user.userDetailsDescription.fiomiddle
+    this.fiolast = this.$auth.user.userDetailsDescription.fiolast
   },
   methods: {
     changeEmail() {
@@ -210,7 +231,21 @@ export default {
       this.$toasted.success('Пароль успешно изменен!').goAway(2000)
     },
     changeFIO() {
-      this.$toasted.success('ФИО изменен!').goAway(2000)
+      this.$axios
+        .post(`/api/account/update/fio/${this.$auth.user.id}`, {
+          fiofirst: this.fiofirst,
+          fiomiddle: this.fiomiddle,
+          fiolast: this.fiolast
+        })
+        .then((response) => {
+          this.$toasted.success('ФИО изменен!').goAway(2000)
+          window.location.reload(true)
+        })
+        .catch((e) => {
+          this.$toasted.console
+            .error('Ошибка, повторите попытку позднее!')
+            .goAway(2000)
+        })
     }
   }
 }

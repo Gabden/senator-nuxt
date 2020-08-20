@@ -32,7 +32,7 @@
         class="ma-0 pink--text text--accent-3 font-weight-bold "
         style="font-size: 1.65rem !important"
       >
-        {{ priceWithSale }}руб.
+        {{ priceWithSale }} руб.
       </p>
       <p
         class="ma-0 gray--text font-weight-bold "

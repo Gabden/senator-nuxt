@@ -56,10 +56,8 @@
             <v-spacer></v-spacer>
             <v-col cols="12" md="6">
               <v-text-field
-                label="Фамилия*"
+                label="Фамилия"
                 prepend-icon="mdi-account"
-                :rules="passwordRules"
-                required
               ></v-text-field>
               <v-text-field
                 label="Имя*"
