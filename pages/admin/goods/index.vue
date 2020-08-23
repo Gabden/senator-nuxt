@@ -26,12 +26,27 @@
       append-icon="mdi-magnify"
       required
     ></v-text-field>
-    <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
-    <div v-for="n in 3" :key="n" class="my-5">
-      <v-divider></v-divider>
-      <ProductListItem />
+    <v-pagination
+      v-model="page"
+      :length="productsInfo.totalPages"
+      :total-visible="7"
+    ></v-pagination>
+    <div>
+      <p class="grey--text">Всего найдено: {{ productsInfo.totalElements }}</p>
     </div>
-    <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
+    <div
+      v-for="product in productsInfo.content"
+      :key="product.productId"
+      class="my-5"
+    >
+      <v-divider></v-divider>
+      <ProductListItem :product="product" />
+    </div>
+    <v-pagination
+      v-model="page"
+      :length="productsInfo.totalPages"
+      :total-visible="7"
+    ></v-pagination>
   </div>
 </template>
 
@@ -42,9 +57,42 @@ export default {
   components: {
     ProductListItem
   },
+  asyncData(context) {
+    return context.$axios
+      .get('/api/admin/products')
+      .then((response) => {
+        const productsInfo = response.data
+        return { productsInfo }
+      })
+      .catch((e) => {
+        context.error({
+          statusCode: 500,
+          message: 'Сервер временно недоступен, повторите попытке позже'
+        })
+      })
+  },
   data() {
     return {
       page: 1
+    }
+  },
+  watch: {
+    page(newValue, oldValue) {
+      this.updateProducts(newValue)
+    }
+  },
+  methods: {
+    async updateProducts(newPage) {
+      await this.$axios
+        .get('/api/admin/products?page=' + (newPage - 1))
+        .then((response) => {
+          this.productsInfo = response.data
+        })
+        .catch((e) => {
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
     }
   }
 }

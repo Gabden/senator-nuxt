@@ -6,7 +6,7 @@
       >
       <div v-if="$auth.loggedIn" class="hidden-md-and-down">
         <v-btn text nuxt to="/account">{{ $auth.user.username }}</v-btn> |
-        <v-btn v-if="isAdmin" text to="/registration"
+        <v-btn v-if="isAdmin" text to="/admin"
           ><v-badge content="2" color="red" inline class="mt-0">
             <span class="hidden-sm-and-down">Администрирование</span>
           </v-badge></v-btn
