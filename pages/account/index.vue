@@ -41,7 +41,7 @@
             <v-card-title class="">Изменить почтовый адрес</v-card-title>
             <v-card-text>
               <v-text-field
-                v-model="username"
+                v-model="user.username"
                 label="Введите новый адрес"
                 prepend-icon="mdi-email"
                 :rules="usernameRules"
@@ -127,19 +127,19 @@
             <v-card-title class="text-center">Изменить ФИО</v-card-title>
             <v-card-text>
               <v-text-field
-                v-model="fiolast"
+                v-model="user.fiolast"
                 label="Фамилия"
                 prepend-icon="mdi-account"
               ></v-text-field>
               <v-text-field
-                v-model="fiofirst"
+                v-model="user.fiofirst"
                 label="Имя*"
                 prepend-icon="mdi-account"
                 :rules="passwordRules"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="fiomiddle"
+                v-model="user.fiomiddle"
                 label="Отчество"
                 prepend-icon="mdi-account"
               ></v-text-field>
@@ -171,7 +171,7 @@
             >
             <v-card-text>
               <v-text-field
-                v-model="newPhone"
+                v-model="user.phone"
                 v-mask="'+7(###)###-####'"
                 label="Телефон "
                 prepend-icon="mdi-phone"
@@ -204,14 +204,13 @@ export default {
   },
   data() {
     return {
-      fiofirst: '',
-      fiomiddle: '',
-      fiolast: '',
-      orders: [
-        'Заказ №4755 от 2020-03-27',
-        'Заказ №4755 от 2020-03-27',
-        'Заказ №4755 от 2020-03-27'
-      ],
+      user: {
+        username: '',
+        fiofirst: '',
+        fiomiddle: '',
+        fiolast: '',
+        phone: ''
+      },
       newPassword: '',
       oldPassword: '',
       secondPassword: '',
@@ -220,8 +219,6 @@ export default {
       showPassword: false,
       formValidityMail: false,
       phoneValidity: false,
-      newPhone: '',
-      username: '',
       items: ['Заказы', 'Профиль', 'Настройки'],
       tab: null,
       phoneRules: [
@@ -261,35 +258,42 @@ export default {
     }
   },
   created() {
-    this.fiofirst = this.$auth.user
+    this.user.phone = this.$auth.user
+      ? this.$auth.user.userDetailsDescription.phone
+      : ''
+    this.user.fiofirst = this.$auth.user
       ? this.$auth.user.userDetailsDescription.fiofirst
       : ''
-    this.fiomiddle = this.$auth.user
+    this.user.fiomiddle = this.$auth.user
       ? this.$auth.user.userDetailsDescription.fiomiddle
       : ''
-    this.fiolast = this.$auth.user
+    this.user.fiolast = this.$auth.user
       ? this.$auth.user.userDetailsDescription.fiolast
       : ''
+    this.user.username = this.$auth.user ? this.$auth.user.username : ''
   },
   methods: {
-    changePhone(newPhone) {},
+    changePhone(newPhone) {
+      const updatePhoneUrl = `/api/account/update/phone/${this.$auth.user.id}`
+      this.updateInfo(updatePhoneUrl)
+    },
     changeEmail() {
-      this.$toasted
-        .success('Адрес электронной почты успешно изменен!')
-        .goAway(2000)
+      const updateUserMailUrl = `/api/account/update/username/${this.$auth.user.id}`
+      this.updateInfo(updateUserMailUrl)
+      this.$auth.logout()
     },
     changePassword() {
       this.$toasted.success('Пароль успешно изменен!').goAway(2000)
     },
     changeFIO() {
+      const updateFioUrl = `/api/account/update/fio/${this.$auth.user.id}`
+      this.updateInfo(updateFioUrl)
+    },
+    updateInfo(url) {
       this.$axios
-        .post(`/api/account/update/fio/${this.$auth.user.id}`, {
-          fiofirst: this.fiofirst,
-          fiomiddle: this.fiomiddle,
-          fiolast: this.fiolast
-        })
+        .post(url, this.user)
         .then((response) => {
-          this.$toasted.success('ФИО изменен!').goAway(2000)
+          this.$toasted.success('Данные изменены!').goAway(2000)
           window.location.reload(true)
         })
         .catch((e) => {
