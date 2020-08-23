@@ -72,7 +72,7 @@
             <v-card-title class="text-center">Изменить пароль</v-card-title>
             <v-card-text>
               <v-text-field
-                v-model="oldPassword"
+                v-model="user.oldPassword"
                 label="Cтарый пароль"
                 :type="showPassword ? 'text' : 'password'"
                 prepend-icon="mdi-lock"
@@ -82,7 +82,7 @@
                 @click:append="showPassword = !showPassword"
               ></v-text-field>
               <v-text-field
-                v-model="newPassword"
+                v-model="user.newPassword"
                 label="Новый пароль"
                 :type="showPassword ? 'text' : 'password'"
                 prepend-icon="mdi-lock"
@@ -92,7 +92,7 @@
                 @click:append="showPassword = !showPassword"
               ></v-text-field>
               <v-text-field
-                v-model="secondPassword"
+                v-model="user.secondPassword"
                 label="Подтвердите новый пароль"
                 :type="showPassword ? 'text' : 'password'"
                 prepend-icon="mdi-lock"
@@ -209,11 +209,11 @@ export default {
         fiofirst: '',
         fiomiddle: '',
         fiolast: '',
-        phone: ''
+        phone: '',
+        newPassword: '',
+        oldPassword: '',
+        secondPassword: ''
       },
-      newPassword: '',
-      oldPassword: '',
-      secondPassword: '',
       formValidityPass: false,
       formValidityFIO: false,
       showPassword: false,
@@ -283,7 +283,12 @@ export default {
       this.$auth.logout()
     },
     changePassword() {
-      this.$toasted.success('Пароль успешно изменен!').goAway(2000)
+      if (this.user.newPassword !== this.user.secondPassword) {
+        this.$toasted.error('Новые пароли не совпадают!').goAway(2000)
+        return
+      }
+      const updatePasswordUrl = `/api/account/update/password/${this.$auth.user.id}`
+      this.updateInfo(updatePasswordUrl)
     },
     changeFIO() {
       const updateFioUrl = `/api/account/update/fio/${this.$auth.user.id}`
@@ -293,13 +298,15 @@ export default {
       this.$axios
         .post(url, this.user)
         .then((response) => {
-          this.$toasted.success('Данные изменены!').goAway(2000)
+          this.$toasted.success('Данные изменены!').goAway(3000)
           window.location.reload(true)
         })
         .catch((e) => {
-          this.$toasted.console
-            .error('Ошибка, повторите попытку позднее!')
-            .goAway(2000)
+          console.log(e.response)
+          const message = e.response.data
+            ? e.response.data
+            : 'Ошибка, повторите попытку позднее!'
+          this.$toasted.error(message).goAway(5000)
         })
     }
   }
