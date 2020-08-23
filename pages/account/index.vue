@@ -163,6 +163,7 @@
 <script>
 import ListOrders from '@/components/ListOrders.vue'
 export default {
+  middleware: 'auth',
   components: {
     ListOrders
   },
@@ -207,19 +208,25 @@ export default {
       return this.$vuetify.breakpoint.smAndDown
     },
     fullName() {
-      return (
-        this.$auth.user.userDetailsDescription.fiolast +
-        ' ' +
-        this.$auth.user.userDetailsDescription.fiofirst +
-        ' ' +
-        this.$auth.user.userDetailsDescription.fiomiddle
-      )
+      return this.$auth.user
+        ? this.$auth.user.userDetailsDescription.fiolast +
+            ' ' +
+            this.$auth.user.userDetailsDescription.fiofirst +
+            ' ' +
+            this.$auth.user.userDetailsDescription.fiomiddle
+        : ''
     }
   },
   created() {
-    this.fiofirst = this.$auth.user.userDetailsDescription.fiofirst
-    this.fiomiddle = this.$auth.user.userDetailsDescription.fiomiddle
-    this.fiolast = this.$auth.user.userDetailsDescription.fiolast
+    this.fiofirst = this.$auth.user
+      ? this.$auth.user.userDetailsDescription.fiofirst
+      : ''
+    this.fiomiddle = this.$auth.user
+      ? this.$auth.user.userDetailsDescription.fiomiddle
+      : ''
+    this.fiolast = this.$auth.user
+      ? this.$auth.user.userDetailsDescription.fiolast
+      : ''
   },
   methods: {
     changeEmail() {
