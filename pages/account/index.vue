@@ -155,6 +155,41 @@
             </v-card-actions>
           </v-card>
         </v-form>
+
+        <v-form
+          v-if="item === 'Профиль'"
+          v-model="phoneValidity"
+          @submit.prevent="changePhone"
+        >
+          <v-card
+            color="basil"
+            class="mt-5 text-center"
+            :min-width="smallSize ? '300' : '650'"
+          >
+            <v-card-title class="text-center"
+              >Изменить номер телефона</v-card-title
+            >
+            <v-card-text>
+              <v-text-field
+                v-model="newPhone"
+                v-mask="'+7(###)###-####'"
+                label="Телефон "
+                prepend-icon="mdi-phone"
+                required
+                :rules="phoneRules"
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                color="success"
+                type="submit"
+                :disabled="!phoneValidity"
+                class="mx-auto"
+                >Изменить</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-form>
       </v-tab-item>
     </v-tabs-items>
   </v-row>
@@ -184,9 +219,17 @@ export default {
       formValidityFIO: false,
       showPassword: false,
       formValidityMail: false,
+      phoneValidity: false,
+      newPhone: '',
       username: '',
       items: ['Заказы', 'Профиль', 'Настройки'],
       tab: null,
+      phoneRules: [
+        (value) =>
+          value.length === 3 ||
+          value.length - 15 >= 0 ||
+          'Неправильный формат номера телефона'
+      ],
       passwordRules: [(value) => !!value || 'Необходимо заполнить поле'],
       usernameRules: [
         (value) => !!value || 'Необходимо ввести адрес электронной почты',
@@ -229,6 +272,7 @@ export default {
       : ''
   },
   methods: {
+    changePhone(newPhone) {},
     changeEmail() {
       this.$toasted
         .success('Адрес электронной почты успешно изменен!')

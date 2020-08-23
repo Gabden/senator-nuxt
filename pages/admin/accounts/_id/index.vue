@@ -74,7 +74,7 @@
             <v-card-text>
               <v-text-field
                 v-model="phone"
-                v-mask="'7-(###)###-####'"
+                v-mask="'+7(###)###-####'"
                 label="Телефон "
                 prepend-icon="mdi-phone"
                 required
