@@ -21,6 +21,7 @@
       append-icon="mdi-magnify"
       required
       @click:append="findProductById"
+      @keyup.enter="findProductById"
     ></v-text-field>
     <v-text-field
       label="Поиск"
