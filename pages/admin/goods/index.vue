@@ -14,11 +14,13 @@
       >СОЗДАТЬ
     </v-btn>
     <v-text-field
+      v-model="IdForFind"
       type="number"
       label="Поиск по ID"
       prepend-icon="mdi-bottle-wine"
       append-icon="mdi-magnify"
       required
+      @click:append="findProductById"
     ></v-text-field>
     <v-text-field
       label="Поиск"
@@ -73,7 +75,8 @@ export default {
   },
   data() {
     return {
-      page: 1
+      page: 1,
+      IdForFind: ''
     }
   },
   watch: {
@@ -82,6 +85,20 @@ export default {
     }
   },
   methods: {
+    async findProductById() {
+      await this.$axios
+        .get(`/api/admin/product/${this.IdForFind}`)
+        .then((response) => {
+          this.productsInfo.content = [response.data]
+          this.productsInfo.totalPages = 1
+          this.productsInfo.totalElements = 1
+        })
+        .catch((e) => {
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+    },
     async updateProducts(newPage) {
       await this.$axios
         .get('/api/admin/products?page=' + (newPage - 1))
