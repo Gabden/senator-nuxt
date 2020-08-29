@@ -141,7 +141,7 @@
         label="Короткое описание вкуса"
       ></v-text-field>
       <v-file-input
-        v-model="product.imageFile"
+        v-model="product.productImage"
         accept="image/*"
         show-size
         label="Изображение"
@@ -187,7 +187,7 @@ export default {
           productMature: null,
           productTaste: null,
           productUnitInStock: null,
-          imageFile: null
+          productImage: null
         }
       },
       formValidity: false,
@@ -196,23 +196,34 @@ export default {
   },
   methods: {
     async createProduct() {
-      // console.log(this.product)
-
+      const cats = this.product.productCategory
       this.product.productCategory = this.product.productCategory.join(',')
-      const formData = new FormData()
-      formData.append('product', this.product)
-      console.log(formData)
-
+      let createdId = null
       await this.$axios
         .post('/api/admin/product/create', this.product)
         .then((response) => {
-          this.$toasted.success('Товар успешно добавлен в базу!').goAway(2000)
+          createdId = response.data
         })
         .catch((e) => {
           this.$toasted
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)
         })
+      this.product.productCategory = cats
+      if (this.product.productImage && createdId) {
+        const formData = new FormData()
+        formData.append('file', this.product.productImage)
+        await this.$axios
+          .post(`/api/admin/product/update/image/${createdId}`, formData)
+          .then((response) => {
+            this.$toasted.success('Товар успешно добавлен в базу!').goAway(2000)
+          })
+          .catch((e) => {
+            this.$toasted
+              .error('Сервер временно недоступен, повторите попытку позже!')
+              .goAway(2000)
+          })
+      }
     }
   }
 }

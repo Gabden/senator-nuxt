@@ -23,9 +23,21 @@
       product.productName
     }}</v-card-title>
     <v-card-subtitle class="text-center"
-      >{{ product.productDetails.productVolume }}
-      {{ product.productDetails.productCountry }}
-      {{ product.productDetails.productAlcoholDegree }}</v-card-subtitle
+      >{{
+        product.productDetails.productVolume
+          ? product.productDetails.productVolume
+          : ''
+      }}
+      {{
+        product.productDetails.productCountry
+          ? product.productDetails.productCountry
+          : ''
+      }}
+      {{
+        product.productDetails.productAlcoholDegree
+          ? product.productDetails.productAlcoholDegree
+          : ''
+      }}</v-card-subtitle
     >
     <v-card-text class="text-center pt-2">
       <p
@@ -94,7 +106,13 @@ export default {
       return this.product.discount + '%'
     },
     imageSrc() {
-      return 'data:image/jpg;base64,' + this.product.productImage.fileData
+      if (
+        this.product &&
+        this.product.productImage &&
+        this.product.productImage.fileData
+      ) {
+        return 'data:image/jpg;base64,' + this.product.productImage.fileData
+      } else return ''
     }
   },
   methods: {
