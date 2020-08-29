@@ -289,6 +289,9 @@ export default {
       }
       const updatePasswordUrl = `/api/account/update/password/${this.$auth.user.id}`
       this.updateInfo(updatePasswordUrl)
+      this.user.oldPassword = ''
+      this.user.newPassword = ''
+      this.user.secondPassword = ''
     },
     changeFIO() {
       const updateFioUrl = `/api/account/update/fio/${this.$auth.user.id}`
