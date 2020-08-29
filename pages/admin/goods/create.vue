@@ -4,9 +4,9 @@
     <h3 class="text-center">
       Необходимо заполнить поля, чтобы добавить новый товар в базу данных
     </h3>
-    <v-form v-model="formValidity" @submit.prevent="create">
+    <v-form v-model="formValidity" @submit.prevent="createProduct">
       <v-text-field
-        v-model="product.name"
+        v-model="product.productName"
         label="Название "
         :rules="nameRules"
         required
@@ -21,66 +21,66 @@
 
         <v-col>
           <v-checkbox
-            v-model="product.category"
+            v-model="product.productCategory"
             label="Алкоголь"
             value="alcohol"
           ></v-checkbox>
           <v-checkbox
-            v-model="product.category"
+            v-model="product.productCategory"
             label="Напитки"
             value="drinks"
           ></v-checkbox>
           <v-checkbox
-            v-model="product.category"
+            v-model="product.productCategory"
             label="Оливковое масло"
             value="oil"
           ></v-checkbox>
         </v-col>
         <v-col>
           <v-checkbox
-            v-model="product.category"
+            v-model="product.productCategory"
             label="Посуда"
             value="dishes"
           ></v-checkbox>
           <v-checkbox
-            v-model="product.category"
+            v-model="product.productCategory"
             label="Подарки"
             value="gifts"
           ></v-checkbox>
           <v-checkbox
-            v-model="product.category"
+            v-model="product.productCategory"
             label="Акции"
             value="sale"
           ></v-checkbox>
         </v-col>
         <v-col
           ><v-checkbox
-            v-model="product.category"
+            v-model="product.productCategory"
             label="Новинка"
             value="new"
           ></v-checkbox
         ></v-col>
       </v-row>
       <v-text-field
-        v-model="product.type"
+        v-model="product.productDetails.productType"
         label="Тип алкоголя(Вино, виски, водка и т.д)"
       ></v-text-field>
       <v-textarea
-        v-model="product.description"
+        v-model="product.productDescription"
         label="Описание продукта"
         rows="3"
         :rules="nameRules"
         required
       ></v-textarea>
       <v-text-field
-        v-model="product.price"
+        v-model="product.productPrice"
         type="number"
         label="Цена "
         :rules="nameRules"
         required
       ></v-text-field>
       <v-text-field
-        v-model="product.salePrice"
+        v-model="product.productSalePrice"
         type="number"
         label="Цена по акции(Поле либо пустое либо с ценой, ноль не ставить!)"
       ></v-text-field>
@@ -91,50 +91,62 @@
         :rules="nameRules"
         required
       ></v-text-field>
-      <v-text-field v-model="product.volume" label="Объем "></v-text-field>
       <v-text-field
-        v-model="product.quantity"
+        v-model="product.productDetails.productVolume"
+        label="Объем "
+      ></v-text-field>
+      <v-text-field
+        v-model="product.productDetails.productUnitInStock"
         type="number"
         label="Количество"
       ></v-text-field>
       <v-text-field
-        v-model="product.country"
+        v-model="product.productDetails.productCountry"
         label="Страна производитель"
       ></v-text-field>
       <v-text-field
-        v-model="product.region"
+        v-model="product.productDetails.productRegion"
         label="Регион производителя"
       ></v-text-field>
       <v-text-field
-        v-model="product.alcoholDegree"
+        v-model="product.productDetails.productAlcoholDegree"
         label="Содержание спирта"
       ></v-text-field>
       <v-text-field
-        v-model="product.wineType"
+        v-model="product.productDetails.productAlcoholColor"
         label="Тип (красное, белое, игристое и тд)"
       ></v-text-field>
       <v-text-field
-        v-model="product.sugar"
+        v-model="product.productDetails.productAlcoholSugar"
         label="Сахар (сухое, полусухое и т.д.)"
       ></v-text-field>
       <v-text-field
-        v-model="product.temperatura"
+        v-model="product.productDetails.productAlcoholTemperature"
         label="Температура подачи"
       ></v-text-field>
       <v-text-field
-        v-model="product.sort"
+        v-model="product.productDetails.productAlcoholSort"
         label="Сорт винограда или тип сырья"
       ></v-text-field>
       <v-text-field
-        v-model="product.manufacturer"
+        v-model="product.productDetails.productManufacturer"
         label="Фирма производитель"
       ></v-text-field>
-      <v-text-field v-model="product.age" label="Выдержка"></v-text-field>
       <v-text-field
-        v-model="product.taste"
+        v-model="product.productDetails.productMature"
+        label="Выдержка"
+      ></v-text-field>
+      <v-text-field
+        v-model="product.productDetails.productTaste"
         label="Короткое описание вкуса"
       ></v-text-field>
-      <v-file-input show-size label="Изображение" required></v-file-input>
+      <v-file-input
+        v-model="product.imageFile"
+        accept="image/*"
+        show-size
+        label="Изображение"
+        required
+      ></v-file-input>
       <v-btn
         type="submit"
         class="my-2"
@@ -155,32 +167,53 @@ export default {
   data() {
     return {
       product: {
-        name: '',
-        category: [],
-        type: '',
-        description: '',
-        price: null,
-        salePrice: null,
+        productName: '',
+        productCategory: [],
+        productDescription: '',
+        productPrice: null,
+        productSalePrice: null,
         discount: 10,
-        volume: null,
-        quantity: null,
-        country: null,
-        region: null,
-        alcoholDegree: null,
-        wineType: null,
-        sugar: null,
-        temperatura: null,
-        sort: null,
-        manufacturer: null,
-        age: null,
-        taste: null
+        productDetails: {
+          productType: '',
+          productCountry: null,
+          productRegion: null,
+          productAlcoholDegree: null,
+          productAlcoholColor: null,
+          productAlcoholSugar: null,
+          productAlcoholTemperature: null,
+          productAlcoholSort: null,
+          productVolume: null,
+          productManufacturer: null,
+          productMature: null,
+          productTaste: null,
+          productUnitInStock: null,
+          imageFile: null
+        }
       },
       formValidity: false,
       nameRules: [(value) => !!value || 'Необходимо заполнить поле']
     }
   },
   methods: {
-    create() {}
+    async createProduct() {
+      // console.log(this.product)
+
+      this.product.productCategory = this.product.productCategory.join(',')
+      const formData = new FormData()
+      formData.append('product', this.product)
+      console.log(formData)
+
+      await this.$axios
+        .post('/api/admin/product/create', this.product)
+        .then((response) => {
+          this.$toasted.success('Товар успешно добавлен в базу!').goAway(2000)
+        })
+        .catch((e) => {
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+    }
   }
 }
 </script>
