@@ -19,15 +19,16 @@
       label="Поиск по ID"
       prepend-icon="mdi-bottle-wine"
       append-icon="mdi-magnify"
-      required
       @click:append="findProductById"
       @keyup.enter="findProductById"
     ></v-text-field>
     <v-text-field
+      v-model="textForFind"
       label="Поиск"
       prepend-icon="mdi-bottle-wine"
       append-icon="mdi-magnify"
-      required
+      @click:append="findProductByText"
+      @keyup.enter="findProductByText"
     ></v-text-field>
     <v-pagination
       v-model="page"
@@ -77,7 +78,8 @@ export default {
   data() {
     return {
       page: 1,
-      IdForFind: ''
+      IdForFind: '',
+      textForFind: ''
     }
   },
   watch: {
@@ -86,6 +88,19 @@ export default {
     }
   },
   methods: {
+    async findProductByText() {
+      await this.$axios
+        .get(`/api/admin/product/search?text=${this.textForFind}`)
+        .then((response) => {
+          this.productsInfo = response.data
+          console.log(response)
+        })
+        .catch((e) => {
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+    },
     async findProductById() {
       await this.$axios
         .get(`/api/admin/product/${this.IdForFind}`)
@@ -101,8 +116,14 @@ export default {
         })
     },
     async updateProducts(newPage) {
+      let url = '/api/admin/products?page=' + (newPage - 1)
+      if (this.textForFind) {
+        url = `/api/admin/product/search?text=${
+          this.textForFind
+        }&page=${newPage - 1}`
+      }
       await this.$axios
-        .get('/api/admin/products?page=' + (newPage - 1))
+        .get(url)
         .then((response) => {
           this.productsInfo = response.data
         })
