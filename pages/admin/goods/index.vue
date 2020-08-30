@@ -93,7 +93,6 @@ export default {
         .get(`/api/admin/product/search?text=${this.textForFind}`)
         .then((response) => {
           this.productsInfo = response.data
-          console.log(response)
         })
         .catch((e) => {
           this.$toasted
