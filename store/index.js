@@ -1,4 +1,11 @@
-export const state = () => ({})
+export const state = () => ({
+  loader: false
+})
+export const mutations = {
+  SWITCH_LOADER(state, value) {
+    state.loader = value
+  }
+}
 export const actions = {
   nuxtServerInit(vuexContext, context) {
     if (
@@ -18,5 +25,8 @@ export const actions = {
         // TODO create commit to fetch cart
       }
     }
+  },
+  SWITCH_LOADER({ commit }, value) {
+    commit('SWITCH_LOADER', value)
   }
 }

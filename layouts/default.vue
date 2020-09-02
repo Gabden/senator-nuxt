@@ -18,6 +18,9 @@
       @click="scrollToTop"
       ><v-icon class="display-1">mdi-arrow-up-circle</v-icon></v-btn
     >
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-app>
 </template>
 <script>
@@ -41,6 +44,9 @@ export default {
   computed: {
     isScrolled() {
       return this.$store.state.main.isScrolled
+    },
+    overlay() {
+      return this.$store.state.loader
     }
   },
   beforeMount() {

@@ -157,7 +157,7 @@ export default {
       categories: ['alcohol', 'drinks', 'oil', 'dishes', 'gifts'],
       typeOfWines: ['Красное', 'Белое', 'Розовое', 'Шампанское'],
       category: {
-        name: '',
+        name: 'alcohol',
         value: '',
         percent: 10
       },
@@ -184,7 +184,24 @@ export default {
     }
   },
   methods: {
-    acceptCategorySale() {},
+    acceptCategorySale() {
+      this.$store.commit('SWITCH_LOADER', true)
+      const url = `/api/admin/group-sale/edit/category?category=${this.category.name}&discount=${this.category.percent}`
+      this.$axios
+        .post(url)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .success('Размер скидки для категории изменен!')
+            .goAway(2000)
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+    },
     acceptTypeOfWineSale() {},
     acceptTypeSale() {},
     acceptManufacturerSale() {},
