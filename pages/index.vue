@@ -145,12 +145,15 @@ export default {
   },
   methods: {
     async updateProducts(newPage) {
+      this.$store.commit('SWITCH_LOADER', true)
       await this.$axios
         .get('/api/home/notifications?page=' + (newPage - 1))
         .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.products = response.data.content
         })
         .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.$toasted
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)

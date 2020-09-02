@@ -298,14 +298,16 @@ export default {
       this.updateInfo(updateFioUrl)
     },
     updateInfo(url) {
+      this.$store.commit('SWITCH_LOADER', true)
       this.$axios
         .post(url, this.user)
         .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.$toasted.success('Данные изменены!').goAway(3000)
           window.location.reload(true)
         })
         .catch((e) => {
-          console.log(e.response)
+          this.$store.commit('SWITCH_LOADER', false)
           const message = e.response.data
             ? e.response.data
             : 'Ошибка, повторите попытку позднее!'

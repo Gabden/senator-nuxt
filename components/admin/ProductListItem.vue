@@ -101,13 +101,16 @@ export default {
   },
   methods: {
     async deleteProduct(id) {
+      this.$store.commit('SWITCH_LOADER', true)
       await this.$axios
         .post(`/api/admin/product/delete/${id}`)
         .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.$toasted.success('Товар удален!').goAway(2000)
           window.location.reload(true)
         })
         .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.$toasted
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)

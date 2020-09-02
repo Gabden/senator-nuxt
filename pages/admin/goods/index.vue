@@ -89,26 +89,32 @@ export default {
   },
   methods: {
     async findProductByText() {
+      this.$store.commit('SWITCH_LOADER', true)
       await this.$axios
         .get(`/api/admin/product/search?text=${this.textForFind}`)
         .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.productsInfo = response.data
         })
         .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.$toasted
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)
         })
     },
     async findProductById() {
+      this.$store.commit('SWITCH_LOADER', true)
       await this.$axios
         .get(`/api/admin/product/${this.IdForFind}`)
         .then((response) => {
           this.productsInfo.content = [response.data]
           this.productsInfo.totalPages = 1
           this.productsInfo.totalElements = 1
+          this.$store.commit('SWITCH_LOADER', false)
         })
         .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.$toasted
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)
@@ -121,12 +127,15 @@ export default {
           this.textForFind
         }&page=${newPage - 1}`
       }
+      this.$store.commit('SWITCH_LOADER', true)
       await this.$axios
         .get(url)
         .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.productsInfo = response.data
         })
         .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.$toasted
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)

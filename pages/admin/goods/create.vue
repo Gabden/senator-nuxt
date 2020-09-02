@@ -199,12 +199,15 @@ export default {
       const cats = this.product.productCategory
       this.product.productCategory = this.product.productCategory.join(',')
       let createdId = null
+      this.$store.commit('SWITCH_LOADER', true)
       await this.$axios
         .post('/api/admin/product/create', this.product)
         .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
           createdId = response.data
         })
         .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
           this.$toasted
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)
@@ -213,12 +216,15 @@ export default {
       if (this.product.productImage && createdId) {
         const formData = new FormData()
         formData.append('file', this.product.productImage)
+        this.$store.commit('SWITCH_LOADER', true)
         await this.$axios
           .post(`/api/admin/product/update/image/${createdId}`, formData)
           .then((response) => {
+            this.$store.commit('SWITCH_LOADER', false)
             this.$toasted.success('Товар успешно добавлен в базу!').goAway(2000)
           })
           .catch((e) => {
+            this.$store.commit('SWITCH_LOADER', false)
             this.$toasted
               .error('Сервер временно недоступен, повторите попытку позже!')
               .goAway(2000)
