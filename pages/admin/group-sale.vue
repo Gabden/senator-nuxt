@@ -167,7 +167,7 @@ export default {
         percent: 10
       },
       typeOfWine: {
-        name: '',
+        name: 'Красное',
         value: '',
         percent: 10
       },
@@ -185,8 +185,18 @@ export default {
   },
   methods: {
     acceptCategorySale() {
-      this.$store.commit('SWITCH_LOADER', true)
       const url = `/api/admin/group-sale/edit/category?category=${this.category.name}&discount=${this.category.percent}`
+      this.sendRequest(url)
+    },
+    acceptTypeOfWineSale() {
+      const url = `/api/admin/group-sale/edit/color?color=${this.typeOfWine.name}&discount=${this.typeOfWine.percent}`
+      this.sendRequest(url)
+    },
+    acceptTypeSale() {},
+    acceptManufacturerSale() {},
+    acceptCountrySale() {},
+    sendRequest(url) {
+      this.$store.commit('SWITCH_LOADER', true)
       this.$axios
         .post(url)
         .then((response) => {
@@ -201,11 +211,7 @@ export default {
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)
         })
-    },
-    acceptTypeOfWineSale() {},
-    acceptTypeSale() {},
-    acceptManufacturerSale() {},
-    acceptCountrySale() {}
+    }
   }
 }
 </script>
