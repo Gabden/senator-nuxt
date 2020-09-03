@@ -64,7 +64,7 @@
     <v-row>
       <v-select
         v-model="type.name"
-        :items="typeOfWines"
+        :items="types"
         label="Тип"
         filled
       ></v-select>
@@ -152,6 +152,22 @@
 export default {
   name: 'GroupSale',
   middleware: 'auth-admin',
+  asyncData(context) {
+    context.store.commit('SWITCH_LOADER', true)
+    return context.$axios
+      .get('/api/product/all/types')
+      .then((response) => {
+        context.store.commit('SWITCH_LOADER', false)
+        const types = response.data
+        return { types }
+      })
+      .catch((e) => {
+        context.store.commit('SWITCH_LOADER', false)
+        context.$toasted
+          .error('Сервер временно недоступен, повторите попытку позже!')
+          .goAway(2000)
+      })
+  },
   data() {
     return {
       categories: ['alcohol', 'drinks', 'oil', 'dishes', 'gifts'],
@@ -162,7 +178,7 @@ export default {
         percent: 10
       },
       type: {
-        name: '',
+        name: 'Портвейн',
         value: '',
         percent: 10
       },
@@ -192,7 +208,10 @@ export default {
       const url = `/api/admin/group-sale/edit/color?color=${this.typeOfWine.name}&discount=${this.typeOfWine.percent}`
       this.sendRequest(url)
     },
-    acceptTypeSale() {},
+    acceptTypeSale() {
+      const url = `/api/admin/group-sale/edit/type?type=${this.type.name}&discount=${this.type.percent}`
+      this.sendRequest(url)
+    },
     acceptManufacturerSale() {},
     acceptCountrySale() {},
     sendRequest(url) {
