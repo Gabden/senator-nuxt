@@ -91,12 +91,16 @@
     <h3 class="text-center my-5">Производитель</h3>
     <!-- t-o-d-o get type from api -->
     <v-row>
-      <v-select
+      <v-autocomplete
         v-model="manufacturer.name"
-        :items="typeOfWines"
+        :items="manufacturers"
+        item-text="Description"
+        item-value="API"
         label="Производитель"
-        filled
-      ></v-select>
+        placeholder="Начните печатать"
+        prepend-icon="mdi-database-search"
+        class="mt-3"
+      ></v-autocomplete>
       <v-text-field
         v-model="manufacturer.percent"
         type="number"
@@ -120,12 +124,16 @@
     <h3 class="text-center my-5">Страна</h3>
     <!-- t-o-d-o get type from api -->
     <v-row>
-      <v-select
+      <v-autocomplete
         v-model="country.name"
-        :items="typeOfWines"
+        :items="countries"
+        item-text="Description"
+        item-value="API"
         label="Страна"
-        filled
-      ></v-select>
+        placeholder="Начните печатать"
+        prepend-icon="mdi-database-search"
+        class="mt-3"
+      ></v-autocomplete>
       <v-text-field
         v-model="country.percent"
         type="number"
@@ -152,14 +160,37 @@
 export default {
   name: 'GroupSale',
   middleware: 'auth-admin',
-  asyncData(context) {
+  async asyncData(context) {
     context.store.commit('SWITCH_LOADER', true)
-    return context.$axios
+    let types = ''
+    let manufacturers = ''
+    let countries = ''
+    await context.$axios
       .get('/api/product/all/types')
       .then((response) => {
+        types = response.data
+      })
+      .catch((e) => {
+        context.$toasted
+          .error('Сервер временно недоступен, повторите попытку позже!')
+          .goAway(2000)
+      })
+    await context.$axios
+      .get('/api/product/all/manufacturers')
+      .then((response) => {
+        manufacturers = response.data
+      })
+      .catch((e) => {
+        context.$toasted
+          .error('Сервер временно недоступен, повторите попытку позже!')
+          .goAway(2000)
+      })
+
+    await context.$axios
+      .get('/api/product/all/countries')
+      .then((response) => {
         context.store.commit('SWITCH_LOADER', false)
-        const types = response.data
-        return { types }
+        countries = response.data
       })
       .catch((e) => {
         context.store.commit('SWITCH_LOADER', false)
@@ -167,6 +198,7 @@ export default {
           .error('Сервер временно недоступен, повторите попытку позже!')
           .goAway(2000)
       })
+    return { types, manufacturers, countries }
   },
   data() {
     return {
@@ -212,8 +244,14 @@ export default {
       const url = `/api/admin/group-sale/edit/type?type=${this.type.name}&discount=${this.type.percent}`
       this.sendRequest(url)
     },
-    acceptManufacturerSale() {},
-    acceptCountrySale() {},
+    acceptManufacturerSale() {
+      const url = `/api/admin/group-sale/edit/manufacturer?manufacturer=${this.manufacturer.name}&discount=${this.manufacturer.percent}`
+      this.sendRequest(url)
+    },
+    acceptCountrySale() {
+      const url = `/api/admin/group-sale/edit/country?country=${this.country.name}&discount=${this.country.percent}`
+      this.sendRequest(url)
+    },
     sendRequest(url) {
       this.$store.commit('SWITCH_LOADER', true)
       this.$axios
