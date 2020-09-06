@@ -7,17 +7,46 @@
     <v-text-field
       v-model="orderId"
       type="number"
-      label="Поиск по ID"
+      label="Поиск по ID заказа"
       prepend-icon="mdi-bottle-wine"
       append-icon="mdi-magnify"
       @click:append="findOrderById"
       @keyup.enter="findOrderById"
     ></v-text-field>
-    <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
-    <div v-for="n in 3" :key="n" class="my-5 order--border-success order-item">
-      <OrderListItem />
+    <v-text-field
+      v-model="phone"
+      v-mask="'+7(###)###-####'"
+      label="Поиск по телефону "
+      prepend-icon="mdi-phone"
+      append-icon="mdi-magnify"
+      @click:append="findOrdersByPhone"
+      @keyup.enter="findOrdersByPhone"
+    ></v-text-field>
+    <v-text-field
+      v-model="email"
+      label="Поиск по email "
+      prepend-icon="mdi-email"
+      append-icon="mdi-magnify"
+      @click:append="findOrderByEmail"
+      @keyup.enter="findOrderByEmail"
+    ></v-text-field>
+    <v-pagination
+      v-model="page"
+      :length="orders.totalPages"
+      :total-visible="7"
+    ></v-pagination>
+    <div
+      v-for="order in orders.content"
+      :key="order.customerOrderId"
+      class="my-5 order--border-success order-item"
+    >
+      <OrderListItem :order="order" />
     </div>
-    <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
+    <v-pagination
+      v-model="page"
+      :length="orders.totalPages"
+      :total-visible="7"
+    ></v-pagination>
   </div>
 </template>
 
@@ -28,16 +57,40 @@ export default {
   components: {
     OrderListItem
   },
+  asyncData(context) {
+    context.store.commit('SWITCH_LOADER', true)
+    return context.$axios
+      .get('/api/admin/orders/all')
+      .then((response) => {
+        context.store.commit('SWITCH_LOADER', false)
+        const orders = response.data
+        return { orders }
+      })
+      .catch((e) => {
+        context.store.commit('SWITCH_LOADER', false)
+        context.$toasted
+          .error('Сервер временно недоступен, повторите попытку позже!')
+          .goAway(2000)
+      })
+  },
   data() {
     return {
       orderId: null,
-      page: 1
+      page: 1,
+      phone: '',
+      email: ''
     }
   },
   methods: {
     findOrderById() {
       console.log(this.orderId)
       this.orderId = null
+    },
+    findOrdersByPhone() {
+      console.log(this.phone)
+    },
+    findOrderByEmail() {
+      console.log(this.email)
     }
   }
 }

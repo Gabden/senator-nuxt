@@ -1,16 +1,17 @@
 <template>
   <v-row class="text-center">
-    <v-col class="my-auto">Id: 1258</v-col>
+    <v-col class="my-auto">Id: {{ order.customerOrderId }}</v-col>
     <v-col>
       <div class="mt-4">
-        <span>gabden5545@gmail.com</span> <span>+79140079012</span>
+        <span>{{ order.user.username }}</span> <br />
+        <span>{{ order.user.userDetailsDescription.phone }}</span>
       </div>
     </v-col>
-    <v-col class="my-auto">Дата: 12.04.2020</v-col>
-    <v-col class="my-auto">Сумма: 12500</v-col>
+    <v-col class="my-auto">Дата: {{ order.timestamp.slice(0, 10) }}</v-col>
+    <v-col class="my-auto">Сумма: {{ order.reservedCart.grandTotal }}</v-col>
     <v-col class="my-auto">
       <v-btn tile outlined color="green darken-1" class="ma-5 btn--status">
-        ИСПОЛНЕН
+        {{ buttonStatus }}
       </v-btn></v-col
     >
     <v-col class="my-auto">
@@ -23,6 +24,31 @@
 
 <script>
 export default {
+  props: {
+    order: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    buttonStatus() {
+      switch (this.order.status) {
+        case 'created': {
+          return 'создан'
+        }
+        case 'confirmation': {
+          return 'в обработке'
+        }
+        case 'processed': {
+          return 'исполнен'
+        }
+        case 'canceled': {
+          return 'отменен'
+        }
+      }
+      return 'создан1'
+    }
+  },
   methods: {
     editOrderById() {
       console.log('editOrderById')
