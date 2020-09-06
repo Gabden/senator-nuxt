@@ -81,7 +81,28 @@ export default {
       email: ''
     }
   },
+  watch: {
+    page(newValue, oldValue) {
+      this.updateOrders(newValue)
+    }
+  },
   methods: {
+    updateOrders(newPage) {
+      const url = '/api/admin/orders/all?page=' + (newPage - 1)
+      this.$store.commit('SWITCH_LOADER', true)
+      this.$axios
+        .get(url)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.orders = response.data
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$store.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+    },
     findOrderById() {
       console.log(this.orderId)
       this.orderId = null
