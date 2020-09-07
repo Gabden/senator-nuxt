@@ -30,6 +30,9 @@
       @click:append="findOrderByEmail"
       @keyup.enter="findOrderByEmail"
     ></v-text-field>
+    <div>
+      <p class="grey--text">Всего найдено: {{ orders.totalElements }}</p>
+    </div>
     <v-pagination
       v-model="page"
       :length="orders.totalPages"
@@ -89,6 +92,38 @@ export default {
   methods: {
     updateOrders(newPage) {
       const url = '/api/admin/orders/all?page=' + (newPage - 1)
+      // const urlByPhone = `/api/admin/orders/search?phone=${
+      //   this.phone
+      // }&page=${newPage - 1}`
+      this.findOrders(url)
+    },
+    findOrderById() {
+      const url = `/api/admin/order/${this.orderId}`
+      this.$store.commit('SWITCH_LOADER', true)
+      this.$axios
+        .get(url)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.orders.content = [response.data]
+          this.orders.totalPages = 1
+          this.orders.totalElements = 1
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$store.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+    },
+    findOrdersByPhone() {
+      const url = `/api/admin/orders/search?phone=${this.phone}`
+      this.findOrders(url)
+    },
+    findOrderByEmail() {
+      const url = `/api/admin/orders/search?email=${this.email}`
+      this.findOrders(url)
+    },
+    findOrders(url) {
       this.$store.commit('SWITCH_LOADER', true)
       this.$axios
         .get(url)
@@ -102,16 +137,6 @@ export default {
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)
         })
-    },
-    findOrderById() {
-      console.log(this.orderId)
-      this.orderId = null
-    },
-    findOrdersByPhone() {
-      console.log(this.phone)
-    },
-    findOrderByEmail() {
-      console.log(this.email)
     }
   }
 }
