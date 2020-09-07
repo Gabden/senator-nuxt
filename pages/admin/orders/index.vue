@@ -41,9 +41,9 @@
     <div
       v-for="order in orders.content"
       :key="order.customerOrderId"
-      class="my-5 order--border-success order-item"
+      class="order-item"
     >
-      <OrderListItem :order="order" />
+      <OrderListItem :order="order" class="mb-2" />
     </div>
     <v-pagination
       v-model="page"
@@ -91,6 +91,23 @@ export default {
     }
   },
   methods: {
+    orderBorder(status) {
+      switch (this.order.status) {
+        case 'created': {
+          return 'order--border-new'
+        }
+        case 'confirmation': {
+          return 'order--border-process'
+        }
+        case 'processed': {
+          return 'order--border-success'
+        }
+        case 'canceled': {
+          return 'order--border-canceled '
+        }
+      }
+      return 'red'
+    },
     updateOrders(newPage) {
       let url = '/api/admin/orders/all?page=' + (newPage - 1)
       if (this.currentState === 'phone') {
@@ -149,16 +166,6 @@ export default {
 </script>
 
 <style scoped>
-.order--border-success {
-  border-left: 5px solid #00c853;
-}
-.order--border-process {
-  border-left: 5px solid #fb8c00;
-}
-.order--border-new {
-  border-left: 5px solid #039be5;
-  border-radius: 2px;
-}
 .order-item:hover {
   background-color: #eceff1;
 }

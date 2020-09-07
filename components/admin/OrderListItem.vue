@@ -1,5 +1,5 @@
 <template>
-  <v-row class="text-center">
+  <v-row class="text-center" :class="btnStatus.border">
     <v-col class="my-auto">Id: {{ order.customerOrderId }}</v-col>
     <v-col>
       <div class="mt-4">
@@ -10,8 +10,13 @@
     <v-col class="my-auto">Дата: {{ order.timestamp.slice(0, 10) }}</v-col>
     <v-col class="my-auto">Сумма: {{ order.reservedCart.grandTotal }}</v-col>
     <v-col class="my-auto">
-      <v-btn tile outlined color="green darken-1" class="ma-5 btn--status">
-        {{ buttonStatus }}
+      <v-btn
+        tile
+        outlined
+        :color="btnStatus.buttonColor"
+        class="ma-5 btn--status"
+      >
+        {{ btnStatus.buttonText }}
       </v-btn></v-col
     >
     <v-col class="my-auto">
@@ -31,22 +36,38 @@ export default {
     }
   },
   computed: {
-    buttonStatus() {
+    btnStatus() {
       switch (this.order.status) {
         case 'created': {
-          return 'создан'
+          return {
+            buttonText: 'создан',
+            buttonColor: 'primary',
+            border: 'order--border-new'
+          }
         }
         case 'confirmation': {
-          return 'в обработке'
+          return {
+            buttonText: 'в обработке',
+            buttonColor: 'lime',
+            border: 'order--border-process'
+          }
         }
         case 'processed': {
-          return 'исполнен'
+          return {
+            buttonText: 'исполнен',
+            buttonColor: 'success',
+            border: 'order--border-success'
+          }
         }
         case 'canceled': {
-          return 'отменен'
+          return {
+            buttonText: 'отменен',
+            buttonColor: 'red',
+            border: 'order--border-canceled'
+          }
         }
       }
-      return 'создан1'
+      return { buttonText: 'отменен', buttonColor: 'red' }
     }
   },
   methods: {
@@ -58,6 +79,19 @@ export default {
 </script>
 
 <style scoped>
+.order--border-success {
+  border-left: 5px solid #00c853;
+}
+.order--border-process {
+  border-left: 5px solid #cddc39;
+}
+.order--border-new {
+  border-left: 5px solid #039be5;
+  border-radius: 2px;
+}
+.order--border-canceled {
+  border-left: 5px solid #f44336;
+}
 .btn--status {
   cursor: default;
 }
