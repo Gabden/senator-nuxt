@@ -10,7 +10,8 @@
                   ><span
                     class="title mt-2"
                     :class="smallSize ? 'order-name-sm' : ''"
-                    >{{ order }} на сумму: 9580 руб.</span
+                    >Заказ #{{ order.customerOrderId }} на сумму:
+                    {{ order.reservedCart.grandTotal }} руб.</span
                   >
                   <v-spacer></v-spacer>
 
@@ -34,9 +35,13 @@
                 </v-card-text>
               </v-expansion-panel-header>
               <v-expansion-panel-content class="ma-2">
-                <div v-for="index in 5" :key="index" class="mb-5">
+                <div
+                  v-for="item in order.reservedCart.reservedCartItems"
+                  :key="item.reservedProductId"
+                  class="mb-5"
+                >
                   <v-divider></v-divider>
-                  <ordered-product-list-item />
+                  <ordered-product-list-item :item="item" />
                 </div>
               </v-expansion-panel-content>
             </v-expansion-panel>
@@ -61,9 +66,6 @@ export default {
       type: Array,
       required: true
     }
-  },
-  data() {
-    return {}
   },
   computed: {
     smallSize() {

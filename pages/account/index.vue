@@ -27,7 +27,20 @@
 
     <v-tabs-items v-model="tab" class="mx-auto">
       <v-tab-item v-for="item in items" :key="item">
-        <ListOrders v-if="item === 'Заказы'" :orders="$auth.user.orderTable" />
+        <div v-if="item === 'Заказы'">
+          <div class="mt-5">
+            <p class="grey--text text-center">
+              Всего заказов: {{ orders.totalElements }}
+            </p>
+          </div>
+
+          <ListOrders :orders="orders.content" />
+          <v-pagination
+            v-model="orderPage"
+            :length="orders.totalPages"
+            :total-visible="7"
+          ></v-pagination>
+        </div>
         <v-form
           v-if="item === 'Настройки'"
           v-model="formValidityMail"
@@ -202,6 +215,22 @@ export default {
   components: {
     ListOrders
   },
+  asyncData(context) {
+    context.store.commit('SWITCH_LOADER', true)
+    return context.$axios
+      .get(`/api/account/orders/all?email=${context.$auth.user.username}`)
+      .then((response) => {
+        context.store.commit('SWITCH_LOADER', false)
+        const orders = response.data
+        return { orders }
+      })
+      .catch((e) => {
+        context.store.commit('SWITCH_LOADER', false)
+        context.$toasted
+          .error('Сервер временно недоступен, повторите попытку позже!')
+          .goAway(2000)
+      })
+  },
   data() {
     return {
       user: {
@@ -214,6 +243,7 @@ export default {
         oldPassword: '',
         secondPassword: ''
       },
+      orderPage: 1,
       formValidityPass: false,
       formValidityFIO: false,
       showPassword: false,
@@ -255,6 +285,26 @@ export default {
             ' ' +
             this.$auth.user.userDetailsDescription.fiomiddle
         : ''
+    }
+  },
+  watch: {
+    orderPage(old, newValue) {
+      this.$store.commit('SWITCH_LOADER', true)
+      this.$axios
+        .get(
+          `/api/account/orders/all?email=${this.$auth.user.username}&page=${this
+            .orderPage - 1}`
+        )
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.orders = response.data
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
     }
   },
   created() {
