@@ -81,7 +81,8 @@ export default {
       orderId: null,
       page: 1,
       phone: '',
-      email: ''
+      email: '',
+      currentState: ''
     }
   },
   watch: {
@@ -91,10 +92,13 @@ export default {
   },
   methods: {
     updateOrders(newPage) {
-      const url = '/api/admin/orders/all?page=' + (newPage - 1)
-      // const urlByPhone = `/api/admin/orders/search?phone=${
-      //   this.phone
-      // }&page=${newPage - 1}`
+      let url = '/api/admin/orders/all?page=' + (newPage - 1)
+      if (this.currentState === 'phone') {
+        url = `/api/admin/orders/search?phone=${this.phone}&page=${newPage - 1}`
+      } else if (this.currentState === 'email') {
+        url = `/api/admin/orders/search?email=${this.email}&page=${newPage - 1}`
+      }
+
       this.findOrders(url)
     },
     findOrderById() {
@@ -116,10 +120,12 @@ export default {
         })
     },
     findOrdersByPhone() {
+      this.currentState = 'phone'
       const url = `/api/admin/orders/search?phone=${this.phone}`
       this.findOrders(url)
     },
     findOrderByEmail() {
+      this.currentState = 'email'
       const url = `/api/admin/orders/search?email=${this.email}`
       this.findOrders(url)
     },
