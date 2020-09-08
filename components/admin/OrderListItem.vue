@@ -19,11 +19,32 @@
         {{ btnStatus.buttonText }}
       </v-btn></v-col
     >
-    <v-col class="my-auto">
+    <v-col class="my-auto d-flex flex-column">
       <v-btn icon nuxt :to="`/admin/orders/edit/${order.customerOrderId}`">
         <v-icon class="display-1 my-auto">mdi-pencil-box</v-icon></v-btn
       >
+      <v-btn icon class="mr-3" @click="deleteDialog = true">
+        <v-icon color="red accent-4" class="display-1">mdi-delete</v-icon>
+      </v-btn>
     </v-col>
+    <v-dialog v-model="deleteDialog" max-width="290">
+      <v-card>
+        <v-card-title class="text-center text-justify"
+          >Заказ #{{ order.customerOrderId }}</v-card-title
+        >
+        <v-card-text>Подтвердите удаление заказа!</v-card-text>
+
+        <v-card-actions>
+          <v-btn color="green darken-1" text @click="deleteDialog = false">
+            Отмена
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="red darken-1" text @click="deleteOrder">
+            Удалить
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 
@@ -33,6 +54,11 @@ export default {
     order: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      deleteDialog: false
     }
   },
   computed: {
@@ -68,6 +94,24 @@ export default {
         }
       }
       return { buttonText: 'отменен', buttonColor: 'red' }
+    }
+  },
+  methods: {
+    deleteOrder() {
+      this.$store.commit('SWITCH_LOADER', true)
+      this.$axios
+        .post(`/api/admin/order/delete/${this.order.customerOrderId}`)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted.success('Товар удален!').goAway(2000)
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+      this.deleteDialog = false
     }
   }
 }
