@@ -19,7 +19,7 @@
         contain
       ></v-img>
     </nuxt-link>
-    <v-card-title class="text-center d-flex justify-center">{{
+    <v-card-title class="text-center d-flex justify-center text-truncate">{{
       product.productName
     }}</v-card-title>
     <v-card-subtitle class="text-center"
