@@ -4,34 +4,31 @@
       <template v-if="orders.length > 0">
         <v-list-item v-for="(order, i) in orders" :key="i">
           <v-expansion-panels>
-            <v-expansion-panel class="order--border-process my-2">
+            <v-expansion-panel class="my-2" :class="btnStatus(order).border">
               <v-expansion-panel-header class="pa-0">
                 <v-card-text class="d-flex justify-around"
                   ><span
                     class="title mt-2"
                     :class="smallSize ? 'order-name-sm' : ''"
-                    >Заказ #{{ order.customerOrderId }} на сумму:
+                    >Заказ #{{ order.customerOrderId }} от
+                    {{ order.timestamp.slice(0, 10) }} на сумму:
                     {{ order.reservedCart.grandTotal }} руб.</span
                   >
                   <v-spacer></v-spacer>
-
-                  <!-- <v-btn class="ma-2" tile outlined color="success">
-              <v-icon left>mdi-check-bold</v-icon> ИСПОЛНЕН
-            </v-btn> -->
                   <v-btn
                     class="ma-2"
                     tile
                     outlined
-                    color="orange darken-1"
+                    :color="btnStatus(order).buttonColor"
                     :class="smallSize ? 'status-btn-sm' : ''"
                   >
-                    <v-icon :left="!smallSize">mdi-clock-check</v-icon>
-                    <span v-if="!smallSize">В обработке</span>
+                    <v-icon :left="!smallSize">{{
+                      btnStatus(order).icon
+                    }}</v-icon>
+                    <span v-if="!smallSize">{{
+                      btnStatus(order).buttonText
+                    }}</span>
                   </v-btn>
-
-                  <!-- <v-btn class="ma-2" tile outlined color="light-blue darken-1">
-              <v-icon left>mdi-alert-decagram</v-icon> Новый
-            </v-btn> -->
                 </v-card-text>
               </v-expansion-panel-header>
               <v-expansion-panel-content class="ma-2">
@@ -71,20 +68,50 @@ export default {
     smallSize() {
       return this.$vuetify.breakpoint.smAndDown
     }
+  },
+  methods: {
+    btnStatus(order) {
+      switch (order.status) {
+        case 'created': {
+          return {
+            buttonText: 'создан',
+            buttonColor: 'primary',
+            border: 'order--border-new',
+            icon: 'mdi-alert-decagram'
+          }
+        }
+        case 'confirmation': {
+          return {
+            buttonText: 'в обработке',
+            buttonColor: 'lime',
+            border: 'order--border-process',
+            icon: 'mdi-clock-check'
+          }
+        }
+        case 'processed': {
+          return {
+            buttonText: 'исполнен',
+            buttonColor: 'success',
+            border: 'order--border-success',
+            icon: 'mdi-check-bold'
+          }
+        }
+        case 'canceled': {
+          return {
+            buttonText: 'отменен',
+            buttonColor: 'red',
+            border: 'order--border-canceled',
+            icon: 'mdi-close-circle'
+          }
+        }
+      }
+      return { buttonText: 'отменен', buttonColor: 'red' }
+    }
   }
 }
 </script>
 
 <style scoped>
-.order--border-success {
-  border-left: 5px solid #00c853;
-}
-.order--border-process {
-  border-left: 5px solid #fb8c00;
-}
-.order--border-new {
-  border-left: 5px solid #039be5;
-}
 .status-btn-sm {
   font-size: 0.6rem !important;
 }

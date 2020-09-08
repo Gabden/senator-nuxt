@@ -36,6 +36,7 @@
 
           <ListOrders :orders="orders.content" />
           <v-pagination
+            v-if="orders.content.length > 0"
             v-model="orderPage"
             :length="orders.totalPages"
             :total-visible="7"

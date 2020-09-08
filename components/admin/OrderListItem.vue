@@ -79,19 +79,6 @@ export default {
 </script>
 
 <style scoped>
-.order--border-success {
-  border-left: 5px solid #00c853;
-}
-.order--border-process {
-  border-left: 5px solid #cddc39;
-}
-.order--border-new {
-  border-left: 5px solid #039be5;
-  border-radius: 2px;
-}
-.order--border-canceled {
-  border-left: 5px solid #f44336;
-}
 .btn--status {
   cursor: default;
 }
