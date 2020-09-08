@@ -20,7 +20,7 @@
       </v-btn></v-col
     >
     <v-col class="my-auto">
-      <v-btn icon @click="editOrderById">
+      <v-btn icon nuxt :to="`/admin/orders/edit/${order.customerOrderId}`">
         <v-icon class="display-1 my-auto">mdi-pencil-box</v-icon></v-btn
       >
     </v-col>
@@ -68,11 +68,6 @@ export default {
         }
       }
       return { buttonText: 'отменен', buttonColor: 'red' }
-    }
-  },
-  methods: {
-    editOrderById() {
-      console.log('editOrderById')
     }
   }
 }
