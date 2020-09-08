@@ -88,7 +88,21 @@ export default {
   },
   methods: {
     changeQuantity() {
-      console.log(this.quantity)
+      this.$store.commit('SWITCH_LOADER', true)
+      this.$axios
+        .post(
+          `/api/admin/order/update/quantity/${this.item.id}?quantity=${this.quantity}`
+        )
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted.success('Количество обновленно!').goAway(2000)
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
     },
     deleteProductFromOrder() {
       this.$store.commit('SWITCH_LOADER', true)
