@@ -96,8 +96,7 @@ export default {
         .post(`/api/admin/order/cartItem/delete/${this.item.id}`)
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
-          this.$toasted.success('Заказ удален!').goAway(2000)
-          window.location.reload(true)
+          this.$toasted.success('Товар удален!').goAway(2000)
         })
         .catch((e) => {
           this.$store.commit('SWITCH_LOADER', false)
