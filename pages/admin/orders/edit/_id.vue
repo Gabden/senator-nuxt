@@ -13,6 +13,7 @@
           label="Cтатус"
           outlined
           dense
+          @input="changeStatus"
         ></v-select>
       </v-col>
       <v-col>
@@ -51,13 +52,35 @@ export default {
   },
   data() {
     return {
-      status: {},
+      status: '',
       orderStatuses: [
         { name: 'Создан', value: 'created' },
         { name: 'В обработке', value: 'confirmation' },
         { name: 'Исполнен', value: 'processed' },
         { name: 'Отменен', value: 'canceled' }
       ]
+    }
+  },
+  created() {
+    this.status = this.order.status
+  },
+  methods: {
+    changeStatus() {
+      this.$store.commit('SWITCH_LOADER', true)
+      this.$axios
+        .post(
+          `/api/admin/order/update/status/${this.order.customerOrderId}?status=${this.status}`
+        )
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted.success('Статус изменен!').goAway(2000)
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
     }
   }
 }
