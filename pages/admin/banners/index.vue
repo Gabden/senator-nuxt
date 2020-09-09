@@ -10,7 +10,12 @@
       >
     </div>
     <v-divider></v-divider>
-    <BannerListItem v-for="n in 5" :key="n" class="banner-border mb-5" />
+    <BannerListItem
+      v-for="banner in banners"
+      :key="banner.id"
+      :banner="banner"
+      class="banner-border mb-5"
+    />
   </div>
 </template>
 
@@ -20,6 +25,20 @@ export default {
   middleware: 'auth-admin',
   components: {
     BannerListItem
+  },
+  asyncData(context) {
+    return context.$axios
+      .get('/api/home/banners/all')
+      .then((response) => {
+        const banners = response.data
+        return { banners }
+      })
+      .catch((e) => {
+        context.error({
+          statusCode: 500,
+          message: 'Сервер временно недоступен, повторите попытке позже'
+        })
+      })
   }
 }
 </script>
