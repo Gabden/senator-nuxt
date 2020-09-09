@@ -1,5 +1,8 @@
 <template>
   <v-row>
+    <v-col cols="12">
+      <h1 class="text-center">Страница редактирования пользователя</h1>
+    </v-col>
     <div>
       <img
         src="@/assets/default-profile.png"
