@@ -30,6 +30,14 @@
       @click:append="findUserByPhone"
       @keyup.enter="findUserByPhone"
     ></v-text-field>
+    <v-text-field
+      v-model="userFio"
+      label="Поиск по ФИО"
+      prepend-icon="mdi-account"
+      append-icon="mdi-magnify"
+      @click:append="findUserByFio"
+      @keyup.enter="findUserByFio"
+    ></v-text-field>
     <div>
       <p class="grey--text">Всего найдено: {{ users.totalElements }}</p>
     </div>
@@ -72,7 +80,8 @@ export default {
       page: 1,
       userId: null,
       userEmail: null,
-      userPhone: null
+      userPhone: null,
+      userFio: null
     }
   },
   methods: {
@@ -87,6 +96,21 @@ export default {
     findUserById() {
       const url = `/api/admin/account/${this.userId}`
       this.findUser(url)
+    },
+    async findUserByFio() {
+      this.$store.commit('SWITCH_LOADER', true)
+      await this.$axios
+        .get(`/api/admin/account/search/fio?name=${this.userFio}`)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.users = response.data
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
     },
     async findUser(url) {
       this.$store.commit('SWITCH_LOADER', true)
