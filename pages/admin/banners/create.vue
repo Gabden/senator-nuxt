@@ -49,6 +49,7 @@ export default {
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
           this.$toasted.success('Баннер успешно создан').goAway(2000)
+          this.$router.push('/admin/banners')
         })
         .catch((e) => {
           this.$store.commit('SWITCH_LOADER', false)

@@ -7,12 +7,14 @@
       show-arrows-on-hover
       class="mt-5"
     >
-      <v-carousel-item v-for="(slide, i) in slides" :key="i">
-        <v-sheet :color="colors[i]" height="100%">
-          <v-row class="fill-height" align="center" justify="center">
-            <div class="display-3">{{ slide }} Slide</div>
-          </v-row>
-        </v-sheet>
+      <v-carousel-item v-for="(banner, i) in banners" :key="i">
+        <nuxt-link :to="banner.bannerUrl">
+          <v-img
+            :src="'data:image/jpg;base64,' + banner.fileData"
+            contain
+            max-height="400"
+          ></v-img>
+        </nuxt-link>
       </v-carousel-item>
     </v-carousel>
 
@@ -93,12 +95,13 @@ export default {
     'features-card': FeaturesCard,
     'product-card': ProductCard
   },
-  asyncData(context) {
-    return context.$axios
+  async asyncData(context) {
+    let banners = []
+    let products = []
+    await context.$axios
       .get('/api/home/notifications')
       .then((response) => {
-        const products = response.data.content
-        return { products }
+        products = response.data.content
       })
       .catch((e) => {
         context.error({
@@ -106,6 +109,18 @@ export default {
           message: 'Сервер временно недоступен, повторите попытке позже'
         })
       })
+    await context.$axios
+      .get('/api/home/banners/all')
+      .then((response) => {
+        banners = response.data
+      })
+      .catch((e) => {
+        context.error({
+          statusCode: 500,
+          message: 'Сервер временно недоступен, повторите попытке позже'
+        })
+      })
+    return { products, banners }
   },
   data() {
     return {
@@ -127,15 +142,7 @@ export default {
           icon: 'mdi-alert-decagram',
           content: 'Индивидуальный подход к каждому клиенту'
         }
-      ],
-      colors: [
-        'indigo',
-        'warning',
-        'pink darken-2',
-        'red lighten-1',
-        'deep-purple accent-4'
-      ],
-      slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth']
+      ]
     }
   },
   watch: {
