@@ -39,10 +39,28 @@
       <v-btn icon class="my-3" link to="/admin/accounts/1255"
         ><v-icon class="display-1">mdi-pencil-box-multiple</v-icon></v-btn
       >
-      <v-btn icon color="red"
+      <v-btn icon color="red" @click="deleteDialog = true"
         ><v-icon class="display-1">mdi-delete</v-icon></v-btn
       >
     </v-col>
+    <v-dialog v-model="deleteDialog" max-width="290">
+      <v-card>
+        <v-card-title class="text-center text-justify"
+          >Пользователь #{{ user.username }}</v-card-title
+        >
+        <v-card-text>Подтвердите удаление пользователя!</v-card-text>
+
+        <v-card-actions>
+          <v-btn color="green darken-1" text @click="deleteDialog = false">
+            Отмена
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="red darken-1" text @click="deleteUser">
+            Удалить
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 
@@ -54,9 +72,33 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      deleteDialog: false
+    }
+  },
   computed: {
     smallSize() {
       return this.$vuetify.breakpoint.smAndDown
+    }
+  },
+  methods: {
+    deleteUser() {
+      this.$store.commit('SWITCH_LOADER', true)
+      this.$axios
+        .post(`/api/admin/account/delete/${this.user.id}`)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted.success('Пользователь удален!').goAway(2000)
+          window.location.reload(true)
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+      this.deleteDialog = false
     }
   }
 }

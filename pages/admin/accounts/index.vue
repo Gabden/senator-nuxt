@@ -5,11 +5,13 @@
       Здесь вы можете посмотреть, найти или отредактировать учетную запис
     </h3>
     <v-text-field
+      v-model="userId"
       type="number"
       label="Поиск по ID"
       prepend-icon="mdi-bottle-wine"
       append-icon="mdi-magnify"
-      required
+      @click:append="findUserById"
+      @keyup.enter="findUserById"
     ></v-text-field>
     <v-text-field
       label="Поиск"
@@ -56,10 +58,28 @@ export default {
   },
   data() {
     return {
-      page: 1
+      page: 1,
+      userId: null
     }
   },
   methods: {
+    async findUserById() {
+      this.$store.commit('SWITCH_LOADER', true)
+      await this.$axios
+        .get(`/api/admin/account/${this.userId}`)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.users.content = [response.data]
+          this.users.totalElements = 1
+          this.users.totalPages = 1
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+    },
     async changePage() {
       this.$store.commit('SWITCH_LOADER', true)
       await this.$axios
