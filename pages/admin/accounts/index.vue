@@ -8,16 +8,27 @@
       v-model="userId"
       type="number"
       label="Поиск по ID"
-      prepend-icon="mdi-bottle-wine"
+      prepend-icon="mdi-account"
       append-icon="mdi-magnify"
       @click:append="findUserById"
       @keyup.enter="findUserById"
     ></v-text-field>
     <v-text-field
-      label="Поиск"
-      prepend-icon="mdi-bottle-wine"
+      v-model="userEmail"
+      label="Поиск по email"
+      prepend-icon="mdi-account"
       append-icon="mdi-magnify"
-      required
+      @click:append="findUserByEmail"
+      @keyup.enter="findUserByEmail"
+    ></v-text-field>
+    <v-text-field
+      v-model="userPhone"
+      v-mask="'+7(###)###-####'"
+      label="Поиск по телефону"
+      prepend-icon="mdi-account"
+      append-icon="mdi-magnify"
+      @click:append="findUserByPhone"
+      @keyup.enter="findUserByPhone"
     ></v-text-field>
     <div>
       <p class="grey--text">Всего найдено: {{ users.totalElements }}</p>
@@ -59,14 +70,28 @@ export default {
   data() {
     return {
       page: 1,
-      userId: null
+      userId: null,
+      userEmail: null,
+      userPhone: null
     }
   },
   methods: {
-    async findUserById() {
+    findUserByEmail() {
+      const url = `/api/admin/account/search?email=${this.userEmail}`
+      this.findUser(url)
+    },
+    findUserByPhone() {
+      const url = `/api/admin/account/search?phone=${this.userPhone}`
+      this.findUser(url)
+    },
+    findUserById() {
+      const url = `/api/admin/account/${this.userId}`
+      this.findUser(url)
+    },
+    async findUser(url) {
       this.$store.commit('SWITCH_LOADER', true)
       await this.$axios
-        .get(`/api/admin/account/${this.userId}`)
+        .get(url)
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
           this.users.content = [response.data]
