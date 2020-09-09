@@ -14,20 +14,24 @@
     <v-col>
       <p class="font-weight-bold mb-1 subtitle">
         <span class="caption">Id: </span>
-        125
+        {{ user.id }}
       </p>
 
       <p class="font-weight-bold mb-1 subtitle">
         <span class="caption">Email: </span>
-        gabden5545@gmail.com
+        {{ user.username }}
       </p>
       <p class="mb-2">
         <span class="caption">Телефон: </span>
-        <strong>+7-910-555-01-01</strong>
+        <strong>{{ user.userDetailsDescription.phone }}</strong>
       </p>
       <p class="font-weight-bold mb-1 subtitle">
         <span class="caption">ФИО: </span>
-        <strong>Петросян Евгений Геннадьевич</strong>
+        <strong
+          >{{ user.userDetailsDescription.fiolast }}
+          {{ user.userDetailsDescription.fiofirst }}
+          {{ user.userDetailsDescription.fiomiddle }}</strong
+        >
       </p>
     </v-col>
     <v-spacer v-if="!smallSize"></v-spacer>
@@ -39,11 +43,17 @@
         ><v-icon class="display-1">mdi-delete</v-icon></v-btn
       >
     </v-col>
-  </v-row></template
->
+  </v-row>
+</template>
 
 <script>
 export default {
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   computed: {
     smallSize() {
       return this.$vuetify.breakpoint.smAndDown

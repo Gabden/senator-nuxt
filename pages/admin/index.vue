@@ -21,8 +21,6 @@
 
 <script>
 export default {
-  //   middleware: 'auth',
-  //   meta: { requiresAuth: true, requiresAuthAdmin: true }
   middleware: 'auth-admin',
   data() {
     return {

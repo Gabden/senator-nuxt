@@ -17,12 +17,19 @@
       append-icon="mdi-magnify"
       required
     ></v-text-field>
-    <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
-    <div v-for="n in 3" :key="n" class="my-5">
-      <v-divider></v-divider>
-      <AccountListItem />
+    <div>
+      <p class="grey--text">Всего найдено: {{ users.totalElements }}</p>
     </div>
-    <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
+    <div v-for="user in users.content" :key="user.id" class="my-5">
+      <v-divider></v-divider>
+      <AccountListItem :user="user" />
+    </div>
+    <v-pagination
+      v-model="page"
+      :length="users.totalPages"
+      :total-visible="7"
+      @input="changePage"
+    ></v-pagination>
   </div>
 </template>
 
@@ -33,9 +40,40 @@ export default {
   components: {
     AccountListItem
   },
+  asyncData(context) {
+    return context.$axios
+      .get('/api/admin/account/all')
+      .then((response) => {
+        const users = response.data
+        return { users }
+      })
+      .catch((e) => {
+        context.error({
+          statusCode: 500,
+          message: 'Сервер временно недоступен, повторите попытке позже'
+        })
+      })
+  },
   data() {
     return {
       page: 1
+    }
+  },
+  methods: {
+    async changePage() {
+      this.$store.commit('SWITCH_LOADER', true)
+      await this.$axios
+        .get(`/api/admin/account/all?page=${this.page - 1}`)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.users = response.data
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
     }
   }
 }
