@@ -96,7 +96,9 @@ export default {
       if (this.product.productSalePrice) {
         return this.product.productSalePrice
       }
-      return (+this.product.productPrice * (100 - this.product.discount)) / 100
+      return Math.ceil(
+        (+this.product.productPrice * (100 - this.product.discount)) / 100
+      )
     }
   },
   methods: {
