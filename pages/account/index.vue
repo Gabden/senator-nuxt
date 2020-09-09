@@ -28,7 +28,7 @@
     <v-tabs-items v-model="tab" class="mx-auto">
       <v-tab-item v-for="item in items" :key="item">
         <div v-if="item === 'Заказы'">
-          <div class="mt-5">
+          <div v-if="orders.content.length > 0" class="mt-5">
             <p class="grey--text text-center">
               Всего заказов: {{ orders.totalElements }}
             </p>

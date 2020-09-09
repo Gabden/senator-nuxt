@@ -1,22 +1,22 @@
 <template>
   <v-row>
-    <v-col cols="12">
-      <h1 class="text-center my-5">Администрирование учетной записи</h1>
-    </v-col>
     <div>
       <img
-        src="~assets/default-profile.png"
+        src="@/assets/default-profile.png"
         alt="Profile"
-        width="100"
-        height="100"
+        width="115"
+        height="115"
       />
     </div>
     <v-col :class="smallSize ? 'mt-5' : 'mt-3'">
       <h3 :class="smallSize ? 'name-sm' : 'name-md'">
-        Габдулин Денис Валерьевич
+        {{ fullName }}
       </h3>
+      <p :class="smallSize ? 'mail-sm mb-0' : 'mail-md mb-0'">
+        {{ user.username }}
+      </p>
       <p :class="smallSize ? 'mail-sm' : 'mail-md'">
-        gabden5545@gmail.com
+        {{ user.userDetailsDescription.phone }}
       </p>
     </v-col>
     <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
@@ -27,72 +27,21 @@
 
     <v-tabs-items v-model="tab" class="mx-auto">
       <v-tab-item v-for="item in items" :key="item">
-        <ListOrders v-if="item === 'Заказы'" :orders="orders" />
-        <v-form
-          v-if="item === 'Профиль'"
-          v-model="formValidityMail"
-          @submit.prevent="changeEmail"
-        >
-          <v-card
-            color="basil"
-            class="mt-5 text-center"
-            :min-width="smallSize ? '300' : '650'"
-          >
-            <v-card-title class="">Изменить почтовый адрес</v-card-title>
-            <v-card-text>
-              <v-text-field
-                v-model="username"
-                label="Введите новый адрес"
-                prepend-icon="mdi-email"
-                :rules="usernameRules"
-                required
-              ></v-text-field>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn
-                color="success"
-                type="submit"
-                :disabled="!formValidityMail"
-                class="mx-auto"
-                >Изменить</v-btn
-              >
-            </v-card-actions>
-          </v-card>
-        </v-form>
+        <div v-if="item === 'Заказы'">
+          <div v-if="orders.content.length > 0" class="mt-5">
+            <p class="grey--text text-center">
+              Всего заказов: {{ orders.totalElements }}
+            </p>
+          </div>
 
-        <v-form
-          v-if="item === 'Профиль'"
-          v-model="formValidityMail"
-          @submit.prevent="changePhone"
-        >
-          <v-card
-            color="basil"
-            class="mt-5 text-center"
-            :min-width="smallSize ? '300' : '650'"
-          >
-            <v-card-title class="">Изменить номер телефона</v-card-title>
-            <v-card-text>
-              <v-text-field
-                v-model="phone"
-                v-mask="'+7(###)###-####'"
-                label="Телефон "
-                prepend-icon="mdi-phone"
-                required
-                :rules="phoneRules"
-              ></v-text-field>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn
-                color="success"
-                type="submit"
-                :disabled="!formValidityMail"
-                class="mx-auto"
-                >Изменить</v-btn
-              >
-            </v-card-actions>
-          </v-card>
-        </v-form>
-
+          <ListOrders :orders="orders.content" />
+          <v-pagination
+            v-if="orders.content.length > 0"
+            v-model="orderPage"
+            :length="orders.totalPages"
+            :total-visible="7"
+          ></v-pagination>
+        </div>
         <v-form
           v-if="item === 'Настройки'"
           v-model="formValidityMail"
@@ -106,7 +55,7 @@
             <v-card-title class="">Изменить почтовый адрес</v-card-title>
             <v-card-text>
               <v-text-field
-                v-model="username"
+                v-model="userModel.username"
                 label="Введите новый адрес"
                 prepend-icon="mdi-email"
                 :rules="usernameRules"
@@ -135,23 +84,22 @@
             class="mt-5 text-center"
             :min-width="smallSize ? '300' : '650'"
           >
-            <v-card-title class="text-center"
-              >Изменить данные учетной записи</v-card-title
-            >
+            <v-card-title class="text-center">Изменить ФИО</v-card-title>
             <v-card-text>
               <v-text-field
-                label="Фамилия*"
+                v-model="userModel.fiolast"
+                label="Фамилия"
                 prepend-icon="mdi-account"
-                :rules="passwordRules"
-                required
               ></v-text-field>
               <v-text-field
+                v-model="userModel.fiofirst"
                 label="Имя*"
                 prepend-icon="mdi-account"
                 :rules="passwordRules"
                 required
               ></v-text-field>
               <v-text-field
+                v-model="userModel.fiomiddle"
                 label="Отчество"
                 prepend-icon="mdi-account"
               ></v-text-field>
@@ -167,6 +115,41 @@
             </v-card-actions>
           </v-card>
         </v-form>
+
+        <v-form
+          v-if="item === 'Профиль'"
+          v-model="phoneValidity"
+          @submit.prevent="changePhone"
+        >
+          <v-card
+            color="basil"
+            class="mt-5 text-center"
+            :min-width="smallSize ? '300' : '650'"
+          >
+            <v-card-title class="text-center"
+              >Изменить номер телефона</v-card-title
+            >
+            <v-card-text>
+              <v-text-field
+                v-model="userModel.phone"
+                v-mask="'+7(###)###-####'"
+                label="Телефон "
+                prepend-icon="mdi-phone"
+                required
+                :rules="phoneRules"
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                color="success"
+                type="submit"
+                :disabled="!phoneValidity"
+                class="mx-auto"
+                >Изменить</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-form>
       </v-tab-item>
     </v-tabs-items>
   </v-row>
@@ -175,26 +158,55 @@
 <script>
 import ListOrders from '@/components/ListOrders.vue'
 export default {
+  middleware: 'auth',
   components: {
     ListOrders
   },
+  async asyncData(context) {
+    context.store.commit('SWITCH_LOADER', true)
+    let orders = {}
+    let user = {}
+    await context.$axios
+      .get(`/api/admin/account/${context.params.id}`)
+      .then((response) => {
+        user = response.data
+      })
+      .catch((e) => {
+        context.$toasted
+          .error('Сервер временно недоступен, повторите попытку позже!')
+          .goAway(2000)
+      })
+    await context.$axios
+      .get(`/api/account/orders/all?email=${user.username}`)
+      .then((response) => {
+        context.store.commit('SWITCH_LOADER', false)
+        orders = response.data
+      })
+      .catch((e) => {
+        context.store.commit('SWITCH_LOADER', false)
+        context.$toasted
+          .error('Сервер временно недоступен, повторите попытку позже!')
+          .goAway(2000)
+      })
+    return { user, orders }
+  },
   data() {
     return {
-      phone: '',
-      orders: [
-        'Заказ №4755 от 2020-03-27',
-        'Заказ №4755 от 2020-03-27',
-        'Заказ №4755 от 2020-03-27'
-      ],
-      newPassword: '',
-      oldPassword: '',
-      secondPassword: '',
-      formValidityPass: false,
+      userModel: {
+        username: '',
+        fiofirst: '',
+        fiomiddle: '',
+        fiolast: '',
+        phone: '',
+        newPassword: '',
+        oldPassword: '',
+        secondPassword: ''
+      },
+      orderPage: 1,
       formValidityFIO: false,
-      showPassword: false,
       formValidityMail: false,
-      username: '',
-      items: ['Заказы', 'Профиль'],
+      phoneValidity: false,
+      items: ['Заказы', 'Профиль', 'Настройки'],
       tab: null,
       phoneRules: [
         (value) =>
@@ -221,19 +233,82 @@ export default {
   computed: {
     smallSize() {
       return this.$vuetify.breakpoint.smAndDown
+    },
+    fullName() {
+      return this.user
+        ? this.user.userDetailsDescription.fiolast +
+            ' ' +
+            this.user.userDetailsDescription.fiofirst +
+            ' ' +
+            this.user.userDetailsDescription.fiomiddle
+        : ''
     }
   },
+  watch: {
+    orderPage(old, newValue) {
+      this.$store.commit('SWITCH_LOADER', true)
+      this.$axios
+        .get(
+          `/api/account/orders/all?email=${this.user.username}&page=${this
+            .orderPage - 1}`
+        )
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.orders = response.data
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
+    }
+  },
+  created() {
+    this.userModel.phone = this.user
+      ? this.user.userDetailsDescription.phone
+      : ''
+    this.userModel.fiofirst = this.user
+      ? this.user.userDetailsDescription.fiofirst
+      : ''
+    this.userModel.fiomiddle = this.user
+      ? this.user.userDetailsDescription.fiomiddle
+      : ''
+    this.userModel.fiolast = this.user
+      ? this.user.userDetailsDescription.fiolast
+      : ''
+    this.userModel.username = this.user ? this.user.username : ''
+  },
   methods: {
-    changeEmail() {
-      this.$toasted
-        .success('Адрес электронной почты успешно изменен!')
-        .goAway(2000)
+    changePhone(newPhone) {
+      const updatePhoneUrl = `/api/account/update/phone/${this.user.id}`
+      this.updateInfo(updatePhoneUrl)
     },
-    changePassword() {
-      this.$toasted.success('Пароль успешно изменен!').goAway(2000)
+    changeEmail() {
+      const updateUserMailUrl = `/api/account/update/username/${this.user.id}`
+      this.updateInfo(updateUserMailUrl)
+      this.$auth.logout()
     },
     changeFIO() {
-      this.$toasted.success('ФИО изменен!').goAway(2000)
+      const updateFioUrl = `/api/account/update/fio/${this.user.id}`
+      this.updateInfo(updateFioUrl)
+    },
+    updateInfo(url) {
+      this.$store.commit('SWITCH_LOADER', true)
+      this.$axios
+        .post(url, this.userModel)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted.success('Данные изменены!').goAway(3000)
+          window.location.reload(true)
+        })
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          const message = e.response.data
+            ? e.response.data
+            : 'Ошибка, повторите попытку позднее!'
+          this.$toasted.error(message).goAway(5000)
+        })
     }
   }
 }

@@ -36,7 +36,7 @@
     </v-col>
     <v-spacer v-if="!smallSize"></v-spacer>
     <v-col class="d-flex flex-column">
-      <v-btn icon class="my-3" link to="/admin/accounts/1255"
+      <v-btn icon class="my-3" nuxt :to="editUserLink"
         ><v-icon class="display-1">mdi-pencil-box-multiple</v-icon></v-btn
       >
       <v-btn icon color="red" @click="deleteDialog = true"
@@ -80,6 +80,9 @@ export default {
   computed: {
     smallSize() {
       return this.$vuetify.breakpoint.smAndDown
+    },
+    editUserLink() {
+      return `/admin/accounts/${this.user.id}`
     }
   },
   methods: {
