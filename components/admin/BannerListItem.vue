@@ -14,7 +14,7 @@
 
     <v-spacer v-if="!smallSize"></v-spacer>
     <v-col class="d-flex flex-column align-center justify-center">
-      <v-btn icon class="my-3" link to="/admin/banners/edit"
+      <v-btn icon class="my-3" link :to="`/admin/banners/edit/${banner.id}`"
         ><v-icon class="display-1">mdi-pencil-box-multiple</v-icon></v-btn
       >
       <v-btn icon color="red" @click="deleteDialog = true"
