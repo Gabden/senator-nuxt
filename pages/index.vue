@@ -2,7 +2,7 @@
   <div>
     <v-carousel
       cycle
-      height="400"
+      :height="heightSize"
       hide-delimiter-background
       show-arrows-on-hover
       class="mt-5"
@@ -12,14 +12,18 @@
           <v-img
             :src="'data:image/jpg;base64,' + banner.fileData"
             contain
-            max-height="400"
+            :max-height="heightSize"
+            style="background-size: 100% 100%;"
           ></v-img>
         </nuxt-link>
       </v-carousel-item>
     </v-carousel>
 
-    <v-row class="mt-5">
-      <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 6" class="my-5">
+    <v-row :class="$vuetify.breakpoint.mdAndDown ? null : 'mt-5'">
+      <v-col
+        :cols="$vuetify.breakpoint.smAndDown ? 12 : 6"
+        :class="$vuetify.breakpoint.mdAndDown ? null : 'my-5'"
+      >
         <h1 class="text-center">
           СЕН<span class="display-2">A</span>ТОР — бутик лучших вин мира и
           подарков
@@ -143,6 +147,19 @@ export default {
           content: 'Индивидуальный подход к каждому клиенту'
         }
       ]
+    }
+  },
+  computed: {
+    heightSize() {
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        return 400
+      } else if (
+        this.$vuetify.breakpoint.mdAndDown &&
+        this.$vuetify.breakpoint.smAndUp
+      ) {
+        return 200
+      }
+      return 150
     }
   },
   watch: {
