@@ -55,13 +55,13 @@ export default {
           msg:
             'Здесь вы можете просматривать и редактировать акции стартовой страницы',
           icon: 'mdi-tag-faces'
-        },
-        {
-          name: 'События',
-          url: '/admin/life-events',
-          msg: 'Здесь вы можете просматривать и редактировать события',
-          icon: 'mdi-calendar-star'
         }
+        // {
+        //   name: 'События',
+        //   url: '/admin/life-events',
+        //   msg: 'Здесь вы можете просматривать и редактировать события',
+        //   icon: 'mdi-calendar-star'
+        // }
       ]
     }
   },

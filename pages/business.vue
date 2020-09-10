@@ -2,19 +2,18 @@
   <div>
     <v-flex>
       <v-row class="mx-auto justify-center">
-        <v-col class="mx-auto justify-center">
-          <v-spacer></v-spacer>
+        <v-col class="mx-auto d-flex justify-center">
           <img
             src="../assets/corporate.jpg"
             alt="logo"
             class="mx-auto"
-            style="max-width: 87vw; max-height: 75vh"
+            style="max-width: 90vw; max-height: 65vh"
           />
         </v-col>
       </v-row>
     </v-flex>
 
-    <h2 class="mt-3">Корпоративным клиентам</h2>
+    <h2 class="mt-3 text-center">Корпоративным клиентам</h2>
     <p class="text-justify">
       Приближается праздник, не знаете что подарить? В нашем магазине только
       высококачественная и сертифицированная продукция премиальных брендов!
@@ -25,7 +24,7 @@
       товар.
     </p>
     <div class="mt-3">
-      <h4>Гарантии качества</h4>
+      <h4 class="text-center">Гарантии качества</h4>
       <p class="text-justify">
         Все напитки сертифицированы и имеют гарантию подлинности. Благодаря
         оптимальным условиям хранения напитки сохраняют все свои вкусовые
@@ -33,7 +32,7 @@
       </p>
     </div>
     <div class="mt-3">
-      <h4>Оплата</h4>
+      <h4 class="text-center">Оплата</h4>
       <p>
         Возможна оплата товара кредитной картой, наличными и по безналичному
         расчёту от юридических лиц.
