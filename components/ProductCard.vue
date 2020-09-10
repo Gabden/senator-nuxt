@@ -103,7 +103,7 @@ export default {
     },
     discountOrSale() {
       if (this.product.productSalePrice) {
-        return 'Акция'
+        return 'Sale'
       }
       return this.product.discount + '%'
     },

@@ -139,7 +139,7 @@
         color="green darken-1"
         :disabled="!formValidity"
       >
-        CОЗДАТЬ
+        ИЗМЕНИТЬ
       </v-btn>
     </v-form>
   </div>
