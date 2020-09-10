@@ -28,7 +28,21 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+      title: '«СЕНАТОР» - контакты магазина',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            "Представлены все способы связи с бутиком ООО 'Сенатор' 'Лучшие вина мира' и 'Галерея подарков'"
+        }
+      ]
+    }
+  }
+}
 </script>
 
 <style></style>

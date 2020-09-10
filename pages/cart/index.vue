@@ -113,6 +113,19 @@ export default {
     return {
       confirmDialog: false
     }
+  },
+  head() {
+    return {
+      title: '«СЕНАТОР» - корзина посетителя',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            '«СЕНАТОР»: просмотр корзины товаров. Для оформления заказа необходима регистрация.'
+        }
+      ]
+    }
   }
 }
 </script>

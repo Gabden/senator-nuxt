@@ -28,6 +28,19 @@ export default {
         { text: 'Заберите зарезервированные товары', icon: 'mdi-bag-checked' }
       ]
     }
+  },
+  head() {
+    return {
+      title: '«СЕНАТОР» - порядок резервирования',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Правила и порядок резервирования товаров на сайте senator-wine.ru'
+        }
+      ]
+    }
   }
 }
 </script>

@@ -365,6 +365,11 @@ export default {
           this.$toasted.error(message).goAway(5000)
         })
     }
+  },
+  head() {
+    return {
+      title: '«СЕНАТОР» - личный кабинет'
+    }
   }
 }
 </script>

@@ -64,6 +64,11 @@ export default {
         }
       ]
     }
+  },
+  head() {
+    return {
+      title: '«СЕНАТОР» - страница администрирования'
+    }
   }
 }
 </script>

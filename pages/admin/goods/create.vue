@@ -231,6 +231,11 @@ export default {
           })
       }
     }
+  },
+  head() {
+    return {
+      title: '«СЕНАТОР» - страница создания товара'
+    }
   }
 }
 </script>

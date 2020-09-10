@@ -342,6 +342,18 @@ export default {
         .success('Alba de Miros Verdejo 2017 успешно добавлен в корзину!')
         .goAway(2000)
     }
+  },
+  head() {
+    return {
+      title: `Купить ${this.product.productName} со скидкой в Рязани`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `Продажа ${this.product.productName} по выгодной цене в бутике senator-wine.ru Рязань`
+        }
+      ]
+    }
   }
 }
 </script>

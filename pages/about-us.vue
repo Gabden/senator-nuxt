@@ -47,7 +47,19 @@
 
 <script>
 export default {
-  name: 'AboutUs'
+  name: 'AboutUs',
+  head() {
+    return {
+      title: '«СЕНАТОР» - о нас',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Страница описания бутика senator-wine.ru'
+        }
+      ]
+    }
+  }
 }
 </script>
 

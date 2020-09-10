@@ -58,6 +58,11 @@ export default {
             .goAway(2000)
         })
     }
+  },
+  head() {
+    return {
+      title: '«СЕНАТОР» - страница создания баннеров'
+    }
   }
 }
 </script>

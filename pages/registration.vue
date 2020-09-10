@@ -162,6 +162,19 @@ export default {
           this.error = true
         })
     }
+  },
+  head() {
+    return {
+      title: '«СЕНАТОР» - регистрация на сайте',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Необходимо заполнить анкету для регистрации на сайте senator-wine.ru'
+        }
+      ]
+    }
   }
 }
 </script>

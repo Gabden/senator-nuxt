@@ -36,6 +36,11 @@ export default {
     createBanner() {
       console.log('Create banner click')
     }
+  },
+  head() {
+    return {
+      title: '«СЕНАТОР» - страница редактирования баннеров'
+    }
   }
 }
 </script>

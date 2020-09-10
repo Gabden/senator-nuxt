@@ -149,7 +149,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+      title: '«СЕНАТОР» - Правила сайта'
+    }
+  }
+}
 </script>
 
 <style></style>

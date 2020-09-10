@@ -86,6 +86,11 @@ export default {
         })
         .catch((e) => (this.error = true))
     }
+  },
+  head() {
+    return {
+      title: '«СЕНАТОР» - вход в учетную запись'
+    }
   }
 }
 </script>

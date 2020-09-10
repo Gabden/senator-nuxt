@@ -46,6 +46,18 @@ export default {
   methods: {
     restorePassword() {
       console.log('restore')
+    },
+    head() {
+      return {
+        title: '«СЕНАТОР» - восстановление пароля',
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: 'Представлена форма восстановления пароля senator-wine.ru'
+          }
+        ]
+      }
     }
   }
 }

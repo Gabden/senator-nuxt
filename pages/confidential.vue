@@ -223,7 +223,21 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+      title: '«СЕНАТОР» - политика конфиденциальности',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Представлена политика конфиденциальности сайта senator-wine.ru'
+        }
+      ]
+    }
+  }
+}
 </script>
 
 <style></style>

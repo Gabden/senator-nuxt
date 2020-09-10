@@ -43,7 +43,20 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+      title: '«СЕНАТОР» - для бизнеса',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Представлена информация для B2B клиентов senator-wine.ru'
+        }
+      ]
+    }
+  }
+}
 </script>
 
 <style></style>
