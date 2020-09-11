@@ -134,11 +134,11 @@ export default {
       },
       {
         label: 'Акции',
-        url: '/'
+        url: '/sales'
       },
       {
         label: 'Корзина',
-        url: '/'
+        url: '/cart'
       },
       {
         label: 'Корпоративным клиентам',

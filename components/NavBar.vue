@@ -153,7 +153,7 @@
                 :key="`${item.title} + key`"
                 class="grey lighten-5 px-0"
               >
-                <v-list-item link to="item.url" class="grey lighten-5">
+                <v-list-item link :to="item.url" class="grey lighten-5">
                   <v-list-item-content class="grey lighten-5">
                     <v-list-item-title
                       class="text-left ml-5"
@@ -237,12 +237,12 @@ export default {
       ],
       allGoods: [
         { title: 'Акции', url: '/sales', icon: 'mdi-percent-outline' },
-        { title: 'Новинки', url: '/new', icon: 'mdi-glass-cocktail' },
+        { title: 'Новинки', url: '/new-products', icon: 'mdi-glass-cocktail' },
         { title: 'Алкоголь', url: '/alcohol', icon: 'mdi-bottle-wine-outline' },
         { title: 'Напитки', url: '/drinks', icon: 'mdi-water-outline' },
         {
           title: 'Оливковое масло',
-          url: '/oil',
+          url: '/oils',
           icon: 'mdi-bottle-tonic-plus-outline'
         },
         {
