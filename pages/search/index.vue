@@ -75,7 +75,7 @@ export default {
   methods: {
     changePage(newPage) {
       if (this.filterCriteria) {
-        this.getFilteredProducts(this.filterCriteria)
+        this.getFilteredProducts(this.filterCriteria, newPage)
         return
       }
       this.$store.commit('SWITCH_LOADER', true)
@@ -97,12 +97,12 @@ export default {
     },
     filterProducts(criteria) {
       this.filterCriteria = criteria
-      this.getFilteredProducts(this.filterCriteria)
+      this.getFilteredProducts(this.filterCriteria, 1)
     },
-    getFilteredProducts(filter) {
+    getFilteredProducts(filter, page) {
       this.$store.commit('SWITCH_LOADER', true)
       this.$axios
-        .post(`/api/product/filter?page=${this.page - 1}`, filter)
+        .post(`/api/product/filter?page=${page - 1}`, filter)
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
           this.products = response.data
