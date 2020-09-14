@@ -53,11 +53,14 @@
         {{ product.productPrice }} руб.
       </p>
     </v-card-text>
-    <v-card-actions class="d-flex justify-center mb-5 pb-8">
+    <v-card-actions
+      v-if="product.productDetails.productUnitInStock > 0"
+      class="d-flex justify-center mb-5 pb-8"
+    >
       <v-btn class="mx-2 button-borders" fab small @click="decrement">
         <v-icon color="blue-grey">mdi-minus</v-icon>
       </v-btn>
-      <span class="title">{{ bpm }}</span>
+      <span class="title">{{ quantity }}</span>
       <v-btn class="mx-2 button-borders" fab small @click="increment">
         <v-icon color="blue-grey">mdi-plus</v-icon>
       </v-btn>
@@ -70,6 +73,11 @@
         @click="addToCart"
       >
         <v-icon>mdi-cart</v-icon>
+      </v-btn>
+    </v-card-actions>
+    <v-card-actions v-else class="d-flex justify-center mb-5 pb-8">
+      <v-btn class="mx-2 button-borders" large outlined disabled>
+        товар отсутствует
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -89,7 +97,7 @@ export default {
   },
   data() {
     return {
-      bpm: 1
+      quantity: 1
     }
   },
   computed: {
@@ -119,12 +127,12 @@ export default {
   },
   methods: {
     increment() {
-      const newValue = this.bpm + 1
-      newValue > 6 ? (this.bpm = 6) : (this.bpm = newValue)
+      const newValue = this.quantity + 1
+      newValue > 6 ? (this.quantity = 6) : (this.quantity = newValue)
     },
     decrement() {
-      const newValue = this.bpm - 1
-      newValue < 1 ? (this.bpm = 1) : (this.bpm = newValue)
+      const newValue = this.quantity - 1
+      newValue < 1 ? (this.quantity = 1) : (this.quantity = newValue)
     },
     addToCart() {
       this.$toasted

@@ -205,6 +205,7 @@ export default {
               .goAway(2000)
           })
       }
+      this.$router.push('/admin/goods')
     }
   },
   head() {

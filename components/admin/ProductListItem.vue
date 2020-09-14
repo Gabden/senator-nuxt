@@ -17,15 +17,12 @@
         <strong>{{ product.productPrice }}</strong> руб.
       </p>
       <p class="mb-2 red--text text--darken-4">
-        <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
+        <span v-if="product.productSalePrice" class="caption">АКЦИЯ: </span>
+        <span v-else class="caption">ЦЕНА СО СКИДКОЙ: </span>
         <strong>{{ priceWithSale }}</strong> руб.
       </p>
 
-      <p v-if="product.productSalePrice" class="mb-2">
-        <span class="caption">АКЦИЯ: </span>
-      </p>
-
-      <p v-else class="mb-2">
+      <p v-if="!product.productSalePrice" class="mb-2">
         <span class="caption">СКИДКА: </span>
         <strong>{{ product.discount }}%</strong>
       </p>
