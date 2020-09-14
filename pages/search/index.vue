@@ -1,59 +1,19 @@
 <template>
-  <div>
-    <v-row>
-      <v-col cols="12" md="3">
-        <FilterProduct
-          :types="types"
-          :manufacturers="manufacturers"
-          :countries="countries"
-          @filter="filterProducts"
-        />
-      </v-col>
-      <v-col cols="12" md="9">
-        <p
-          v-if="!products.content || products.content.length === 0"
-          class="display-2 text-center my-5 grey--text"
-        >
-          Ничего не удалось найти
-        </p>
-        <div v-if="products.content && products.content.length > 0">
-          <p class="grey--text">Всего найдено: {{ products.totalElements }}</p>
-        </div>
-
-        <v-row>
-          <v-col
-            v-for="(product, index) in products.content"
-            :key="index"
-            cols="10"
-            sm="6"
-            md="4"
-            xl="3"
-            class="mx-auto"
-          >
-            <product-card :product="product"
-          /></v-col>
-        </v-row>
-
-        <v-pagination
-          v-if="products.content && products.content.length > 0"
-          v-model="page"
-          :length="products.totalPages"
-          :total-visible="7"
-          class="mb-5"
-          @input="changePage"
-        ></v-pagination>
-      </v-col>
-    </v-row>
-  </div>
+  <FoundedProducts
+    :products="products"
+    :types="types"
+    :manufacturers="manufacturers"
+    :countries="countries"
+    @changePage="changePage"
+    @filtered="filterProducts"
+  />
 </template>
 
 <script>
-import ProductCard from '@/components/ProductCard.vue'
-import FilterProduct from '@/components/FilterProduct.vue'
+import FoundedProducts from '@/components/FoundedProducts.vue'
 export default {
   components: {
-    ProductCard,
-    FilterProduct
+    FoundedProducts
   },
   async asyncData(context) {
     let products = null
@@ -61,7 +21,7 @@ export default {
     let manufacturers = null
     let countries = null
     await context.$axios
-      .get('/api/home/notifications')
+      .get(`/api/product/search?text=${context.query.text}`)
       .then((response) => {
         products = response.data
       })
@@ -109,19 +69,21 @@ export default {
   },
   data() {
     return {
-      page: 1,
       filterCriteria: null
     }
   },
   methods: {
-    changePage() {
+    changePage(newPage) {
       if (this.filterCriteria) {
         this.getFilteredProducts(this.filterCriteria)
         return
       }
       this.$store.commit('SWITCH_LOADER', true)
       this.$axios
-        .get(`/api/home/notifications?page=${this.page - 1}`)
+        .get(
+          `/api/product/search?text=${this.$route.query.text}&page=${newPage -
+            1}`
+        )
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
           this.products = response.data
@@ -133,9 +95,8 @@ export default {
             .goAway(2000)
         })
     },
-    filterProducts(payload) {
-      this.page = 1
-      this.filterCriteria = payload
+    filterProducts(criteria) {
+      this.filterCriteria = criteria
       this.getFilteredProducts(this.filterCriteria)
     },
     getFilteredProducts(filter) {
