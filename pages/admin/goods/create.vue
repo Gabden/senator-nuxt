@@ -50,7 +50,7 @@
           <v-checkbox
             v-model="product.productCategory"
             label="Акции"
-            value="sale"
+            value="sales"
           ></v-checkbox>
         </v-col>
         <v-col

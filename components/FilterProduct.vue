@@ -71,6 +71,30 @@
           ></v-autocomplete>
         </v-expansion-panel-content>
       </v-expansion-panel>
+      <v-expansion-panel>
+        <v-expansion-panel-header>Цена</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-text-field
+            v-model="filter.minPrice"
+            type="number"
+            min
+            label="Min"
+            placeholder="Мин.цена"
+            :rules="priceMinRule"
+            class="mt-3 mx-auto"
+            style="max-width: 90%"
+          ></v-text-field>
+          <v-text-field
+            v-model="filter.maxPrice"
+            type="number"
+            label="Max"
+            placeholder="Макс.цена"
+            :rules="priceMaxRule"
+            class="my-3 mx-auto"
+            style="max-width: 90%"
+          ></v-text-field>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
       <v-divider></v-divider>
       <v-btn
         block
@@ -102,14 +126,22 @@ export default {
   },
   data() {
     return {
+      priceMinRule: [(value) => value > 0 || 'Число должно быть больше 0'],
+      priceMaxRule: [
+        (value) =>
+          value > parseInt(this.filter.minPrice) ||
+          'Число должно быть больше минимального'
+      ],
       filter: {
-        selectedCountry: null,
         selectedCategories: null,
         selectedTypes: null,
-        selectedManufacturer: null
+        selectedCountry: null,
+        selectedManufacturer: null,
+        minPrice: 0,
+        maxPrice: null
       },
       categories: [
-        { name: 'Акции', value: 'sale' },
+        { name: 'Акции', value: 'sales' },
         { name: 'Новинки', value: 'new' },
         { name: 'Алкоголь', value: 'alcohol' },
         { name: 'Напитки', value: 'drinks' },

@@ -109,11 +109,16 @@ export default {
   },
   data() {
     return {
-      page: 1
+      page: 1,
+      filterCriteria: null
     }
   },
   methods: {
     changePage() {
+      if (this.filterCriteria) {
+        this.getFilteredProducts(this.filterCriteria)
+        return
+      }
       this.$store.commit('SWITCH_LOADER', true)
       this.$axios
         .get(`/api/home/notifications?page=${this.page - 1}`)
@@ -129,9 +134,14 @@ export default {
         })
     },
     filterProducts(payload) {
+      this.page = 1
+      this.filterCriteria = payload
+      this.getFilteredProducts(this.filterCriteria)
+    },
+    getFilteredProducts(filter) {
       this.$store.commit('SWITCH_LOADER', true)
       this.$axios
-        .post(`/api/product/filter`, payload)
+        .post(`/api/product/filter?page=${this.page - 1}`, filter)
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
           this.products = response.data

@@ -39,7 +39,7 @@
         <v-col>
           <v-checkbox v-model="cats" label="Посуда" value="dishes"></v-checkbox>
           <v-checkbox v-model="cats" label="Подарки" value="gifts"></v-checkbox>
-          <v-checkbox v-model="cats" label="Акции" value="sale"></v-checkbox>
+          <v-checkbox v-model="cats" label="Акции" value="sales"></v-checkbox>
         </v-col>
         <v-col
           ><v-checkbox v-model="cats" label="Новинка" value="new"></v-checkbox
