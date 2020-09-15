@@ -5,10 +5,10 @@
         discountOrSale
       }}</v-btn>
       <v-spacer></v-spacer>
-      <v-btn icon color="pink" class="ma-3">
+      <!-- <v-btn icon color="pink" class="ma-3">
         <v-icon v-if="isFavorite">mdi-heart</v-icon>
         <v-icon v-else>mdi-heart-outline</v-icon>
-      </v-btn>
+      </v-btn> -->
     </div>
     <nuxt-link :to="'/product/' + product.productId">
       <v-img

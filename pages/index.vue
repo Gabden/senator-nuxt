@@ -103,7 +103,7 @@ export default {
     let banners = []
     let products = []
     await context.$axios
-      .get('/api/home/notifications')
+      .get('/api/home/all/products')
       .then((response) => {
         products = response.data.content
       })
@@ -171,7 +171,7 @@ export default {
     async updateProducts(newPage) {
       this.$store.commit('SWITCH_LOADER', true)
       await this.$axios
-        .get('/api/home/notifications?page=' + (newPage - 1))
+        .get('/api/home/all/products?page=' + (newPage - 1))
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
           this.products = response.data.content

@@ -35,17 +35,17 @@
           <span class="hidden-sm-and-down">Поиск</span>
         </v-btn>
       </div>
-      <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
+      <!-- <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
         <v-btn text rounded router to="/secured"
           ><v-icon>mdi-heart-outline</v-icon>
           <span class="hidden-sm-and-down">Избранное</span>
         </v-btn>
-      </div>
+      </div> -->
       <div
         :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''"
         class="mr-2"
       >
-        <v-btn text rounded router to="/admin">
+        <v-btn text rounded router to="/cart">
           <v-icon>mdi-cart-outline</v-icon>
           <v-badge content="2" color="red">
             <span class="hidden-sm-and-down">Корзина</span>
@@ -170,13 +170,13 @@
           </v-expansion-panel>
         </v-expansion-panels>
 
-        <v-list-item link to="/">
+        <!-- <v-list-item link to="/">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5"
               >События</v-list-item-title
             >
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
         <v-list-item link to="/about-us">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5">О нас</v-list-item-title>
