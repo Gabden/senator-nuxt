@@ -21,18 +21,10 @@
       <v-spacer></v-spacer>
       <senator-logo />
       <v-spacer></v-spacer>
-      <!-- <v-text-field
-      hide-details
-      append-icon="mdi-magnify"
-      single-line
-      label="Поиск"
-      class="pa-0"
-    > -->
-      <!-- </v-text-field> -->
       <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
-        <v-btn text rounded router to="/" class="mr-0"
+        <v-btn text rounded class="mr-0"
           ><v-icon>mdi-magnify</v-icon>
-          <span class="hidden-sm-and-down">Поиск</span>
+          <span class="hidden-sm-and-down" @click="searchEvent">Поиск</span>
         </v-btn>
       </div>
       <!-- <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
@@ -230,6 +222,7 @@ export default {
   },
   data() {
     return {
+      search: '',
       drawer: false,
       accountItems: [
         { title: 'Home', icon: 'mdi-dashboard' },
@@ -278,6 +271,9 @@ export default {
     },
     openNavDrawer() {
       this.drawer = !this.drawer
+    },
+    searchEvent() {
+      this.$emit('search', true)
     }
   }
 }
