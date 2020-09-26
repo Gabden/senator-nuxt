@@ -169,7 +169,7 @@ export default {
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
           this.$toasted.success('Регистрация прошла успешно!').goAway(2000)
-          this.$router.push('/')
+          this.$router.push('/login')
         })
         .catch((e) => {
           console.log(e.response)
