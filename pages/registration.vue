@@ -14,18 +14,18 @@
 
       <p v-if="error" class="red--text text-center mt-3">{{ errorMsg }}</p>
       <v-card-text>
-        <v-form v-model="formValidity" @submit.prevent="login">
+        <v-form v-model="formValidity" @submit.prevent="register">
           <v-row>
             <v-col cols="12" md="5">
               <v-text-field
-                v-model="username"
+                v-model="user.username"
                 label="Электронная почта "
                 prepend-icon="mdi-email"
                 :rules="usernameRules"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="phone"
+                v-model="user.userDetailsDescription.phone"
                 v-mask="'+7(###)###-####'"
                 label="Телефон "
                 prepend-icon="mdi-phone"
@@ -33,7 +33,7 @@
                 :rules="phoneRules"
               ></v-text-field>
               <v-text-field
-                v-model="password"
+                v-model="user.password"
                 label="Пароль"
                 :type="showPassword ? 'text' : 'password'"
                 prepend-icon="mdi-lock"
@@ -48,7 +48,7 @@
                 :type="showPassword ? 'text' : 'password'"
                 prepend-icon="mdi-lock"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="passwordRules"
+                :rules="secondPasswordRules"
                 required
                 @click:append="showPassword = !showPassword"
               ></v-text-field>
@@ -56,16 +56,19 @@
             <v-spacer></v-spacer>
             <v-col cols="12" md="6">
               <v-text-field
+                v-model="user.userDetailsDescription.FIOlast"
                 label="Фамилия"
                 prepend-icon="mdi-account"
               ></v-text-field>
               <v-text-field
+                v-model="user.userDetailsDescription.FIOfirst"
                 label="Имя*"
                 prepend-icon="mdi-account"
                 :rules="passwordRules"
                 required
               ></v-text-field>
               <v-text-field
+                v-model="user.userDetailsDescription.FIOmiddle"
                 label="Отчество"
                 prepend-icon="mdi-account"
               ></v-text-field>
@@ -111,11 +114,18 @@
 export default {
   data() {
     return {
-      phone: {},
+      user: {
+        username: '',
+        password: '',
+        userDetailsDescription: {
+          phone: '',
+          FIOfirst: '',
+          FIOmiddle: '',
+          FIOlast: ''
+        }
+      },
       formValidity: false,
       showPassword: false,
-      username: '',
-      password: '',
       secondPassword: '',
       error: false,
       errorMsg: 'Ошибка регистрации, обратитесь в службу поддержки',
@@ -133,6 +143,10 @@ export default {
           'Email должен содержать доменную зону'
       ],
       passwordRules: [(value) => !!value || 'Необходимо заполнить поле'],
+      secondPasswordRules: [
+        (value) => !!value || 'Необходимо заполнить поле',
+        (value) => value === this.user.password || 'Пароли не совпадают'
+      ],
       phoneRules: [
         (value) =>
           value.length === 3 ||
@@ -148,18 +162,19 @@ export default {
     }
   },
   methods: {
-    login() {
-      this.$store
-        .dispatch('register', {
-          username: this.username,
-          password: this.password
+    async register() {
+      this.$store.commit('SWITCH_LOADER', true)
+      await this.$axios
+        .post('/api/account/registration', this.user)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted.success('Регистрация прошла успешно!').goAway(2000)
         })
-        .then(() => {
-          this.$router.push({ name: 'secured' })
-        })
-        // eslint-disable-next-line handle-callback-err
-        .catch((err) => {
-          this.error = true
+        .catch((e) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
         })
     }
   },
