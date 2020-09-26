@@ -279,13 +279,17 @@ export default {
       return this.$vuetify.breakpoint.smAndDown
     },
     fullName() {
-      return this.$auth.user
-        ? this.$auth.user.userDetailsDescription.fiolast +
-            ' ' +
-            this.$auth.user.userDetailsDescription.fiofirst +
-            ' ' +
-            this.$auth.user.userDetailsDescription.fiomiddle
-        : ''
+      let fullName = ''
+      if (this.$auth.user.userDetailsDescription.fiolast) {
+        fullName += this.$auth.user.userDetailsDescription.fiolast + ' '
+      }
+      if (this.$auth.user.userDetailsDescription.fiofirst) {
+        fullName += this.$auth.user.userDetailsDescription.fiofirst + ' '
+      }
+      if (this.$auth.user.userDetailsDescription.fiomiddle) {
+        fullName += this.$auth.user.userDetailsDescription.fiomiddle
+      }
+      return fullName
     }
   },
   watch: {
