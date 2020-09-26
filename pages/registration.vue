@@ -56,19 +56,19 @@
             <v-spacer></v-spacer>
             <v-col cols="12" md="6">
               <v-text-field
-                v-model="user.userDetailsDescription.FIOlast"
+                v-model="user.userDetailsDescription.fiolast"
                 label="Фамилия"
                 prepend-icon="mdi-account"
               ></v-text-field>
               <v-text-field
-                v-model="user.userDetailsDescription.FIOfirst"
+                v-model="user.userDetailsDescription.fiofirst"
                 label="Имя*"
                 prepend-icon="mdi-account"
                 :rules="passwordRules"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="user.userDetailsDescription.FIOmiddle"
+                v-model="user.userDetailsDescription.fiomiddle"
                 label="Отчество"
                 prepend-icon="mdi-account"
               ></v-text-field>
@@ -169,12 +169,16 @@ export default {
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
           this.$toasted.success('Регистрация прошла успешно!').goAway(2000)
+          this.$router.push('/')
         })
         .catch((e) => {
+          console.log(e.response)
+          let msg = 'Сервер временно недоступен, повторите попытку позже!'
+          if (e.response.status === 406) {
+            msg = 'Пользовать с такой почтой уже существует'
+          }
           this.$store.commit('SWITCH_LOADER', false)
-          this.$toasted
-            .error('Сервер временно недоступен, повторите попытку позже!')
-            .goAway(2000)
+          this.$toasted.error(msg).goAway(3000)
         })
     }
   },
