@@ -22,9 +22,9 @@
       <senator-logo />
       <v-spacer></v-spacer>
       <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
-        <v-btn text rounded class="mr-0"
+        <v-btn text rounded class="mr-0" @click="searchEvent"
           ><v-icon>mdi-magnify</v-icon>
-          <span class="hidden-sm-and-down" @click="searchEvent">Поиск</span>
+          <span class="hidden-sm-and-down">Поиск</span>
         </v-btn>
       </div>
       <!-- <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">

@@ -115,6 +115,9 @@ export default {
         })
     }
   },
+  watchQuery(newQuery, oldQuery) {
+    return newQuery.text && oldQuery.text
+  },
   head() {
     return {
       title: '«СЕНАТОР» - поиск премиум алкоголя и подарков в Рязани',
