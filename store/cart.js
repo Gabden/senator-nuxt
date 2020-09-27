@@ -11,7 +11,15 @@ export const mutations = {
     state.cart = cart
   },
   ADD_TO_CART(state, product) {
-    state.cart.cartItems.push(product)
+    const cartProduct = state.cart.cartItems.find(
+      (item) => item.product.productId === product.product.productId
+    )
+    if (!cartProduct) {
+      state.cart.cartItems = [...state.cart.cartItems, product]
+    } else {
+      cartProduct.quantity += product.quantity
+      cartProduct.quantity = cartProduct.quantity > 6 ? 6 : cartProduct.quantity
+    }
   },
   CHANGE_QUANTITY(state, productUpdated) {
     const prod = state.cart.cartItems.find(
@@ -23,33 +31,20 @@ export const mutations = {
     state.cart.cartItems = state.cart.cartItems.map(
       (product) => product.id !== productToDelete.id
     )
-  },
-  UPDATE_GRAND_TOTAL(state) {
-    let grandTotalUpdated = 0
-    state.cart.cartItems.forEach((cartItem) => {
-      grandTotalUpdated += cartItem.product.productPrice * cartItem.quantity
-    })
-    state.cart.grandTotal = grandTotalUpdated
   }
 }
 export const actions = {
   addToCart({ commit }, product) {
     commit('ADD_TO_CART', product)
-    commit('UPDATE_GRAND_TOTAL')
     // TODO upgrade cart cookies
   },
   removeFromCart({ commit }, product) {
     commit('REMOVE_FROM_CART', product)
-    commit('UPDATE_GRAND_TOTAL')
     // TODO upgrade cart cookies
   },
   changeQuantity({ commit }, product) {
     commit('CHANGE_QUANTITY', product)
-    commit('UPDATE_GRAND_TOTAL')
     // TODO upgrade cart cookies
-  },
-  updateGrandTotal({ commit }) {
-    commit('UPDATE_GRAND_TOTAL')
   },
   fetchCart({ commit }, cart) {
     commit('FETCH_CART', cart)
