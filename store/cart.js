@@ -3,14 +3,7 @@
 export const state = () => ({
   cart: {
     cartId: '',
-    cartItems: [
-      {
-        product: null,
-        quantity: 0,
-        totalPrice: 0
-      }
-    ],
-    grandTotal: 0
+    cartItems: []
   }
 })
 export const mutations = {
@@ -66,7 +59,17 @@ export const actions = {
 export const getters = {
   cartQuantity(state) {
     let quantity = 0
-    state.cartItems.forEach((cartItem) => (quantity += cartItem.quantity))
+    if (state.cart.cartItems.length === 0) {
+      return 0
+    }
+    state.cart.cartItems.forEach((item) => (quantity += item.quantity))
     return quantity
+  },
+  grandTotal(state) {
+    const grandTotal = state.cart.cartItems.reduce(
+      (total, item) => (total += item.product.productPrice * item.quantity),
+      0
+    )
+    return grandTotal
   }
 }

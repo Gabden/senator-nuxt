@@ -39,7 +39,7 @@
       >
         <v-btn text rounded router to="/cart">
           <v-icon>mdi-cart-outline</v-icon>
-          <v-badge content="2" color="red">
+          <v-badge :content="$store.getters['cart/cartQuantity']" color="red">
             <span class="hidden-sm-and-down">Корзина</span>
           </v-badge>
         </v-btn>

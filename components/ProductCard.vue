@@ -135,8 +135,12 @@ export default {
       newValue < 1 ? (this.quantity = 1) : (this.quantity = newValue)
     },
     addToCart() {
+      this.$store.commit('cart/ADD_TO_CART', {
+        product: this.product,
+        quantity: this.quantity
+      })
       this.$toasted
-        .success('Alba de Miros Verdejo 2017 успешно добавлен в корзину!')
+        .success(`${this.product.productName} успешно добавлен в корзину!`)
         .goAway(2000)
     }
   }
