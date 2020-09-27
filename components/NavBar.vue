@@ -39,7 +39,7 @@
       >
         <v-btn text rounded router to="/cart">
           <v-icon>mdi-cart-outline</v-icon>
-          <v-badge :content="$store.getters['cart/cartQuantity']" color="red">
+          <v-badge :content="quantity" color="red">
             <span class="hidden-sm-and-down">Корзина</span>
           </v-badge>
         </v-btn>
@@ -253,6 +253,12 @@ export default {
     },
     isScrolled() {
       return this.$store.state.main.isScrolled
+    },
+    quantity() {
+      if (this.$store.getters['cart/cartQuantity'] < 1) {
+        return '0'
+      }
+      return this.$store.getters['cart/cartQuantity']
     }
   },
   methods: {

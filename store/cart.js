@@ -58,11 +58,10 @@ export const actions = {
 }
 export const getters = {
   cartQuantity(state) {
-    let quantity = 0
-    if (state.cart.cartItems.length === 0) {
-      return 0
-    }
-    state.cart.cartItems.forEach((item) => (quantity += item.quantity))
+    const quantity = state.cart.cartItems.reduce(
+      (total, item) => (total += item.quantity),
+      0
+    )
     return quantity
   },
   grandTotal(state) {
