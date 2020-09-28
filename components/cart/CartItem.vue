@@ -30,15 +30,16 @@
         {{ productItem.product.productName }}
       </p>
       <p v-if="!smallSize" class="mb-2">
-        <span class="caption">КОЛ-ВО: </span> <strong>1</strong>
+        <span class="caption">КОЛ-ВО: </span>
+        <strong>{{ productItem.quantity }}</strong>
       </p>
       <v-select
         v-if="smallSize"
+        v-model="quantity"
         :items="[1, 2, 3, 4, 5, 6]"
-        label="КОЛ-ВО"
-        outlined
         dense
         style="max-width: 70%"
+        @input="changeQuantity"
       ></v-select>
       <p class="mb-2" style="text-decoration: line-through;">
         <span class="caption">ЦЕНА: </span>
