@@ -90,7 +90,7 @@ export default {
         })
         .catch((e) => {
           this.$store.commit('SWITCH_LOADER', false)
-          this.$store.$toasted
+          this.$toasted
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)
         })
@@ -109,7 +109,7 @@ export default {
         })
         .catch((e) => {
           this.$store.commit('SWITCH_LOADER', false)
-          this.$store.$toasted
+          this.$toasted
             .error('Сервер временно недоступен, повторите попытку позже!')
             .goAway(2000)
         })

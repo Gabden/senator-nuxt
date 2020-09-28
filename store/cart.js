@@ -29,8 +29,9 @@ export const mutations = {
     prod.quantity = productUpdated.quantity
   },
   REMOVE_FROM_CART(state, productToDelete) {
-    state.cart.cartItems = state.cart.cartItems.map(
-      (product) => product.id !== productToDelete.id
+    state.cart.cartItems = state.cart.cartItems.filter(
+      (item) =>
+        item.product.productId !== productToDelete.product.product.productId
     )
   }
 }

@@ -57,7 +57,7 @@
       </p>
     </v-col>
     <v-col cols="1" class="d-flex justify-center align-center">
-      <v-btn icon link to="#" class="mr-3">
+      <v-btn icon link to="#" class="mr-3" @click="deleteFromCart">
         <v-icon color="red accent-4" class="display-2">mdi-delete</v-icon>
       </v-btn>
     </v-col>
@@ -87,11 +87,18 @@ export default {
   },
   methods: {
     changeQuantity() {
-      console.log('Quantity was changed')
       this.$store.commit('cart/CHANGE_QUANTITY', {
         product: this.productItem,
         quantity: this.quantity
       })
+    },
+    deleteFromCart() {
+      this.$store.commit('cart/REMOVE_FROM_CART', {
+        product: this.productItem
+      })
+      this.$toasted
+        .error(`${this.productItem.product.productName} удален из корзины`)
+        .goAway(2000)
     }
   }
 }
