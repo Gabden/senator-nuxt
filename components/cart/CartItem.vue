@@ -17,15 +17,17 @@
         <v-icon color="blue-grey">mdi-plus</v-icon>
       </v-btn> -->
       <v-select
+        v-model="quantity"
         :items="[1, 2, 3, 4, 5, 6]"
         label="КОЛ-ВО"
         outlined
         style="max-width: 30%"
+        @input="changeQuantity"
       ></v-select>
     </v-col>
     <v-col>
       <p class="font-weight-bold mb-1 title">
-        Alba de Miros Verdejo 2017
+        {{ productItem.product.productName }}
       </p>
       <p v-if="!smallSize" class="mb-2">
         <span class="caption">КОЛ-ВО: </span> <strong>1</strong>
@@ -40,11 +42,11 @@
       ></v-select>
       <p class="mb-2" style="text-decoration: line-through;">
         <span class="caption">ЦЕНА: </span>
-        <strong>1400</strong> руб.
+        <strong>{{ productItem.product.productPrice }}</strong> руб.
       </p>
       <p class="mb-2 red--text text--darken-4">
         <span class="caption">СКИДКА: </span>
-        <strong>10%</strong>
+        <strong>{{ productItem.product.discount }}%</strong>
       </p>
       <p class="mb-2 red--text text--darken-4">
         <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
@@ -64,14 +66,32 @@
 
 <script>
 export default {
+  props: {
+    productItem: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      bpm: 1
+      quantity: 1
     }
   },
   computed: {
     smallSize() {
       return this.$vuetify.breakpoint.smAndDown
+    }
+  },
+  created() {
+    this.quantity = this.productItem.quantity
+  },
+  methods: {
+    changeQuantity() {
+      console.log('Quantity was changed')
+      this.$store.commit('cart/CHANGE_QUANTITY', {
+        product: this.productItem,
+        quantity: this.quantity
+      })
     }
   }
 }

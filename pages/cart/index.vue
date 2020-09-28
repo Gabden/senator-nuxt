@@ -37,13 +37,9 @@
         </p>
       </v-card-text>
     </v-card>
-    <div>
+    <div v-for="(item, index) in $store.state.cart.cart.cartItems" :key="index">
+      <CartItem :product-item="item" />
       <v-divider></v-divider>
-      <CartItem />
-      <v-divider></v-divider>
-      <CartItem />
-      <v-divider></v-divider>
-      <CartItem />
     </div>
     <v-divider></v-divider>
     <div

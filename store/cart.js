@@ -23,7 +23,8 @@ export const mutations = {
   },
   CHANGE_QUANTITY(state, productUpdated) {
     const prod = state.cart.cartItems.find(
-      (product) => product.id === productUpdated.id
+      (item) =>
+        item.product.productId === productUpdated.product.product.productId
     )
     prod.quantity = productUpdated.quantity
   },
