@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card
-      v-if="this.$store.getters['cart/cartQuantity'] < 1"
+      v-if="this.$store.getters['localStorage/cartQuantity'] < 1"
       class="mx-auto text-center pa-5"
       color="green lighten-5"
     >
@@ -43,7 +43,7 @@
       </v-card>
 
       <div
-        v-for="(item, index) in $store.state.cart.cart.cartItems"
+        v-for="(item, index) in $store.state.localStorage.cart.cartItems"
         :key="index"
       >
         <CartItem :product-item="item" />

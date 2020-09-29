@@ -49,7 +49,8 @@ export default {
     '@nuxtjs/sitemap',
     '@nuxtjs/toast',
     '@nuxtjs/google-analytics',
-    '@nuxtjs/robots'
+    '@nuxtjs/robots',
+    'nuxt-vuex-localstorage'
   ],
   proxy: {
     '/api': {

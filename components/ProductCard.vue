@@ -135,7 +135,7 @@ export default {
       newValue < 1 ? (this.quantity = 1) : (this.quantity = newValue)
     },
     addToCart() {
-      this.$store.commit('cart/ADD_TO_CART', {
+      this.$store.commit('localStorage/ADD_TO_CART', {
         product: this.product,
         quantity: this.quantity
       })

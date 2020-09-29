@@ -88,13 +88,13 @@ export default {
   },
   methods: {
     changeQuantity() {
-      this.$store.commit('cart/CHANGE_QUANTITY', {
+      this.$store.commit('localStorage/CHANGE_QUANTITY', {
         product: this.productItem,
         quantity: this.quantity
       })
     },
     deleteFromCart() {
-      this.$store.commit('cart/REMOVE_FROM_CART', {
+      this.$store.commit('localStorage/REMOVE_FROM_CART', {
         product: this.productItem
       })
       this.$toasted

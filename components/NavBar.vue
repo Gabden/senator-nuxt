@@ -255,10 +255,10 @@ export default {
       return this.$store.state.main.isScrolled
     },
     quantity() {
-      if (this.$store.getters['cart/cartQuantity'] < 1) {
+      if (this.$store.getters['localStorage/cartQuantity'] < 1) {
         return '0'
       }
-      return this.$store.getters['cart/cartQuantity']
+      return this.$store.getters['localStorage/cartQuantity']
     }
   },
   methods: {
