@@ -141,6 +141,12 @@ export default {
       )
     }
   },
+  created() {
+    this.$store.commit(
+      'localStorage/CALC_DISCOUNT',
+      this.$store.getters['localStorage/quantityAlcohol']
+    )
+  },
   head() {
     return {
       title: '«СЕНАТОР» - корзина посетителя',

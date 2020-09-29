@@ -44,7 +44,7 @@ export const mutations = {
     if (quantityAlco >= 3 && quantityAlco < 6) {
       state.cart.cartItems.forEach((item) => {
         if (
-          item.product.discount < 15 &&
+          (item.product.discount < 15 || item.product.discount === 20) &&
           item.product.productCategory.includes('alcohol')
         ) {
           item.product.discount = 15
@@ -66,14 +66,17 @@ export const mutations = {
 export const actions = {
   addToCart({ commit }, product) {
     commit('ADD_TO_CART', product)
+    commit('CALC_DISCOUNT', getters.quantityAlcohol)
     // TODO upgrade cart cookies
   },
-  removeFromCart({ commit }, product) {
+  removeFromCart({ commit, getters }, product) {
     commit('REMOVE_FROM_CART', product)
+    commit('CALC_DISCOUNT', getters.quantityAlcohol)
     // TODO upgrade cart cookies
   },
-  changeQuantity({ commit }, product) {
+  changeQuantity({ commit, getters }, product) {
     commit('CHANGE_QUANTITY', product)
+    commit('CALC_DISCOUNT', getters.quantityAlcohol)
     // TODO upgrade cart cookies
   },
   fetchCart({ commit }, cart) {
@@ -108,7 +111,7 @@ export const getters = {
       }
       return total
     }, 0)
-    return gtSale
+    return Math.ceil(gtSale)
   },
   quantityAlcohol(state) {
     const quantityAlco = state.cart.cartItems.reduce((total, item) => {

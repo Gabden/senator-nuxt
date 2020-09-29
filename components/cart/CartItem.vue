@@ -95,9 +95,9 @@ export default {
       if (this.productItem.product.productSalePrice) {
         return this.productItem.product.productSalePrice
       } else {
-        return (
+        return Math.ceil(
           this.productItem.product.productPrice *
-          ((100 - this.productItem.product.discount) / 100)
+            ((100 - this.productItem.product.discount) / 100)
         )
       }
     },
@@ -110,13 +110,13 @@ export default {
   },
   methods: {
     changeQuantity() {
-      this.$store.commit('localStorage/CHANGE_QUANTITY', {
+      this.$store.dispatch('localStorage/changeQuantity', {
         product: this.productItem,
         quantity: this.quantity
       })
     },
     deleteFromCart() {
-      this.$store.commit('localStorage/REMOVE_FROM_CART', {
+      this.$store.dispatch('localStorage/removeFromCart', {
         product: this.productItem
       })
       this.$toasted
