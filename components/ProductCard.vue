@@ -137,7 +137,8 @@ export default {
     addToCart() {
       this.$store.commit('localStorage/ADD_TO_CART', {
         product: this.product,
-        quantity: this.quantity
+        quantity: this.quantity,
+        initialDiscount: this.product.discount
       })
       this.$toasted
         .success(`${this.product.productName} успешно добавлен в корзину!`)

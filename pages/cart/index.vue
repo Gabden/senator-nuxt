@@ -128,6 +128,19 @@ export default {
       confirmDialog: false
     }
   },
+  computed: {
+    alcoQuantity() {
+      return this.$store.getters['localStorage/quantityAlcohol']
+    }
+  },
+  watch: {
+    alcoQuantity() {
+      this.$store.commit(
+        'localStorage/CALC_DISCOUNT',
+        this.$store.getters['localStorage/quantityAlcohol']
+      )
+    }
+  },
   head() {
     return {
       title: '«СЕНАТОР» - корзина посетителя',

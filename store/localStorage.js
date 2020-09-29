@@ -33,6 +33,34 @@ export const mutations = {
       (item) =>
         item.product.productId !== productToDelete.product.product.productId
     )
+  },
+  CALC_DISCOUNT(state, quantityAlco) {
+    if (quantityAlco > 0 && quantityAlco < 3) {
+      state.cart.cartItems.forEach((item) => {
+        item.product.discount = item.initialDiscount
+      })
+    }
+
+    if (quantityAlco >= 3 && quantityAlco < 6) {
+      state.cart.cartItems.forEach((item) => {
+        if (
+          item.product.discount < 15 &&
+          item.product.productCategory.includes('alcohol')
+        ) {
+          item.product.discount = 15
+        }
+      })
+    }
+    if (quantityAlco >= 6) {
+      state.cart.cartItems.forEach((item) => {
+        if (
+          item.product.discount < 20 &&
+          item.product.productCategory.includes('alcohol')
+        ) {
+          item.product.discount = 20
+        }
+      })
+    }
   }
 }
 export const actions = {
@@ -81,5 +109,15 @@ export const getters = {
       return total
     }, 0)
     return gtSale
+  },
+  quantityAlcohol(state) {
+    const quantityAlco = state.cart.cartItems.reduce((total, item) => {
+      if (item.product.productCategory.includes('alcohol')) {
+        total += item.quantity
+      }
+      return total
+    }, 0)
+
+    return quantityAlco
   }
 }
