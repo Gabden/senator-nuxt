@@ -45,16 +45,20 @@
         <span class="caption">ЦЕНА: </span>
         <strong>{{ productItem.product.productPrice }}</strong> руб.
       </p>
-      <p class="mb-2 red--text text--darken-4">
+      <p
+        v-if="!productItem.product.productSalePrice"
+        class="mb-2 red--text text--darken-4"
+      >
         <span class="caption">СКИДКА: </span>
         <strong>{{ productItem.product.discount }}%</strong>
       </p>
       <p class="mb-2 red--text text--darken-4">
         <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
-        <strong>950</strong> руб.
+        <strong>{{ priceWithSale }}</strong> руб.
       </p>
       <p class="mb-2">
-        <span class="caption">СУММА: </span><strong>950</strong> руб.
+        <span class="caption">СУММА: </span
+        ><strong>{{ totalPrice }}</strong> руб.
       </p>
     </v-col>
     <v-col cols="1" class="d-flex justify-center align-center">
@@ -81,6 +85,19 @@ export default {
   computed: {
     smallSize() {
       return this.$vuetify.breakpoint.smAndDown
+    },
+    priceWithSale() {
+      if (this.productItem.product.productSalePrice) {
+        return this.productItem.product.productSalePrice
+      } else {
+        return (
+          this.productItem.product.productPrice *
+          ((100 - this.productItem.product.discount) / 100)
+        )
+      }
+    },
+    totalPrice() {
+      return this.priceWithSale * this.productItem.quantity
     }
   },
   created() {

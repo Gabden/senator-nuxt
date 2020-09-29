@@ -67,5 +67,19 @@ export const getters = {
       0
     )
     return grandTotal
+  },
+  grandTotalWithSale(state) {
+    const gtSale = state.cart.cartItems.reduce((total, item) => {
+      if (item.product.productSalePrice) {
+        total += item.product.productSalePrice * item.quantity
+      } else {
+        total +=
+          item.product.productPrice *
+          ((100 - item.product.discount) / 100) *
+          item.quantity
+      }
+      return total
+    }, 0)
+    return gtSale
   }
 }

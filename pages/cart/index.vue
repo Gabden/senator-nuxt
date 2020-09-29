@@ -58,10 +58,16 @@
             class="mb-0 ml-5 text-center"
             style="text-decoration: line-through;"
           >
-            Итого: 2520 руб.
+            Итого: {{ $store.getters['localStorage/grandTotal'] }} руб.
           </p>
           <p class="ml-5 red--text text--accent-4 text-center display-1">
-            ИТОГО со скидкой: <span>1200 руб.</span>
+            ИТОГО со скидкой:
+            <span
+              >{{
+                $store.getters['localStorage/grandTotalWithSale']
+              }}
+              руб.</span
+            >
           </p>
         </v-col>
         <v-col cols="4" class="d-flex justify-center">
