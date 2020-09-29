@@ -13,10 +13,6 @@
             discountOrSale
           }}</v-btn>
           <v-spacer></v-spacer>
-          <v-btn icon color="pink" class="ma-3">
-            <v-icon v-if="isFavorite">mdi-heart</v-icon>
-            <v-icon v-else>mdi-heart-outline</v-icon>
-          </v-btn>
         </div>
         <v-img
           :src="imageSrc"
@@ -246,22 +242,29 @@
         </v-row>
         <v-divider></v-divider>
         <div class="d-flex justify-center align-center my-5 pb-8">
-          <v-btn class="mx-2 button-borders" fab small @click="decrement">
-            <v-icon color="blue-grey">mdi-minus</v-icon>
-          </v-btn>
-          <span class="title">{{ quantity }}</span>
-          <v-btn class="mx-2 button-borders" fab small @click="increment">
-            <v-icon color="blue-grey">mdi-plus</v-icon>
-          </v-btn>
-          <v-btn
-            class="mx-2 button-borders"
-            dark
-            color="pink"
-            @click="addToCart"
-          >
-            Добавить
-            <v-icon>mdi-cart</v-icon>
-          </v-btn>
+          <div v-if="product.productDetails.productUnitInStock > 0">
+            <v-btn class="mx-2 button-borders" fab small @click="decrement">
+              <v-icon color="blue-grey">mdi-minus</v-icon>
+            </v-btn>
+            <span class="title">{{ quantity }}</span>
+            <v-btn class="mx-2 button-borders" fab small @click="increment">
+              <v-icon color="blue-grey">mdi-plus</v-icon>
+            </v-btn>
+            <v-btn
+              class="mx-2 button-borders"
+              dark
+              color="pink"
+              @click="addToCart"
+            >
+              Добавить
+              <v-icon>mdi-cart</v-icon>
+            </v-btn>
+          </div>
+          <div v-else class="d-flex justify-center mb-5 pb-8">
+            <v-btn class="mx-2 button-borders" large outlined disabled>
+              товар отсутствует
+            </v-btn>
+          </div>
           <v-spacer></v-spacer>
           <div>
             <p class="mb-0 grey--text " style="font-size: 0.85rem">Цена</p>
@@ -320,7 +323,7 @@ export default {
     },
     discountOrSale() {
       if (this.product.productSalePrice) {
-        return 'Акция'
+        return 'Sale'
       }
       return this.product.discount + '%'
     },
@@ -338,8 +341,13 @@ export default {
       newValue < 1 ? (this.quantity = 1) : (this.quantity = newValue)
     },
     addToCart() {
+      this.$store.commit('localStorage/ADD_TO_CART', {
+        product: this.product,
+        quantity: this.quantity,
+        initialDiscount: this.product.discount
+      })
       this.$toasted
-        .success('Alba de Miros Verdejo 2017 успешно добавлен в корзину!')
+        .success(`${this.product.productName} успешно добавлен в корзину!`)
         .goAway(2000)
     }
   },
