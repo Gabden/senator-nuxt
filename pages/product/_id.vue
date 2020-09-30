@@ -127,7 +127,17 @@
             <p class="pl-4 mb-0 grey--text" style="font-size: 0.85rem">
               Алкоголь
             </p>
-            <v-btn color="red" text link to="/" class="text-truncate"
+            <v-btn
+              color="red"
+              text
+              nuxt
+              :to="
+                `/search/degree?value=${product.productDetails.productAlcoholDegree.slice(
+                  0,
+                  2
+                )}`
+              "
+              class="text-truncate"
               ><span
                 class="d-inline-block text-truncate"
                 style="max-width: 160px;"
