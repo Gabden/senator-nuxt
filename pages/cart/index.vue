@@ -146,29 +146,29 @@ export default {
       'localStorage/CALC_DISCOUNT',
       this.$store.getters['localStorage/quantityAlcohol']
     )
-    if (this.$auth.loggedIn) {
-      this.updateCart()
-    }
+    this.updateCart()
   },
   methods: {
     async updateCart() {
-      this.$store.commit('SWITCH_LOADER', true)
       if (this.$auth.loggedIn) {
-        await this.$axios
-          .post(`/api/account/cart/update/${this.$auth.user.cart.cartId}`, {
-            cartId: this.$auth.user.cart.cartId,
-            cartItems: this.$store.state.localStorage.cart.cartItems,
-            grandTotal: this.$store.getters['localStorage/grandTotalWithSale']
-          })
-          .then((response) => {
-            this.$store.commit('SWITCH_LOADER', false)
-          })
-          .catch((e) => {
-            this.$store.commit('SWITCH_LOADER', false)
-            this.$toasted
-              .error('Сервер временно недоступен, повторите попытку позже!')
-              .goAway(2000)
-          })
+        this.$store.commit('SWITCH_LOADER', true)
+        if (this.$auth.loggedIn) {
+          await this.$axios
+            .post(`/api/account/cart/update/${this.$auth.user.cart.cartId}`, {
+              cartId: this.$auth.user.cart.cartId,
+              cartItems: this.$store.state.localStorage.cart.cartItems,
+              grandTotal: this.$store.getters['localStorage/grandTotalWithSale']
+            })
+            .then((response) => {
+              this.$store.commit('SWITCH_LOADER', false)
+            })
+            .catch((e) => {
+              this.$store.commit('SWITCH_LOADER', false)
+              this.$toasted
+                .error('Сервер временно недоступен, повторите попытку позже!')
+                .goAway(2000)
+            })
+        }
       }
     }
   },
