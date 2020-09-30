@@ -210,6 +210,33 @@
       </v-list>
       <v-divider></v-divider>
     </v-navigation-drawer>
+    <v-dialog v-model="searchDialog">
+      <v-card>
+        <v-card-title class="text-center text-justify">
+          <v-row v-if="searchDialog" justify="center" class="mt-0 mb-0">
+            <v-text-field
+              v-model="searchText"
+              hide-details
+              rounded
+              outlined
+              dense
+              color="orange"
+              single-line
+              append-icon="mdi-magnify"
+              label="Поиск"
+              class="pa-0"
+              style="max-width: 75%"
+              @click:append="findProducts"
+              @keyup.enter="findProducts"
+            >
+            </v-text-field>
+            <v-btn icon @click="searchDialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-row>
+        </v-card-title>
+      </v-card>
+    </v-dialog>
   </nav>
 </template>
 
@@ -222,7 +249,8 @@ export default {
   },
   data() {
     return {
-      search: '',
+      searchDialog: false,
+      searchText: '',
       drawer: false,
       accountItems: [
         { title: 'Home', icon: 'mdi-dashboard' },
@@ -279,7 +307,12 @@ export default {
       this.drawer = !this.drawer
     },
     searchEvent() {
+      this.searchDialog = !this.searchDialog
       this.$emit('search', true)
+    },
+    findProducts() {
+      this.searchDialog = false
+      this.$router.push({ name: 'search', query: { text: this.searchText } })
     }
   }
 }

@@ -1,30 +1,9 @@
 <template>
   <v-app dark>
     <Infobar v-if="!isScrolled" />
-    <Navbar id="navbar" @search="search = true" />
+    <Navbar id="navbar" />
     <Panel v-if="!$vuetify.breakpoint.mdAndDown" style="margin-top: 15vh" />
     <v-content :class="!$vuetify.breakpoint.mdAndDown ? 'pt-0' : ''">
-      <v-row v-if="search" justify="center" class="mt-5 mb-0">
-        <v-text-field
-          v-model="searchText"
-          hide-details
-          rounded
-          outlined
-          dense
-          color="orange"
-          single-line
-          append-icon="mdi-magnify"
-          label="Поиск"
-          class="pa-0"
-          style="max-width: 75%"
-          @click:append="findProducts"
-          @keyup.enter="findProducts"
-        >
-        </v-text-field>
-        <v-btn icon @click="search = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </v-row>
       <v-container>
         <nuxt />
       </v-container>
@@ -89,10 +68,6 @@ export default {
     handleScroll() {
       this.scrolled = window.scrollY > 0
       this.$store.dispatch('main/isScrolled', this.scrolled)
-    },
-    findProducts() {
-      this.search = false
-      this.$router.push({ name: 'search', query: { text: this.searchText } })
     }
   }
 }
