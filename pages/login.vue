@@ -91,7 +91,10 @@ export default {
             this.$store.commit('localStorage/ADD_TO_CART', {
               product: item.product,
               quantity: item.quantity,
-              initialDiscount: item.product.discount
+              cartItemPrice: item.cartItemPrice,
+              cartItemFinalPrice: item.cartItemFinalPrice,
+              discount: item.discount,
+              totalPrice: item.totalPrice
             })
           })
         })

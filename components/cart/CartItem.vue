@@ -114,6 +114,7 @@ export default {
         product: this.productItem,
         quantity: this.quantity
       })
+      this.$emit('changed')
     },
     deleteFromCart() {
       this.$store.dispatch('localStorage/removeFromCart', {
@@ -122,6 +123,7 @@ export default {
       this.$toasted
         .error(`${this.productItem.product.productName} удален из корзины`)
         .goAway(2000)
+      this.$emit('changed')
     }
   }
 }

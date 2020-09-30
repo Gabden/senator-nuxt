@@ -46,7 +46,7 @@
         v-for="(item, index) in $store.state.localStorage.cart.cartItems"
         :key="index"
       >
-        <CartItem :product-item="item" />
+        <CartItem :product-item="item" @changed="updateCart" />
         <v-divider></v-divider>
       </div>
       <v-divider></v-divider>
@@ -146,14 +146,18 @@ export default {
       'localStorage/CALC_DISCOUNT',
       this.$store.getters['localStorage/quantityAlcohol']
     )
+    if (this.$auth.loggedIn) {
+      this.updateCart()
+    }
   },
   methods: {
     async updateCart() {
+      this.$store.commit('SWITCH_LOADER', true)
       if (this.$auth.loggedIn) {
         await this.$axios
-          .post(`/api/account/cart/new/item/${this.$auth.user.cart.cartId}`, {
+          .post(`/api/account/cart/update/${this.$auth.user.cart.cartId}`, {
             cartId: this.$auth.user.cart.cartId,
-            cartItems: [],
+            cartItems: this.$store.state.localStorage.cart.cartItems,
             grandTotal: this.$store.getters['localStorage/grandTotalWithSale']
           })
           .then((response) => {
