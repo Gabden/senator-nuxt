@@ -215,7 +215,15 @@
             <p class="pl-4 mb-0 grey--text" style="font-size: 0.85rem">
               Сахар
             </p>
-            <v-btn color="red" text link to="/" class="text-truncate"
+            <v-btn
+              color="red"
+              text
+              :to="
+                `/search/sugar?value=${
+                  product.productDetails.productAlcoholSugar.split(' ')[0]
+                }`
+              "
+              class="text-truncate"
               ><span
                 class="d-inline-block text-truncate"
                 style="max-width: 160px;"
