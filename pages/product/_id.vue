@@ -300,7 +300,14 @@
             <p class="pl-4 mb-0 grey--text" style="font-size: 0.85rem">
               Выдержка
             </p>
-            <v-btn color="red" text link to="/" class="text-truncate"
+            <v-btn
+              color="red"
+              text
+              nuxt
+              :to="
+                `/search/mature?value=${product.productDetails.productMature}`
+              "
+              class="text-truncate"
               ><span
                 class="d-inline-block text-truncate"
                 style="max-width: 160px;"
