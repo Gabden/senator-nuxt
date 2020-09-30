@@ -43,7 +43,7 @@
         class="mb-2 red--text text--darken-4"
       >
         <span class="caption">СКИДКА: </span>
-        <strong>{{ productItem.product.discount }}%</strong>
+        <strong>{{ productItem.discount }}%</strong>
       </div>
       <div class="mb-2 red--text text--darken-4">
         <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
@@ -96,8 +96,8 @@ export default {
         return this.productItem.product.productSalePrice
       } else {
         return Math.ceil(
-          this.productItem.product.productPrice *
-            ((100 - this.productItem.product.discount) / 100)
+          this.productItem.cartItemPrice *
+            ((100 - this.productItem.discount) / 100)
         )
       }
     },

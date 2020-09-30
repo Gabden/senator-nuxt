@@ -10,6 +10,9 @@ export const mutations = {
   FETCH_CART(state, cart) {
     state.cart = cart
   },
+  SET_CART_ID(state, id) {
+    state.cart.cartId = id
+  },
   ADD_TO_CART(state, product) {
     const cartProduct = state.cart.cartItems.find(
       (item) => item.product.productId === product.product.productId
@@ -37,27 +40,51 @@ export const mutations = {
   CALC_DISCOUNT(state, quantityAlco) {
     if (quantityAlco > 0 && quantityAlco < 3) {
       state.cart.cartItems.forEach((item) => {
-        item.product.discount = item.initialDiscount
+        item.discount = item.product.discount
+        if (item.product.productSalePrice) {
+          item.cartItemFinalPrice = item.product.productSalePrice
+        } else {
+          item.cartItemFinalPrice = Math.ceil(
+            (+item.cartItemPrice * (100 - item.discount)) / 100
+          )
+        }
+        item.totalPrice = item.quantity * item.cartItemFinalPrice
       })
     }
 
     if (quantityAlco >= 3 && quantityAlco < 6) {
       state.cart.cartItems.forEach((item) => {
         if (
-          (item.product.discount < 15 || item.product.discount === 20) &&
+          (item.discount < 15 || item.discount === 20) &&
           item.product.productCategory.includes('alcohol')
         ) {
-          item.product.discount = 15
+          item.discount = 15
+          if (item.product.productSalePrice) {
+            item.cartItemFinalPrice = item.product.productSalePrice
+          } else {
+            item.cartItemFinalPrice = Math.ceil(
+              (+item.cartItemPrice * (100 - item.discount)) / 100
+            )
+          }
+          item.totalPrice = item.quantity * item.cartItemFinalPrice
         }
       })
     }
     if (quantityAlco >= 6) {
       state.cart.cartItems.forEach((item) => {
         if (
-          item.product.discount < 20 &&
+          item.discount < 20 &&
           item.product.productCategory.includes('alcohol')
         ) {
-          item.product.discount = 20
+          item.discount = 20
+          if (item.product.productSalePrice) {
+            item.cartItemFinalPrice = item.product.productSalePrice
+          } else {
+            item.cartItemFinalPrice = Math.ceil(
+              (+item.cartItemPrice * (100 - item.discount)) / 100
+            )
+          }
+          item.totalPrice = item.quantity * item.cartItemFinalPrice
         }
       })
     }
@@ -94,7 +121,7 @@ export const getters = {
   },
   grandTotal(state) {
     const grandTotal = state.cart.cartItems.reduce(
-      (total, item) => (total += item.product.productPrice * item.quantity),
+      (total, item) => (total += item.cartItemPrice * item.quantity),
       0
     )
     return grandTotal
@@ -105,9 +132,7 @@ export const getters = {
         total += item.product.productSalePrice * item.quantity
       } else {
         total +=
-          item.product.productPrice *
-          ((100 - item.product.discount) / 100) *
-          item.quantity
+          item.cartItemPrice * ((100 - item.discount) / 100) * item.quantity
       }
       return total
     }, 0)

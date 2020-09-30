@@ -50,8 +50,8 @@ export default {
     return {
       formValidity: false,
       showPassword: false,
-      username: 'admin@admin.ru',
-      password: 'admin123',
+      username: 'gabden5545@gmail.com',
+      password: '12345',
       error: false,
       errorMsg: 'Неправильный адрес электронной почты или пароль',
       usernameRules: [
@@ -83,6 +83,17 @@ export default {
           requestsService.setAuthToken(data.token)
           this.$axios.defaults.headers.common.Authorization =
             'Bearer ' + data.token
+          this.$store.commit(
+            'localStorage/SET_CART_ID',
+            this.$auth.user.cart.cartId
+          )
+          this.$auth.user.cart.cartItems.forEach((item) => {
+            this.$store.commit('localStorage/ADD_TO_CART', {
+              product: item.product,
+              quantity: item.quantity,
+              initialDiscount: item.product.discount
+            })
+          })
         })
         .catch((e) => (this.error = true))
     }
