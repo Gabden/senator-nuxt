@@ -44,8 +44,24 @@ export default {
     }
   },
   methods: {
-    restorePassword() {
-      console.log('restore')
+    async restorePassword() {
+      this.$store.commit('SWITCH_LOADER', true)
+      await this.$axios
+        .post(`/api/account/restore-password?name=${this.username}`)
+        .then((response) => {
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted.success('Новый пароль отправлен на почту!').goAway(2000)
+          this.$router.push('/login')
+        })
+        .catch((e) => {
+          console.log(e.response)
+          let msg = 'Сервер временно недоступен, повторите попытку позже!'
+          if (e.response.status === 406) {
+            msg = 'Пользовать с такой почтой не существует'
+          }
+          this.$store.commit('SWITCH_LOADER', false)
+          this.$toasted.error(msg).goAway(3000)
+        })
     },
     head() {
       return {

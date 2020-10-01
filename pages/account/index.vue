@@ -328,33 +328,33 @@ export default {
     this.user.username = this.$auth.user ? this.$auth.user.username : ''
   },
   methods: {
-    changePhone(newPhone) {
+    async changePhone(newPhone) {
       const updatePhoneUrl = `/api/account/update/phone/${this.$auth.user.id}`
-      this.updateInfo(updatePhoneUrl)
+      await this.updateInfo(updatePhoneUrl)
     },
-    changeEmail() {
+    async changeEmail() {
       const updateUserMailUrl = `/api/account/update/username/${this.$auth.user.id}`
-      this.updateInfo(updateUserMailUrl)
+      await this.updateInfo(updateUserMailUrl)
       this.$auth.logout()
     },
-    changePassword() {
+    async changePassword() {
       if (this.user.newPassword !== this.user.secondPassword) {
         this.$toasted.error('Новые пароли не совпадают!').goAway(2000)
         return
       }
       const updatePasswordUrl = `/api/account/update/password/${this.$auth.user.id}`
-      this.updateInfo(updatePasswordUrl)
+      await this.updateInfo(updatePasswordUrl)
       this.user.oldPassword = ''
       this.user.newPassword = ''
       this.user.secondPassword = ''
     },
-    changeFIO() {
+    async changeFIO() {
       const updateFioUrl = `/api/account/update/fio/${this.$auth.user.id}`
-      this.updateInfo(updateFioUrl)
+      await this.updateInfo(updateFioUrl)
     },
-    updateInfo(url) {
+    async updateInfo(url) {
       this.$store.commit('SWITCH_LOADER', true)
-      this.$axios
+      await this.$axios
         .post(url, this.user)
         .then((response) => {
           this.$store.commit('SWITCH_LOADER', false)
