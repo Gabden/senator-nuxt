@@ -14,6 +14,11 @@ export default {
         name: 'keywords',
         content:
           'винмаркет, алкогольный супермаркет, купить алкоголь, интернет магазин алкоголя, купить элитный алкоголь, премиум алкоголь, премиум вино, алкомаркет, винный магазин, винный супермаркет'
+      },
+      {
+        hid: 'yandex-verification',
+        name: 'yandex-verification',
+        content: 'ae0e7aed0cfdf69b'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
@@ -36,7 +41,13 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'UA-158832193-1'
+      }
+    ]
   ],
   /*
    ** Nuxt.js modules
@@ -48,7 +59,6 @@ export default {
     '@nuxtjs/auth',
     '@nuxtjs/sitemap',
     '@nuxtjs/toast',
-    '@nuxtjs/google-analytics',
     '@nuxtjs/robots',
     'nuxt-vuex-localstorage'
   ],
@@ -103,10 +113,6 @@ export default {
         }
       }
     ]
-  },
-  // TODO ADD google analytics id
-  googleAnalytics: {
-    id: 'UA-12301-2'
   },
   robots: {
     UserAgent: '*',
