@@ -50,8 +50,8 @@ export default {
     return {
       formValidity: false,
       showPassword: false,
-      username: 'gabden5545@gmail.com',
-      password: '12345',
+      username: '',
+      password: '',
       error: false,
       errorMsg: 'Неправильный адрес электронной почты или пароль',
       usernameRules: [
