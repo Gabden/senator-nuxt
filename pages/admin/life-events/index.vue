@@ -16,6 +16,7 @@
 <script>
 import EventListItem from '@/components/admin/EventListItem.vue'
 export default {
+  middleware: 'auth-admin',
   components: {
     EventListItem
   }

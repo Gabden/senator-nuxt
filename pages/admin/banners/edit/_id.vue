@@ -26,6 +26,7 @@
 
 <script>
 export default {
+  middleware: 'auth-admin',
   asyncData(context) {
     context.store.commit('SWITCH_LOADER', true)
     return context.$axios

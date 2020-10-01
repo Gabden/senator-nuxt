@@ -33,6 +33,7 @@
 <script>
 import OrderProductItem from '@/components/admin/OrderProductItem.vue'
 export default {
+  middleware: 'auth-admin',
   components: {
     OrderProductItem
   },

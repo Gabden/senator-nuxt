@@ -161,7 +161,7 @@
 <script>
 import ListOrders from '@/components/ListOrders.vue'
 export default {
-  middleware: 'auth',
+  middleware: 'auth-admin',
   components: {
     ListOrders
   },
