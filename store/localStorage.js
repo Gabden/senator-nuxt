@@ -4,9 +4,13 @@ export const state = () => ({
   cart: {
     cartId: '',
     cartItems: []
-  }
+  },
+  isAgeEnough: true
 })
 export const mutations = {
+  SET_AGE_ENOUGH(state, value) {
+    state.isAgeEnough = value
+  },
   FETCH_CART(state, cart) {
     state.cart = cart
   },
