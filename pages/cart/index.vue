@@ -105,7 +105,7 @@
                 color="red accent-4"
                 class="mb-5"
                 dark
-                @click="dialog = false"
+                @click="createOrder"
               >
                 оформить резерв
               </v-btn>
@@ -169,6 +169,32 @@ export default {
                 .goAway(2000)
             })
         }
+      }
+    },
+    async createOrder() {
+      if (!this.$auth.loggedIn) {
+        this.$router.push('/login')
+      } else {
+        await this.$axios
+          .post(`/api/account/create/order`, {
+            cartId: this.$auth.user.cart.cartId,
+            cartItems: this.$store.state.localStorage.cart.cartItems,
+            grandTotal: this.$store.getters['localStorage/grandTotalWithSale']
+          })
+          .then((response) => {
+            this.$store.commit('SWITCH_LOADER', false)
+            this.confirmDialog = false
+            this.$store.dispatch('localStorage/clearCart')
+            this.updateCart()
+            this.$router.push('/confirmation')
+          })
+          .catch((e) => {
+            this.$store.commit('SWITCH_LOADER', false)
+            this.confirmDialog = false
+            this.$toasted
+              .error('Сервер временно недоступен, повторите попытку позже!')
+              .goAway(2000)
+          })
       }
     }
   },

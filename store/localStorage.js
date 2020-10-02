@@ -41,6 +41,9 @@ export const mutations = {
         item.product.productId !== productToDelete.product.product.productId
     )
   },
+  CLEAR_CART(state) {
+    state.cart.cartItems = []
+  },
   CALC_DISCOUNT(state, quantityAlco) {
     if (quantityAlco > 0 && quantityAlco < 3) {
       state.cart.cartItems.forEach((item) => {
@@ -109,6 +112,10 @@ export const actions = {
     commit('CHANGE_QUANTITY', product)
     commit('CALC_DISCOUNT', getters.quantityAlcohol)
     // TODO upgrade cart cookies
+  },
+  clearCart({ commit, getters }) {
+    commit('CLEAR_CART')
+    commit('CALC_DISCOUNT', getters.quantityAlcohol)
   },
   fetchCart({ commit }, cart) {
     commit('FETCH_CART', cart)
