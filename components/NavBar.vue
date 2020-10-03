@@ -7,7 +7,7 @@
       <div v-if="$auth.loggedIn" class="hidden-md-and-down">
         <v-btn text nuxt to="/account">{{ $auth.user.username }}</v-btn> |
         <v-btn v-if="isAdmin" text to="/admin"
-          ><v-badge content="2" color="red" inline class="mt-0">
+          ><v-badge :content="quantityOrders" color="red" inline class="mt-0">
             <span class="hidden-sm-and-down">Администрирование</span>
           </v-badge></v-btn
         >
@@ -249,6 +249,7 @@ export default {
   },
   data() {
     return {
+      pollingQuantity: null,
       searchDialog: false,
       searchText: '',
       drawer: false,
@@ -287,7 +288,19 @@ export default {
         return '0'
       }
       return this.$store.getters['localStorage/cartQuantity']
+    },
+    quantityOrders() {
+      if (this.$store.state.localStorage.newOrders < 1) {
+        return '0'
+      }
+      return this.$store.state.localStorage.newOrders
     }
+  },
+  created() {
+    this.pollingQuantity = setInterval(this.pollOrdersQuantity, 900000)
+  },
+  beforeDestroy() {
+    clearInterval(this.pollingQuantity)
   },
   methods: {
     logout() {
@@ -313,6 +326,23 @@ export default {
     findProducts() {
       this.searchDialog = false
       this.$router.push({ name: 'search', query: { text: this.searchText } })
+    },
+    pollOrdersQuantity() {
+      if (this.$auth.loggedIn && this.$auth.user.roles.includes('ADMIN')) {
+        this.$axios
+          .get(`/api/admin/orders/new`)
+          .then((response) => {
+            this.$store.commit(
+              'localStorage/SET_ORDERS_QUANTITY',
+              response.data
+            )
+          })
+          .catch((e) => {
+            this.$store.$toasted
+              .error('Сервер временно недоступен, повторите попытку позже!')
+              .goAway(2000)
+          })
+      }
     }
   }
 }

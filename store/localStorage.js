@@ -1,13 +1,15 @@
-// import requestsService from '../services/requestsService'
-
 export const state = () => ({
   cart: {
     cartId: '',
     cartItems: []
   },
-  isAgeEnough: true
+  isAgeEnough: true,
+  newOrders: 0
 })
 export const mutations = {
+  SET_ORDERS_QUANTITY(state, value) {
+    state.newOrders = value
+  },
   SET_AGE_ENOUGH(state, value) {
     state.isAgeEnough = value
   },

@@ -176,7 +176,7 @@ export default {
         this.$router.push('/login')
       } else {
         await this.$axios
-          .post(`/api/account/create/order`, {
+          .post(`/api/account/create/order/${this.$auth.user.id}`, {
             cartId: this.$auth.user.cart.cartId,
             cartItems: this.$store.state.localStorage.cart.cartItems,
             grandTotal: this.$store.getters['localStorage/grandTotalWithSale']
