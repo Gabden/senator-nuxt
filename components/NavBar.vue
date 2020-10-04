@@ -297,7 +297,8 @@ export default {
     }
   },
   created() {
-    this.pollingQuantity = setInterval(this.pollOrdersQuantity, 900000)
+    this.pollingQuantity = setInterval(this.pollOrdersQuantity, 600000)
+    this.pollOrdersQuantity()
   },
   beforeDestroy() {
     clearInterval(this.pollingQuantity)
