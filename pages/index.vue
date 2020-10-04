@@ -160,6 +160,10 @@ export default {
         return 200
       }
       return 150
+    },
+
+    checkAge() {
+      return this.$store.state.localStorage.isAgeEnough
     }
   },
   watch: {
