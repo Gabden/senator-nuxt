@@ -142,6 +142,11 @@ export default {
   /*
    ** Build configuration
    */
+  server: {
+    port: 8000, // default: 3000
+    host: '0.0.0.0', // default: localhost,
+    timing: false
+  },
   build: {
     /*
      ** You can extend webpack config here
