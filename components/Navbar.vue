@@ -339,7 +339,7 @@ export default {
             )
           })
           .catch((e) => {
-            this.$store.$toasted
+            this.$toasted
               .error('Сервер временно недоступен, повторите попытку позже!')
               .goAway(2000)
           })
