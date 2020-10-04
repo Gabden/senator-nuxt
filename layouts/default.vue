@@ -64,8 +64,8 @@
 </template>
 <script>
 import Footer from '@/components/Footer.vue'
-import Navbar from '@/components/Navbar.vue'
-import Infobar from '@/components/Infobar.vue'
+import Navbar from '@/components/MyNavbar.vue'
+import Infobar from '@/components/MyInfobar.vue'
 import Panel from '@/components/Panel.vue'
 
 export default {
