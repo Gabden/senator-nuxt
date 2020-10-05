@@ -51,12 +51,15 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-pagination
-        v-model="page"
-        :length="5"
-        :total-visible="7"
-        class="mb-5"
-      ></v-pagination>
+      <v-col cols="12">
+        <v-pagination
+          v-model="page"
+          :length="5"
+          :total-visible="7"
+          class="mb-5"
+        ></v-pagination>
+      </v-col>
+
       <v-col
         v-for="(product, index) in products"
         :key="index"
@@ -68,12 +71,14 @@
       >
         <product-card :product="product" />
       </v-col>
-      <v-pagination
-        v-model="page"
-        :length="5"
-        :total-visible="7"
-        class="mb-5"
-      ></v-pagination>
+      <v-col cols="12">
+        <v-pagination
+          v-model="page"
+          :length="5"
+          :total-visible="7"
+          class="mb-5"
+        ></v-pagination>
+      </v-col>
     </v-row>
     <h2 class="text-center">Мы соберем коллекцию к вашему визиту</h2>
     <h4 class="text-center my-3">
