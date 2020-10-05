@@ -3,14 +3,14 @@
     <Infobar v-if="!isScrolled" />
     <Navbar id="navbar" />
     <Panel v-if="!$vuetify.breakpoint.mdAndDown" style="margin-top: 15vh" />
-    <v-content :class="!$vuetify.breakpoint.mdAndDown ? 'pt-0' : ''">
+    <v-main :class="!$vuetify.breakpoint.mdAndDown ? 'pt-0' : ''">
       <v-container>
         <nuxt />
         <client-only>
           <CheckAge :aged="checkAge" />
         </client-only>
       </v-container>
-    </v-content>
+    </v-main>
     <Footer />
     <v-btn
       v-if="isScrolled"
