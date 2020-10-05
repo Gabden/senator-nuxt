@@ -10,8 +10,7 @@
     "start": "nuxt start",
     "start-prod": "nuxt build && nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "test": "jest"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.9.1",
@@ -23,21 +22,25 @@
     "@nuxtjs/toast": "^3.3.0",
     "nuxt": "^2.13.3",
     "nuxt-vuex-localstorage": "^1.2.7",
-    "v-mask": "^2.2.1"
+    "v-mask": "^2.2.1",
+    "terser": "3.14.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "@vue/test-utils": "^1.0.3",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^24.1.0",
-    "prettier": "^1.19.1",
-    "vue-jest": "^4.0.0-beta.3"
+    "prettier": "^1.19.1"
+  },
+  "resolutions": {
+    "terser": "3.14.1"
   }
 }
