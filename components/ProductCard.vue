@@ -19,9 +19,11 @@
         contain
       ></v-img>
     </nuxt-link>
-    <v-card-title class="text-center d-flex justify-center text-truncate">{{
-      product.productName
-    }}</v-card-title>
+    <v-card-title class="text-center d-flex justify-center">
+      <span class="d-inline-block text-truncate" style="max-width: 350px;">
+        {{ product.productName }}
+      </span>
+    </v-card-title>
     <v-card-subtitle class="text-center"
       >{{
         product.productDetails.productVolume

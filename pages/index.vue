@@ -19,18 +19,29 @@
       </v-carousel-item>
     </v-carousel>
 
-    <v-row :class="$vuetify.breakpoint.mdAndDown ? null : 'mt-5'">
+    <v-row
+      :class="$vuetify.breakpoint.mdAndDown ? null : 'mt-5'"
+      style="max-height: 540px"
+    >
       <v-col
         :cols="$vuetify.breakpoint.smAndDown ? 12 : 6"
         :class="$vuetify.breakpoint.mdAndDown ? null : 'my-5'"
       >
-        <h1 class="text-center">
+        <h1
+          class="text-center pa-0"
+          :class="$vuetify.breakpoint.smAndDown ? 'title-height' : null"
+        >
           СЕН<span class="display-2">A</span>ТОР — бутик лучших вин мира и
           подарков
-          <v-icon color="#d50000" class="display-3 mb-1">mdi-glass-wine</v-icon>
+          <v-icon
+            color="#d50000"
+            class="mb-1"
+            :class="$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2'"
+            >mdi-glass-wine</v-icon
+          >
         </h1>
 
-        <p class="text-justify">
+        <p class="text-justify mt-3">
           На сайте представлена информация об ассортименте бутика Сенатор.
           Возможность зарезервировать вина, крепкий алкоголь, оливковые масла и
           подарочные наборы. Все материалы, размещенные на сайте, носят
@@ -40,26 +51,19 @@
           v-for="card in featuresCards"
           :key="card.icon"
           :card="card"
+          :small-screen="$vuetify.breakpoint.smAndDown"
+          class="mt-1"
         />
       </v-col>
       <v-col cols="6" class="hidden-sm-and-down">
         <img
           src="../assets/faceSenator.jpg"
           alt="Senator shop enter"
-          style="width: 100%; height: 90%"
+          style="width: 100%; height: 80%"
         />
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12">
-        <v-pagination
-          v-model="page"
-          :length="5"
-          :total-visible="7"
-          class="mb-5"
-        ></v-pagination>
-      </v-col>
-
       <v-col
         v-for="(product, index) in products"
         :key="index"
@@ -87,7 +91,7 @@
       />
       +7(4912)-28-19-37
     </h4>
-    <p class="body-2 text-center">
+    <p class="body-2 text-center text-justify">
       В соответствии с рекомендациями ФС РАР от 25.06.18 уведомляем: алкогольная
       продукция может быть приобретена непосредственно в магазине Сенатор. ООО
       «Сенатор», ИНН: 6215012053, лицензия: 62РПА0001379 от 18.01.2018 действует
@@ -209,3 +213,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.title-height {
+  line-height: 0.7;
+}
+</style>

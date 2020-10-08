@@ -1,7 +1,7 @@
 <template>
-  <v-card-title class="my-3">
-    <v-icon class="mr-5" color="#d50000">{{ card.icon }}</v-icon
-    >{{ card.content }}
+  <v-card-title :class="smallScreen ? 'caption my-1' : 'my-2'">
+    <v-icon class="mr-5" color="#d50000">{{ card.icon }}</v-icon>
+    <span>{{ card.content }}</span>
   </v-card-title>
 </template>
 
@@ -11,6 +11,10 @@ export default {
     card: {
       type: Object,
       required: true
+    },
+    smallScreen: {
+      type: Boolean,
+      default: false
     }
   }
 }

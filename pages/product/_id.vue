@@ -318,7 +318,7 @@
           </v-col>
         </v-row>
         <v-divider></v-divider>
-        <div class="d-flex justify-center align-center my-5 pb-8">
+        <div class="d-flex justify-center align-center my-5">
           <div v-if="product.productDetails.productUnitInStock > 0">
             <v-btn class="mx-2 button-borders" fab small @click="decrement">
               <v-icon color="blue-grey">mdi-minus</v-icon>
@@ -329,6 +329,7 @@
             </v-btn>
             <v-btn
               class="mx-2 button-borders"
+              :class="$vuetify.breakpoint.smAndDown ? 'mt-5' : null"
               dark
               color="pink"
               @click="addToCart"
