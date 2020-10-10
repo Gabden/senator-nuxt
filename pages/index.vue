@@ -21,7 +21,7 @@
 
     <v-row
       :class="$vuetify.breakpoint.mdAndDown ? null : 'mt-5'"
-      style="max-height: 540px"
+      style="max-height: 650px"
     >
       <v-col
         :cols="$vuetify.breakpoint.smAndDown ? 12 : 6"
@@ -153,7 +153,7 @@ export default {
         },
         {
           icon: 'mdi-alert-decagram',
-          content: 'Индивидуальный подход к каждому клиенту'
+          content: 'Индивидуальный подход'
         }
       ]
     }
