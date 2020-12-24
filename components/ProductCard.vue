@@ -46,10 +46,13 @@
         class="ma-0 pink--text text--accent-3 font-weight-bold "
         style="font-size: 1.65rem !important"
       >
-        {{ priceWithSale }} руб.
+        <span v-if="this.product.discount || this.product.productSalePrice">{{ priceWithSale }}</span>
+        <span v-else>{{ product.productPrice }}</span>
+         руб.
       </p>
       <p
-        class="ma-0 gray--text font-weight-bold "
+        class="ma-0 font-weight-bold "
+        :class="this.product.discount || this.product.productSalePrice ? 'gray--text' : 'white--text'"
         style="text-decoration: line-through;"
       >
         {{ product.productPrice }} руб.
@@ -115,6 +118,9 @@ export default {
       if (this.product.productSalePrice) {
         return 'Sale'
       }
+      if (!this.product.discount) {
+        return '!'
+      }
       return this.product.discount + '%'
     },
     imageSrc() {
@@ -141,9 +147,9 @@ export default {
         product: this.product,
         quantity: this.quantity,
         cartItemPrice: this.product.productPrice,
-        cartItemFinalPrice: this.priceWithSale,
+        cartItemFinalPrice: this.product.discount ? this.priceWithSale : this.product.productPrice,
         discount: this.product.discount,
-        totalPrice: this.priceWithSale * this.quantity
+        totalPrice: this.product.discount ? this.priceWithSale * this.quantity : this.product.productPrice * this.quantity
       })
       this.$toasted
         .success(`${this.product.productName} успешно добавлен в корзину!`)

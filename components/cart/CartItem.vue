@@ -34,12 +34,12 @@
         style="max-width: 70%"
         @input="changeQuantity"
       ></v-select>
-      <div class="mb-2" style="text-decoration: line-through;">
+      <div class="mb-2" :class="productItem.product.productSalePrice || productItem.discount ? 'linethrough' : null">
         <span class="caption">ЦЕНА: </span>
         <strong>{{ productItem.product.productPrice }}</strong> руб.
       </div>
       <div
-        v-if="!productItem.product.productSalePrice"
+        v-if="!productItem.product.productSalePrice && productItem.discount"
         class="mb-2 red--text text--darken-4"
       >
         <span class="caption">СКИДКА: </span>
@@ -132,5 +132,8 @@ export default {
 <style scoped>
 .small-font {
   font-size: 0.6rem;
+}
+.linethrough {
+  text-decoration: line-through;
 }
 </style>

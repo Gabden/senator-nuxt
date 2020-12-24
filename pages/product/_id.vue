@@ -347,13 +347,16 @@
           <div>
             <p class="mb-0 grey--text " style="font-size: 0.85rem">Цена</p>
             <p
+              v-if="this.product.discount || this.product.productSalePrice"
               class="grey--text text--darken-2  mb-0 price-size"
               style="text-decoration: line-through;"
             >
               {{ product.productPrice }} руб.
             </p>
             <p class="red--text text--accent-4 price-size">
-              {{ priceWithSale }} руб.
+              <span v-if="this.product.discount || this.product.productSalePrice">{{ priceWithSale }}</span>
+              <span v-else>{{ product.productPrice }}</span>
+              руб.
             </p>
           </div>
         </div>
@@ -403,6 +406,9 @@ export default {
       if (this.product.productSalePrice) {
         return 'Sale'
       }
+      if (!this.product.discount) {
+        return '!'
+      }
       return this.product.discount + '%'
     },
     imageSrc() {
@@ -423,9 +429,13 @@ export default {
         product: this.product,
         quantity: this.quantity,
         cartItemPrice: this.product.productPrice,
-        cartItemFinalPrice: this.priceWithSale,
+        cartItemFinalPrice: this.product.discount
+          ? this.priceWithSale
+          : this.product.productPrice,
         discount: this.product.discount,
-        totalPrice: this.priceWithSale * this.quantity
+        totalPrice: this.product.discount
+          ? this.priceWithSale * this.quantity
+          : this.product.productPrice * this.quantity
       })
       this.$toasted
         .success(`${this.product.productName} успешно добавлен в корзину!`)

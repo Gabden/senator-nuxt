@@ -41,10 +41,6 @@
         <strong>{{ item.cartItemPrice }}</strong> руб.
       </p>
       <p class="mb-2 red--text text--darken-4">
-        <span class="caption">СКИДКА: </span>
-        <strong>10%</strong>
-      </p>
-      <p class="mb-2 red--text text--darken-4">
         <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
         <strong>{{ item.cartItemFinalPrice }}</strong> руб.
       </p>
