@@ -11,7 +11,7 @@
     <v-col v-if="!smallSize" class="d-flex justify-center align-center">
       <v-select
         v-model="quantity"
-        :items="[1, 2, 3, 4, 5, 6]"
+        :items="itemsQuantity"
         label="КОЛ-ВО"
         outlined
         style="max-width: 30%"
@@ -29,12 +29,19 @@
       <v-select
         v-if="smallSize"
         v-model="quantity"
-        :items="[1, 2, 3, 4, 5, 6]"
+        :items="itemsQuantity"
         dense
         style="max-width: 70%"
         @input="changeQuantity"
       ></v-select>
-      <div class="mb-2" :class="productItem.product.productSalePrice || productItem.discount ? 'linethrough' : null">
+      <div
+        class="mb-2"
+        :class="
+          productItem.product.productSalePrice || productItem.discount
+            ? 'linethrough'
+            : null
+        "
+      >
         <span class="caption">ЦЕНА: </span>
         <strong>{{ productItem.product.productPrice }}</strong> руб.
       </div>
@@ -103,6 +110,13 @@ export default {
     },
     totalPrice() {
       return this.priceWithSale * this.productItem.quantity
+    },
+    itemsQuantity() {
+      return Array.from(
+        Array(
+          +this.productItem.product.productDetails.productUnitInStock + 1
+        ).keys()
+      ).slice(1)
     }
   },
   created() {
@@ -110,11 +124,13 @@ export default {
   },
   methods: {
     changeQuantity() {
-      this.$store.dispatch('localStorage/changeQuantity', {
-        product: this.productItem,
-        quantity: this.quantity
-      })
-      this.$emit('changed')
+      if (this.quantity !== this.productItem.quantity) {
+        this.$store.dispatch('localStorage/changeQuantity', {
+          product: this.productItem,
+          quantity: this.quantity
+        })
+        this.$emit('changed')
+      }
     },
     deleteFromCart() {
       this.$store.dispatch('localStorage/removeFromCart', {
