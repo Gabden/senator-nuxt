@@ -320,7 +320,13 @@
         <v-divider></v-divider>
         <div class="d-flex justify-center align-center my-5">
           <div v-if="product.productDetails.productUnitInStock > 0">
-            <v-btn class="mx-2 button-borders" fab small @click="decrement">
+            <v-btn
+              class="mx-2 button-borders"
+              fab
+              small
+              :disabled="quantity === 1"
+              @click="decrement"
+            >
               <v-icon color="blue-grey">mdi-minus</v-icon>
             </v-btn>
             <span class="title">{{ quantity }}</span>
@@ -354,7 +360,10 @@
               {{ product.productPrice }} руб.
             </p>
             <p class="red--text text--accent-4 price-size">
-              <span v-if="this.product.discount || this.product.productSalePrice">{{ priceWithSale }}</span>
+              <span
+                v-if="this.product.discount || this.product.productSalePrice"
+                >{{ priceWithSale }}</span
+              >
               <span v-else>{{ product.productPrice }}</span>
               руб.
             </p>

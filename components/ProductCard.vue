@@ -46,13 +46,19 @@
         class="ma-0 pink--text text--accent-3 font-weight-bold "
         style="font-size: 1.65rem !important"
       >
-        <span v-if="this.product.discount || this.product.productSalePrice">{{ priceWithSale }}</span>
+        <span v-if="this.product.discount || this.product.productSalePrice">{{
+          priceWithSale
+        }}</span>
         <span v-else>{{ product.productPrice }}</span>
-         руб.
+        руб.
       </p>
       <p
         class="ma-0 font-weight-bold "
-        :class="this.product.discount || this.product.productSalePrice ? 'gray--text' : 'white--text'"
+        :class="
+          this.product.discount || this.product.productSalePrice
+            ? 'gray--text'
+            : 'white--text'
+        "
         style="text-decoration: line-through;"
       >
         {{ product.productPrice }} руб.
@@ -62,7 +68,13 @@
       v-if="product.productDetails.productUnitInStock > 0"
       class="d-flex justify-center mb-5 pb-8"
     >
-      <v-btn class="mx-2 button-borders" fab small @click="decrement">
+      <v-btn
+        class="mx-2 button-borders"
+        fab
+        small
+        :disabled="quantity === 1"
+        @click="decrement"
+      >
         <v-icon color="blue-grey">mdi-minus</v-icon>
       </v-btn>
       <span class="title">{{ quantity }}</span>
@@ -147,9 +159,13 @@ export default {
         product: this.product,
         quantity: this.quantity,
         cartItemPrice: this.product.productPrice,
-        cartItemFinalPrice: this.product.discount ? this.priceWithSale : this.product.productPrice,
+        cartItemFinalPrice: this.product.discount
+          ? this.priceWithSale
+          : this.product.productPrice,
         discount: this.product.discount,
-        totalPrice: this.product.discount ? this.priceWithSale * this.quantity : this.product.productPrice * this.quantity
+        totalPrice: this.product.discount
+          ? this.priceWithSale * this.quantity
+          : this.product.productPrice * this.quantity
       })
       this.$toasted
         .success(`${this.product.productName} успешно добавлен в корзину!`)
