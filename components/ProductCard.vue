@@ -78,7 +78,13 @@
         <v-icon color="blue-grey">mdi-minus</v-icon>
       </v-btn>
       <span class="title">{{ quantity }}</span>
-      <v-btn class="mx-2 button-borders" fab small @click="increment">
+      <v-btn
+        class="mx-2 button-borders"
+        fab
+        small
+        :disabled="quantity >= product.productDetails.productUnitInStock"
+        @click="increment"
+      >
         <v-icon color="blue-grey">mdi-plus</v-icon>
       </v-btn>
       <v-btn
