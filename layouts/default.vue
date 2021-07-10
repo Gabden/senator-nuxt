@@ -6,7 +6,7 @@
     <v-main :class="!$vuetify.breakpoint.mdAndDown ? 'pt-0' : ''">
       <v-container>
         <nuxt />
-        <client-only>
+        <client-only v-if="checkAge">
           <CheckAge :aged="checkAge" />
         </client-only>
       </v-container>

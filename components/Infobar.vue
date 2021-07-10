@@ -47,7 +47,8 @@ export default {
         { name: 'О нас', url: '/about-us' },
         { name: 'Корпоративным клиентам', url: '/business' },
         { name: 'Контакты', url: '/contacts' },
-        { name: 'Резерв', url: '/reservation' }
+        { name: 'Резерв', url: '/reservation' },
+        { name: 'Моб. приложения', url: '/application' },
       ]
     }
   }
