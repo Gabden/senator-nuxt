@@ -6,7 +6,7 @@
         <a :href="googleStoreLink">
           <img
             alt="Google play market"
-            src="../../assets/google.png"
+            src="~assets/googlebanner.png"
             class="app-store"
           />
         </a>
@@ -16,7 +16,7 @@
         <a :href="appStoreLink">
           <img
             alt="Apple store"
-            src="../../assets/appstore.png"
+            src="~assets/appstorebanner.png"
             class="app-store"
           />
         </a>

@@ -60,6 +60,7 @@ export default {
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
+    this.$banner();
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
