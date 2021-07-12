@@ -43,12 +43,12 @@ export default {
 
       {
         name: 'smartbanner:icon-apple',
-        content: '_nuxt/assets/appstore.png'
+        content: '/appstore.png'
       },
 
       {
         name: 'smartbanner:icon-google',
-        content: '_nuxt/assets/google.png'
+        content: '/google.png'
       },
 
       {
