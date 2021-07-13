@@ -27,6 +27,30 @@
               <v-icon class="green--text social">mdi-whatsapp</v-icon>
             </a>
           </p>
+          <div class="pt-2 mt-2 text-center">
+            <p class="white--text text-center">
+              Мобильное приложение
+            </p>
+            <a
+              href="https://apps.apple.com/mo/app/%D1%81%D0%B5%D0%BD%D0%B0%D1%82%D0%BE%D1%80-senator/id1574491488?l=en"
+              class="mr-3"
+            >
+              <img
+                alt="Apple app store"
+                src="~assets/appstorebanner.png"
+                class="app-store"
+              />
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.appbery.appberysenatorwine"
+            >
+              <img
+                alt="Google play market"
+                src="~assets/googlebanner.png"
+                class="app-store"
+              />
+            </a>
+          </div>
         </v-col>
         <v-col cols="12" md="3">
           <h3 class="text-center grey--text">Быстрые ссылки</h3>
@@ -165,5 +189,30 @@ a span {
 }
 .social {
   font-size: 2.5rem;
+}
+.app-store {
+  width: 35vw;
+  height: 60px;
+}
+
+@media (min-width: 600px) {
+  .app-store {
+    width: 27vw;
+  }
+}
+@media (min-width: 800px) {
+  .app-store {
+    width: 17vw;
+  }
+}
+@media (min-width: 1000px) {
+  .app-store {
+    width: 14vw;
+  }
+}
+@media (min-width: 1500px) {
+  .app-store {
+    width: 10vw;
+  }
 }
 </style>

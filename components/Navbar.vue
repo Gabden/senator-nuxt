@@ -184,7 +184,7 @@
         <v-list-item link to="/application">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5"
-              >Моб. приложения</v-list-item-title
+              >Моб. приложение</v-list-item-title
             >
           </v-list-item-content>
         </v-list-item>

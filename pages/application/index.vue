@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto text-center pa-3 mb-0">
     <v-card-text class="display-2">
-      Скачайте мобильное приложения Сенатор!
+      Скачайте мобильное приложение Сенатор!
       <div class="py-5 mt-5">
         <a :href="googleStoreLink">
           <img

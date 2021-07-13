@@ -48,7 +48,7 @@ export default {
         { name: 'Корпоративным клиентам', url: '/business' },
         { name: 'Контакты', url: '/contacts' },
         { name: 'Резерв', url: '/reservation' },
-        { name: 'Моб. приложения', url: '/application' },
+        { name: 'Моб. приложение', url: '/application' },
       ]
     }
   }
