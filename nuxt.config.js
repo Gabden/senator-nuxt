@@ -19,63 +19,6 @@ export default {
         hid: 'yandex-verification',
         name: 'yandex-verification',
         content: 'ae0e7aed0cfdf69b'
-      },
-      {
-        name: 'smartbanner:title',
-        content: 'Senator'
-      },
-      {
-        name: 'smartbanner:author',
-        content: 'senator-wine.ru'
-      },
-      {
-        name: 'smartbanner:price',
-        content: 'FREE'
-      },
-      {
-        name: 'smartbanner:price-suffix-apple',
-        content: ' - On the App Store'
-      },
-      { 
-        name: 'smartbanner:price-suffix-google',
-        content: ' - In Google Play'
-      },
-
-      {
-        name: 'smartbanner:icon-apple',
-        content: '/appstore.png'
-      },
-
-      {
-        name: 'smartbanner:icon-google',
-        content: '/google.png'
-      },
-
-      {
-        name: 'smartbanner:button',
-        content: 'VIEW'
-      },
-
-      {
-        name: 'smartbanner:button-url-apple',
-        content:
-          'https://apps.apple.com/ru/app/%D1%81%D0%B5%D0%BD%D0%B0%D1%82%D0%BE%D1%80-senator/id1574491488?ign-itsct=apps_box_badge&ign-itscg=30200'
-      },
-
-      {
-        name: 'smartbanner:button-url-google',
-        content:
-          'https://play.google.com/store/apps/details?id=com.appbery.appberysenatorwine'
-      },
-
-      {
-        name: 'smartbanner:enabled-platforms',
-        content: 'android,ios'
-      },
-
-      {
-        name: 'smartbanner:close-label',
-        content: 'Close'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
@@ -91,7 +34,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/vmask', '~plugins/axios', '~plugins/banner.client'],
+  plugins: ['~plugins/vmask', '~plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */
