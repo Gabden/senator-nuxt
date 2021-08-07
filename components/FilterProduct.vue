@@ -22,7 +22,7 @@
           ></v-checkbox>
         </v-expansion-panel-content>
       </v-expansion-panel>
-      <v-expansion-panel>
+      <v-expansion-panel @change="fetchTypes">
         <v-expansion-panel-header>Вид напитка</v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-checkbox
@@ -37,7 +37,7 @@
           ></v-checkbox>
         </v-expansion-panel-content>
       </v-expansion-panel>
-      <v-expansion-panel>
+      <v-expansion-panel @change="fetchCountries">
         <v-expansion-panel-header>Страна</v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-autocomplete
@@ -54,7 +54,7 @@
           ></v-autocomplete>
         </v-expansion-panel-content>
       </v-expansion-panel>
-      <v-expansion-panel>
+      <v-expansion-panel @change="fetchManufacturers">
         <v-expansion-panel-header>Производитель</v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-autocomplete
@@ -110,22 +110,11 @@
 
 <script>
 export default {
-  props: {
-    types: {
-      type: Array,
-      required: true
-    },
-    manufacturers: {
-      type: Array,
-      required: true
-    },
-    countries: {
-      type: Array,
-      required: true
-    }
-  },
   data() {
     return {
+      types: [],
+      manufacturers: [],
+      countries: [],
       priceMinRule: [(value) => value > 0 || 'Число должно быть больше 0'],
       priceMaxRule: [
         (value) =>
@@ -154,6 +143,32 @@ export default {
   methods: {
     filterProducts() {
       this.$emit('filter', this.filter)
+    },
+    async fetchTypes() {
+      if (this.types.length > 0) {
+        return
+      }
+      await this.$axios.get('/api/product/all/types').then((response) => {
+        this.types = response.data
+      })
+    },
+    async fetchManufacturers() {
+      if (this.manufacturers.length > 0) {
+        return
+      }
+      await this.$axios
+        .get('/api/product/all/manufacturers')
+        .then((response) => {
+          this.manufacturers = response.data
+        })
+    },
+    async fetchCountries() {
+      if (this.countries.length > 0) {
+        return
+      }
+      await this.$axios.get('/api/product/all/countries').then((response) => {
+        this.countries = response.data
+      })
     }
   }
 }
