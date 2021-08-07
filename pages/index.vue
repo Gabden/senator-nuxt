@@ -118,6 +118,7 @@ export default {
     this.banners = fetchResponse[1].data
     this.$store.commit('SWITCH_LOADER', false)
   },
+  fetchOnServer: false,
   data() {
     return {
       banners: [],
