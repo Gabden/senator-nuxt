@@ -330,7 +330,13 @@
               <v-icon color="blue-grey">mdi-minus</v-icon>
             </v-btn>
             <span class="title">{{ quantity }}</span>
-            <v-btn class="mx-2 button-borders" fab small :disabled="quantity >= product.productDetails.productUnitInStock" @click="increment">
+            <v-btn
+              class="mx-2 button-borders"
+              fab
+              small
+              :disabled="quantity >= product.productDetails.productUnitInStock"
+              @click="increment"
+            >
               <v-icon color="blue-grey">mdi-plus</v-icon>
             </v-btn>
             <v-btn
@@ -353,17 +359,16 @@
           <div>
             <p class="mb-0 grey--text " style="font-size: 0.85rem">Цена</p>
             <p
-              v-if="this.product.discount || this.product.productSalePrice"
+              v-if="product.discount || product.productSalePrice"
               class="grey--text text--darken-2  mb-0 price-size"
               style="text-decoration: line-through;"
             >
               {{ product.productPrice }} руб.
             </p>
             <p class="red--text text--accent-4 price-size">
-              <span
-                v-if="this.product.discount || this.product.productSalePrice"
-                >{{ priceWithSale }}</span
-              >
+              <span v-if="product.discount || product.productSalePrice">{{
+                priceWithSale
+              }}</span>
               <span v-else>{{ product.productPrice }}</span>
               руб.
             </p>

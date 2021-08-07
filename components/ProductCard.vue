@@ -5,10 +5,6 @@
         discountOrSale
       }}</v-btn>
       <v-spacer></v-spacer>
-      <!-- <v-btn icon color="pink" class="ma-3">
-        <v-icon v-if="isFavorite">mdi-heart</v-icon>
-        <v-icon v-else>mdi-heart-outline</v-icon>
-      </v-btn> -->
     </div>
     <nuxt-link :to="'/product/' + product.productId">
       <v-img
@@ -46,7 +42,7 @@
         class="ma-0 pink--text text--accent-3 font-weight-bold "
         style="font-size: 1.65rem !important"
       >
-        <span v-if="this.product.discount || this.product.productSalePrice">{{
+        <span v-if="product.discount || product.productSalePrice">{{
           priceWithSale
         }}</span>
         <span v-else>{{ product.productPrice }}</span>
@@ -55,7 +51,7 @@
       <p
         class="ma-0 font-weight-bold "
         :class="
-          this.product.discount || this.product.productSalePrice
+          product.discount || product.productSalePrice
             ? 'gray--text'
             : 'white--text'
         "

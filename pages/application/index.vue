@@ -36,10 +36,10 @@ export default {
     }
   },
   beforeMount() {
-    if (navigator && navigator.userAgent.toLowerCase().indexOf('android') > -1) {
+    if (navigator && navigator.userAgent.toLowerCase().includes('android')) {
       window.location.href = this.googleStoreLink
     }
-    if (navigator && navigator.userAgent.toLowerCase().indexOf('iphone') > -1) {
+    if (navigator && navigator.userAgent.toLowerCase().includes('iphone')) {
       window.location.href = this.appStoreLink
     }
   },

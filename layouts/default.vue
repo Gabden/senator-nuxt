@@ -5,9 +5,9 @@
     <Panel v-if="!$vuetify.breakpoint.mdAndDown" style="margin-top: 15vh" />
     <v-main :class="!$vuetify.breakpoint.mdAndDown ? 'pt-0' : ''">
       <v-container>
-        <nuxt />
-        <client-only v-if="checkAge">
-          <CheckAge :aged="checkAge" />
+        <nuxt keep-alive />
+        <client-only>
+          <CheckAge :aged="!isAgeEnough" />
         </client-only>
       </v-container>
     </v-main>
@@ -54,7 +54,7 @@ export default {
     overlay() {
       return this.$store.state.loader
     },
-    checkAge() {
+    isAgeEnough() {
       return this.$store.state.localStorage.isAgeEnough
     }
   },
