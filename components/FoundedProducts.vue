@@ -2,12 +2,7 @@
   <div>
     <v-row>
       <v-col cols="12" md="3">
-        <FilterProduct
-          :types="types"
-          :manufacturers="manufacturers"
-          :countries="countries"
-          @filter="filterProducts"
-        />
+        <FilterProduct @filter="filterProducts" />
       </v-col>
       <v-col cols="12" md="9">
         <p
@@ -58,18 +53,6 @@ export default {
   props: {
     products: {
       type: Object,
-      required: true
-    },
-    types: {
-      type: Array,
-      required: true
-    },
-    manufacturers: {
-      type: Array,
-      required: true
-    },
-    countries: {
-      type: Array,
       required: true
     }
   },

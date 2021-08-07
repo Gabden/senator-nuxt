@@ -137,7 +137,7 @@ export default {
         selectedTypes: null,
         selectedCountry: null,
         selectedManufacturer: null,
-        minPrice: 0,
+        minPrice: null,
         maxPrice: null
       },
       categories: [
