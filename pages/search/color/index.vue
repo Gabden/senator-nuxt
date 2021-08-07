@@ -1,9 +1,6 @@
 <template>
   <FoundedProducts
     :products="products"
-    :types="types"
-    :manufacturers="manufacturers"
-    :countries="countries"
     @changePage="changePage"
     @filtered="filterProducts"
   />
@@ -17,9 +14,6 @@ export default {
   },
   async asyncData(context) {
     let products = null
-    let types = null
-    let manufacturers = null
-    let countries = null
     await context.$axios
       .get(`/api/product/search/color?value=${context.query.value}`)
       .then((response) => {
@@ -31,41 +25,7 @@ export default {
           message: 'Сервер временно недоступен, повторите попытке позже'
         })
       })
-    await context.$axios
-      .get('/api/product/all/types')
-      .then((response) => {
-        types = response.data
-      })
-      .catch((e) => {
-        context.error({
-          statusCode: 500,
-          message: 'Сервер временно недоступен, повторите попытке позже'
-        })
-      })
-    await context.$axios
-      .get('/api/product/all/manufacturers')
-      .then((response) => {
-        manufacturers = response.data
-      })
-      .catch((e) => {
-        context.error({
-          statusCode: 500,
-          message: 'Сервер временно недоступен, повторите попытке позже'
-        })
-      })
-
-    await context.$axios
-      .get('/api/product/all/countries')
-      .then((response) => {
-        countries = response.data
-      })
-      .catch((e) => {
-        context.error({
-          statusCode: 500,
-          message: 'Сервер временно недоступен, повторите попытке позже'
-        })
-      })
-    return { products, types, manufacturers, countries }
+    return { products }
   },
   data() {
     return {
