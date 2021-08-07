@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-carousel
+      v-if="banners.length > 0"
       cycle
       :height="heightSize"
       hide-delimiter-background
@@ -75,7 +76,7 @@
       >
         <product-card :product="product" />
       </v-col>
-      <v-col cols="12">
+      <v-col v-if="products.length > 0" cols="12">
         <v-pagination
           v-model="page"
           :length="5"
@@ -108,35 +109,19 @@ export default {
     'features-card': FeaturesCard,
     'product-card': ProductCard
   },
-  async asyncData(context) {
-    let banners = []
-    let products = []
-    await context.$axios
-      .get('/api/home/all/products')
-      .then((response) => {
-        products = response.data.content
-      })
-      .catch((e) => {
-        context.error({
-          statusCode: 500,
-          message: 'Сервер временно недоступен, повторите попытке позже'
-        })
-      })
-    await context.$axios
-      .get('/api/home/banners/all')
-      .then((response) => {
-        banners = response.data
-      })
-      .catch((e) => {
-        context.error({
-          statusCode: 500,
-          message: 'Сервер временно недоступен, повторите попытке позже'
-        })
-      })
-    return { products, banners }
+  async fetch() {
+    this.$store.commit('SWITCH_LOADER', true)
+    const fetchProducts = this.$axios.get('/api/home/all/products')
+    const fetchBanners = this.$axios.get('/api/home/banners/all')
+    const fetchResponse = await Promise.all([fetchProducts, fetchBanners])
+    this.products = fetchResponse[0].data.content
+    this.banners = fetchResponse[1].data
+    this.$store.commit('SWITCH_LOADER', false)
   },
   data() {
     return {
+      banners: [],
+      products: [],
       page: 1,
       featuresCards: [
         {
@@ -169,10 +154,6 @@ export default {
         return 200
       }
       return 150
-    },
-
-    checkAge() {
-      return this.$store.state.localStorage.isAgeEnough
     }
   },
   watch: {

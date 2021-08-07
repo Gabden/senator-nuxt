@@ -3,7 +3,7 @@ export const state = () => ({
     cartId: '',
     cartItems: []
   },
-  isAgeEnough: true,
+  isAgeEnough: false,
   newOrders: 0
 })
 export const mutations = {

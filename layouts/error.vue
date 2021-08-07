@@ -27,6 +27,9 @@ export default {
       otherError: 'An error occurred'
     }
   },
+  mounted() {
+    this.$store.commit('SWITCH_LOADER', false)
+  },
   head() {
     const title =
       this.error.statusCode === 404 ? this.pageNotFound : this.otherError

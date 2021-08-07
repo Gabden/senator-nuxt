@@ -38,12 +38,12 @@ export default {
   props: {
     aged: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   methods: {
     confirmAge() {
-      this.$store.commit('localStorage/SET_AGE_ENOUGH', false)
+      this.$store.commit('localStorage/SET_AGE_ENOUGH', true)
     },
     declineAge() {
       window.open(
