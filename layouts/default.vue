@@ -5,7 +5,7 @@
     <Panel v-if="!$vuetify.breakpoint.mdAndDown" style="margin-top: 15vh" />
     <v-main :class="!$vuetify.breakpoint.mdAndDown ? 'pt-0' : ''">
       <v-container>
-        <nuxt keep-alive />
+        <nuxt />
         <client-only>
           <CheckAge :aged="!isAgeEnough" />
         </client-only>
