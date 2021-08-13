@@ -242,7 +242,6 @@ export default {
   },
   data() {
     return {
-      pollingQuantity: null,
       searchDialog: false,
       searchText: '',
       drawer: false,
@@ -289,12 +288,8 @@ export default {
       return this.$store.state.localStorage.newOrders
     }
   },
-  created() {
-    this.pollingQuantity = setInterval(this.pollOrdersQuantity, 600000)
-    this.pollOrdersQuantity()
-  },
-  beforeDestroy() {
-    clearInterval(this.pollingQuantity)
+  async created() {
+    await this.pollOrdersQuantity()
   },
   methods: {
     logout() {
@@ -321,9 +316,9 @@ export default {
       this.searchDialog = false
       this.$router.push({ name: 'search', query: { text: this.searchText } })
     },
-    pollOrdersQuantity() {
+    async pollOrdersQuantity() {
       if (this.$auth.loggedIn && this.$auth.user.roles.includes('ADMIN')) {
-        this.$axios
+        await this.$axios
           .get(`/api/admin/orders/new`)
           .then((response) => {
             this.$store.commit(
