@@ -4,7 +4,10 @@ export const state = () => ({
     cartItems: []
   },
   isAgeEnough: false,
-  newOrders: 0
+  newOrders: 0,
+  types: null,
+  countries: null,
+  manufacturers: null
 })
 export const mutations = {
   SET_ORDERS_QUANTITY(state, value) {
@@ -97,23 +100,29 @@ export const mutations = {
         }
       })
     }
+  },
+  SET_TYPES(state, types) {
+    state.types = types
+  },
+  SET_COUNTRIES(state, countries) {
+    state.countries = countries
+  },
+  SET_MANUFACTURERS(state, manufacturers) {
+    state.manufacturers = manufacturers
   }
 }
 export const actions = {
   addToCart({ commit }, product) {
     commit('ADD_TO_CART', product)
     commit('CALC_DISCOUNT', getters.quantityAlcohol)
-    // TODO upgrade cart cookies
   },
   removeFromCart({ commit, getters }, product) {
     commit('REMOVE_FROM_CART', product)
     commit('CALC_DISCOUNT', getters.quantityAlcohol)
-    // TODO upgrade cart cookies
   },
   changeQuantity({ commit, getters }, product) {
     commit('CHANGE_QUANTITY', product)
     commit('CALC_DISCOUNT', getters.quantityAlcohol)
-    // TODO upgrade cart cookies
   },
   clearCart({ commit, getters }) {
     commit('CLEAR_CART')
@@ -121,7 +130,15 @@ export const actions = {
   },
   fetchCart({ commit }, cart) {
     commit('FETCH_CART', cart)
-    // TODO upgrade cart cookies
+  },
+  fetchTypes({ commit }, types) {
+    commit('SET_TYPES', types)
+  },
+  fetchCountries({ commit }, countries) {
+    commit('SET_COUNTRIES', countries)
+  },
+  fetchManufacturers({ commit }, manufacturers) {
+    commit('SET_MANUFACTURERS', manufacturers)
   }
 }
 export const getters = {

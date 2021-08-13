@@ -26,7 +26,7 @@
         <v-expansion-panel-header>Вид напитка</v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-checkbox
-            v-for="(type, index) in types"
+            v-for="(type, index) in getTypes"
             :key="index"
             v-model="filter.selectedTypes"
             color="warning"
@@ -42,7 +42,7 @@
         <v-expansion-panel-content>
           <v-autocomplete
             v-model="filter.selectedCountry"
-            :items="countries"
+            :items="getCountries"
             item-text="Description"
             item-value="API"
             color="warning"
@@ -59,7 +59,7 @@
         <v-expansion-panel-content>
           <v-autocomplete
             v-model="filter.selectedManufacturer"
-            :items="manufacturers"
+            :items="getManufacturers"
             item-text="Description"
             item-value="API"
             color="warning"
@@ -112,9 +112,6 @@
 export default {
   data() {
     return {
-      types: [],
-      manufacturers: [],
-      countries: [],
       priceMinRule: [(value) => value > 0 || 'Число должно быть больше 0'],
       priceMaxRule: [
         (value) =>
@@ -140,35 +137,74 @@ export default {
       ]
     }
   },
+  computed: {
+    getTypes() {
+      if (this.$store.state.localStorage.types) {
+        return this.$store.state.localStorage.types
+      }
+      return []
+    },
+    getCountries() {
+      if (this.$store.state.localStorage.countries) {
+        return this.$store.state.localStorage.countries
+      }
+      return []
+    },
+    getManufacturers() {
+      if (this.$store.state.localStorage.manufacturers) {
+        return this.$store.state.localStorage.manufacturers
+      }
+      return []
+    }
+  },
   methods: {
     filterProducts() {
       this.$emit('filter', this.filter)
     },
     async fetchTypes() {
-      if (this.types.length > 0) {
+      if (this.getTypes.length > 0) {
         return
       }
-      await this.$axios.get('/api/product/all/types').then((response) => {
-        this.types = response.data
-      })
+      await this.$axios
+        .get('/api/product/all/types')
+        .then((response) => {
+          this.$store.commit('localStorage/SET_TYPES', response.data)
+        })
+        .catch((e) => {
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
     },
     async fetchManufacturers() {
-      if (this.manufacturers.length > 0) {
+      if (this.getManufacturers.length > 0) {
         return
       }
       await this.$axios
         .get('/api/product/all/manufacturers')
         .then((response) => {
-          this.manufacturers = response.data
+          this.$store.commit('localStorage/SET_MANUFACTURERS', response.data)
+        })
+        .catch((e) => {
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
         })
     },
     async fetchCountries() {
-      if (this.countries.length > 0) {
+      if (this.getCountries.length > 0) {
         return
       }
-      await this.$axios.get('/api/product/all/countries').then((response) => {
-        this.countries = response.data
-      })
+      await this.$axios
+        .get('/api/product/all/countries')
+        .then((response) => {
+          this.$store.commit('localStorage/SET_COUNTRIES', response.data)
+        })
+        .catch((e) => {
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
     }
   }
 }
