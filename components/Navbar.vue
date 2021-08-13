@@ -27,12 +27,6 @@
           <span class="hidden-sm-and-down">Поиск</span>
         </v-btn>
       </div>
-      <!-- <div :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''">
-        <v-btn text rounded router to="/secured"
-          ><v-icon>mdi-heart-outline</v-icon>
-          <span class="hidden-sm-and-down">Избранное</span>
-        </v-btn>
-      </div> -->
       <div
         :class="$vuetify.breakpoint.smAndDown ? 'formatIcons' : ''"
         class="mr-2"
@@ -161,14 +155,6 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
-
-        <!-- <v-list-item link to="/">
-          <v-list-item-content>
-            <v-list-item-title class="text-left ml-5"
-              >События</v-list-item-title
-            >
-          </v-list-item-content>
-        </v-list-item> -->
         <v-list-item link to="/about-us">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5">О нас</v-list-item-title>
