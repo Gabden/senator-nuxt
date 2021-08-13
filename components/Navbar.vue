@@ -288,7 +288,7 @@ export default {
       return this.$store.state.localStorage.newOrders
     }
   },
-  async created() {
+  async mounted() {
     await this.pollOrdersQuantity()
   },
   methods: {

@@ -71,8 +71,8 @@ export default {
     }
   },
   methods: {
-    login() {
-      this.$auth
+    async login() {
+      await this.$auth
         .loginWith('local', {
           data: {
             username: this.username,
@@ -99,6 +99,22 @@ export default {
           })
         })
         .catch((e) => (this.error = true))
+
+      if (this.$auth.loggedIn && this.$auth.user.roles.includes('ADMIN')) {
+        await this.$axios
+          .get(`/api/admin/orders/new`)
+          .then((response) => {
+            this.$store.commit(
+              'localStorage/SET_ORDERS_QUANTITY',
+              response.data
+            )
+          })
+          .catch((e) => {
+            this.$toasted
+              .error('Сервер временно недоступен, повторите попытку позже!')
+              .goAway(2000)
+          })
+      }
     }
   },
   head() {
