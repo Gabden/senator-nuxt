@@ -95,17 +95,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: { proxy: true },
-  router: { middleware: 'auth-header' },
-  serverMiddleware: [
-    (req, res, next) => {
-      if (/\/{2,}/.test(req.url)) {
-        const url = req.url.replace(/\/{2,}/g, '/')
-        res.writeHead(301, { Location: url })
-        return res.end()
-      }
-      next()
-    }
-  ],
+  router: { middleware: ['auth-header', 'double-slash-check'] },
   sitemap: {
     hostname: 'https://senator-wine.ru',
     gzip: true,
