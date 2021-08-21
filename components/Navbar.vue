@@ -98,7 +98,12 @@
         <v-list-item v-if="isAdmin" link to="/admin">
           <v-list-item-content>
             <v-list-item-title class="text-left ml-5"
-              ><v-badge content="2" color="red" inline class="mt-0">
+              ><v-badge
+                :content="quantityOrders"
+                color="red"
+                inline
+                class="mt-0"
+              >
                 <span>Администрирование</span>
               </v-badge></v-list-item-title
             >
