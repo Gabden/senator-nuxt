@@ -92,10 +92,20 @@ export default {
   },
   /*
    ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options 
+   ** See https://axios.nuxtjs.org/options
    */
   axios: { proxy: true },
   router: { middleware: 'auth-header' },
+  serverMiddleware: [
+    (req, res, next) => {
+      if (/\/{2,}/.test(req.url)) {
+        const url = req.url.replace(/\/{2,}/g, '/')
+        res.writeHead(301, { Location: url })
+        return res.end()
+      }
+      next()
+    }
+  ],
   sitemap: {
     hostname: 'https://senator-wine.ru',
     gzip: true,
