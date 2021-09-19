@@ -95,7 +95,7 @@
       </v-btn>
     </v-card-actions>
     <v-card-actions v-else class="d-flex justify-center mb-5 pb-8">
-      <v-btn class="mx-2 button-borders" large outlined disabled>
+      <v-btn class="mx-2 empty" color="error" large outlined>
         товар отсутствует
       </v-btn>
     </v-card-actions>
@@ -180,5 +180,8 @@ export default {
 <style scoped>
 .button-borders {
   border: 1px solid #607d8b;
+}
+.empty {
+  cursor: not-allowed;
 }
 </style>

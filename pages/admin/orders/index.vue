@@ -33,11 +33,6 @@
     <div>
       <p class="grey--text">Всего найдено: {{ orders.totalElements }}</p>
     </div>
-    <v-pagination
-      v-model="page"
-      :length="orders.totalPages"
-      :total-visible="7"
-    ></v-pagination>
     <div
       v-for="order in orders.content"
       :key="order.customerOrderId"

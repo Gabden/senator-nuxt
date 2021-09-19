@@ -351,7 +351,7 @@
             </v-btn>
           </div>
           <div v-else class="d-flex justify-center mb-5 pb-8">
-            <v-btn class="mx-2 button-borders" large outlined disabled>
+            <v-btn class="mx-2 empty" color="error" large outlined>
               товар отсутствует
             </v-btn>
           </div>
@@ -474,5 +474,8 @@ export default {
 <style scoped>
 .price-size {
   font-size: 1.25rem;
+}
+.empty {
+  cursor: not-allowed;
 }
 </style>

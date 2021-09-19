@@ -30,11 +30,6 @@
       @click:append="findProductByText"
       @keyup.enter="findProductByText"
     ></v-text-field>
-    <v-pagination
-      v-model="page"
-      :length="productsInfo.totalPages"
-      :total-visible="7"
-    ></v-pagination>
     <div>
       <p class="grey--text">Всего найдено: {{ productsInfo.totalElements }}</p>
     </div>
