@@ -30,7 +30,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/main.css', '~/assets/banner/smartbanner.min.css'],
+  css: ['~/assets/main.css', '@mdi/font/css/materialdesignicons.min.css'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -60,7 +60,8 @@ export default {
     '@nuxtjs/sitemap',
     '@nuxtjs/toast',
     '@nuxtjs/robots',
-    'nuxt-vuex-localstorage'
+    'nuxt-vuex-localstorage',
+    'nuxt-webfontloader'
   ],
   proxy: {
     '/api': {
@@ -124,6 +125,7 @@ export default {
    */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    defaultAssets: false,
     theme: {
       dark: false
       //   themes: {
@@ -147,5 +149,11 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+
+  webfontloader: {
+    google: {
+      families: ['Roboto:100,300,400,500,700,900']
+    }
   }
 }
