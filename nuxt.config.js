@@ -3,7 +3,12 @@ export default {
   render: {
     http2: {
       push: true,
-      pushAssets: null
+      pushAssets: (_req, _res, publicPath, preloadFiles) => {
+        preloadFiles.map(
+          (f) =>
+            `<${publicPath}${f.file}>; crossorigin; rel=preload; as=${f.asType}`
+        )
+      }
     }
   },
   /*
@@ -169,7 +174,7 @@ export default {
 
   webfontloader: {
     google: {
-      families: ['Roboto:100,300,400,500,700,900']
+      families: ['Roboto:100,300,400,500,700,900&display=swap']
     }
   }
 }
