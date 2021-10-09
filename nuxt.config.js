@@ -3,12 +3,7 @@ export default {
   render: {
     http2: {
       push: true,
-      pushAssets: (_req, _res, publicPath, preloadFiles) => {
-        preloadFiles.map(
-          (f) =>
-            `<${publicPath}${f.file}>; crossorigin; rel=preload; as=${f.asType}`
-        )
-      }
+      pushAssets: null
     }
   },
   /*
