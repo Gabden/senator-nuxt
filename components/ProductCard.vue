@@ -8,6 +8,7 @@
     </div>
     <nuxt-link :to="'/product/' + product.productId">
       <v-img
+        v-lazy-load
         :src="imageSrc"
         max-width="390"
         max-height="350"

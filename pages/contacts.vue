@@ -18,6 +18,7 @@
       >
       <v-col cols="12" sm="8">
         <img
+          v-lazy-load
           src="../assets/location.jpg"
           alt="address"
           style="width: 100%; height: 100%"

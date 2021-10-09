@@ -36,6 +36,7 @@
               class="mr-3"
             >
               <img
+                v-lazy-load
                 alt="Apple app store"
                 src="~assets/appstorebanner.png"
                 class="app-store"
@@ -45,6 +46,7 @@
               href="https://play.google.com/store/apps/details?id=com.appbery.appberysenatorwine"
             >
               <img
+                v-lazy-load
                 alt="Google play market"
                 src="~assets/googlebanner.png"
                 class="app-store"

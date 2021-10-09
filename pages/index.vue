@@ -11,6 +11,7 @@
       <v-carousel-item v-for="(banner, i) in banners" :key="i">
         <nuxt-link :to="banner.bannerUrl">
           <v-img
+            v-lazy-load
             :src="'data:image/jpg;base64,' + banner.fileData"
             contain
             :max-height="heightSize"
@@ -58,6 +59,7 @@
       </v-col>
       <v-col cols="6" class="hidden-sm-and-down">
         <img
+          v-lazy-load
           src="../assets/faceSenator.jpg"
           alt="Senator shop enter"
           style="width: 100%; height: 80%"

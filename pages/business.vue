@@ -4,6 +4,7 @@
       <v-row class="mx-auto justify-center">
         <v-col class="mx-auto d-flex justify-center">
           <img
+            v-lazy-load
             src="../assets/corporate.jpg"
             alt="logo"
             class="mx-auto"
