@@ -22,6 +22,9 @@
 <script>
 export default {
   middleware: 'auth-admin',
+  async fetch() {
+    await this.pollOrdersQuantity()
+  },
   data() {
     return {
       categories: [
@@ -63,6 +66,20 @@ export default {
         //   icon: 'mdi-calendar-star'
         // }
       ]
+    }
+  },
+  methods: {
+    async pollOrdersQuantity() {
+      await this.$axios
+        .get(`/api/admin/orders/new`)
+        .then((response) => {
+          this.$store.commit('localStorage/SET_ORDERS_QUANTITY', response.data)
+        })
+        .catch((e) => {
+          this.$toasted
+            .error('Сервер временно недоступен, повторите попытку позже!')
+            .goAway(2000)
+        })
     }
   },
   head() {
