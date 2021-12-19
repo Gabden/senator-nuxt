@@ -39,7 +39,7 @@
       class="my-5"
     >
       <v-divider></v-divider>
-      <ProductListItem :product="product" />
+      <ProductListItem :product="product" :page="page" />
     </div>
     <v-pagination
       v-model="page"
@@ -57,11 +57,13 @@ export default {
     ProductListItem
   },
   asyncData(context) {
+    let { page } = context.route.query
+    page = page ? page * 1 : 1
     return context.$axios
-      .get('/api/admin/products')
+      .get('/api/admin/products?page=' + (page - 1))
       .then((response) => {
         const productsInfo = response.data
-        return { productsInfo }
+        return { productsInfo, page }
       })
       .catch((e) => {
         context.error({
@@ -72,7 +74,6 @@ export default {
   },
   data() {
     return {
-      page: 1,
       IdForFind: '',
       textForFind: ''
     }

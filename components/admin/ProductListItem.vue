@@ -35,7 +35,7 @@
       <v-btn
         icon
         nuxt
-        :to="'/admin/goods/edit/' + product.productId"
+        :to="'/admin/goods/edit/' + product.productId + '?page=' + page"
         class="my-3"
         ><v-icon class="display-1">mdi-pencil-box-multiple</v-icon></v-btn
       >
@@ -75,6 +75,10 @@ export default {
     product: {
       type: Object,
       required: true
+    },
+    page: {
+      type: Number,
+      default: 1
     }
   },
   data() {

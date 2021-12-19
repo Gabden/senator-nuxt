@@ -134,10 +134,8 @@ export default {
         (value) => value.indexOf('@') !== 0 || 'Email должен содержать имя',
         (value) => value.includes('@') || 'Email должен включать @ символ',
         (value) =>
-          value.indexOf('.') - value.indexOf('@') > 1 ||
-          'Email должен содержать имя домена',
-        (value) =>
-          value.includes('.') || 'Email должен содержать точку после домена',
+          value.indexOf('@') < value.lastIndexOf('.') ||
+          'Email должен содержать точку после домена',
         (value) =>
           value.indexOf('.') <= value.length - 3 ||
           'Email должен содержать доменную зону'

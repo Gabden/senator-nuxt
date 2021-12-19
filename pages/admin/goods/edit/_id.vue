@@ -149,12 +149,13 @@
 export default {
   middleware: 'auth-admin',
   asyncData(context) {
+    const { page } = context.route.query
     const url = '/api/product/' + context.route.params.id
     return context.$axios
       .get(url)
       .then((response) => {
         const product = response.data
-        return { product }
+        return { product, page }
       })
       .catch((e) => {
         context.error({
@@ -205,7 +206,7 @@ export default {
               .goAway(2000)
           })
       }
-      this.$router.push('/admin/goods')
+      this.$router.push('/admin/goods?page=' + this.page)
     }
   },
   head() {
