@@ -22,12 +22,6 @@
             категории алкоголь действует скидка
             <span class="red--text text--accent-4">15%</span>
           </p>
-          <p class="green--text text--darken-3">
-            При заказе от
-            <span class="red--text text--accent-4"> 6 ЕДИНИЦ ТОВАРА</span> из
-            категории алкоголь действует скидка
-            <span class="red--text text--accent-4">20%</span>
-          </p>
           <v-divider class="mx-auto mb-5" style="max-width: 80%"></v-divider>
           <p class="mb-1 green--text text--darken-3">
             Скидка активируется автоматически при выполнении условий описанных

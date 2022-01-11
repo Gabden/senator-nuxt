@@ -64,31 +64,13 @@ export const mutations = {
       })
     }
 
-    if (quantityAlco >= 3 && quantityAlco < 6) {
+    if (quantityAlco >= 3) {
       state.cart.cartItems.forEach((item) => {
         if (
-          (item.discount < 15 || item.discount === 20) &&
+          item.discount < 15 &&
           item.product.productCategory.includes('alcohol')
         ) {
           item.discount = 15
-          if (item.product.productSalePrice) {
-            item.cartItemFinalPrice = item.product.productSalePrice
-          } else {
-            item.cartItemFinalPrice = Math.ceil(
-              (+item.cartItemPrice * (100 - item.discount)) / 100
-            )
-          }
-          item.totalPrice = item.quantity * item.cartItemFinalPrice
-        }
-      })
-    }
-    if (quantityAlco >= 6) {
-      state.cart.cartItems.forEach((item) => {
-        if (
-          item.discount < 20 &&
-          item.product.productCategory.includes('alcohol')
-        ) {
-          item.discount = 20
           if (item.product.productSalePrice) {
             item.cartItemFinalPrice = item.product.productSalePrice
           } else {
