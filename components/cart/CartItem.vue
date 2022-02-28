@@ -37,7 +37,8 @@
       <div
         class="mb-2"
         :class="
-          productItem.product.productSalePrice || productItem.discount
+          (productItem.product.productSalePrice || productItem.discount) &&
+          !isDiscountBlocked
             ? 'linethrough'
             : null
         "
@@ -45,17 +46,19 @@
         <span class="caption">ЦЕНА: </span>
         <strong>{{ productItem.product.productPrice }}</strong> руб.
       </div>
-      <div
-        v-if="!productItem.product.productSalePrice && productItem.discount"
-        class="mb-2 red--text text--darken-4"
-      >
-        <span class="caption">СКИДКА: </span>
-        <strong>{{ productItem.discount }}%</strong>
-      </div>
-      <div class="mb-2 red--text text--darken-4">
-        <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
-        <strong>{{ priceWithSale }}</strong> руб.
-      </div>
+      <template v-if="!isDiscountBlocked">
+        <div
+          v-if="!productItem.product.productSalePrice && productItem.discount"
+          class="mb-2 red--text text--darken-4"
+        >
+          <span class="caption">СКИДКА: </span>
+          <strong>{{ productItem.discount }}%</strong>
+        </div>
+        <div class="mb-2 red--text text--darken-4">
+          <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
+          <strong>{{ priceWithSale }}</strong> руб.
+        </div>
+      </template>
       <div class="mb-2">
         <span class="caption">СУММА: </span
         ><strong>{{ totalPrice }}</strong> руб.
@@ -117,6 +120,9 @@ export default {
           +this.productItem.product.productDetails.productUnitInStock + 1
         ).keys()
       ).slice(1)
+    },
+    isDiscountBlocked() {
+      return process.env.DISCOUNT_BLOCKED
     }
   },
   created() {

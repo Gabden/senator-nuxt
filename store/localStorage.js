@@ -50,7 +50,18 @@ export const mutations = {
     state.cart.cartItems = []
   },
   CALC_DISCOUNT(state, quantityAlco) {
-    if (quantityAlco > 0 && quantityAlco < 3) {
+    if (process.env.DISCOUNT_BLOCKED) {
+      state.cart.cartItems.forEach((item) => {
+        item.discount = 0
+        item.totalPrice = item.quantity * item.cartItemPrice
+      })
+      return
+    }
+
+    if (
+      quantityAlco > 0 &&
+      quantityAlco < process.env.DISCOUNT_FIRST_LEVEL_QUANTITY
+    ) {
       state.cart.cartItems.forEach((item) => {
         item.discount = item.product.discount
         if (item.product.productSalePrice) {
@@ -64,13 +75,13 @@ export const mutations = {
       })
     }
 
-    if (quantityAlco >= 3) {
+    if (quantityAlco >= process.env.DISCOUNT_FIRST_LEVEL_QUANTITY) {
       state.cart.cartItems.forEach((item) => {
         if (
-          item.discount < 15 &&
+          item.discount < process.env.DISCOUNT_FIRST_LEVEL &&
           item.product.productCategory.includes('alcohol')
         ) {
-          item.discount = 15
+          item.discount = process.env.DISCOUNT_FIRST_LEVEL
           if (item.product.productSalePrice) {
             item.cartItemFinalPrice = item.product.productSalePrice
           } else {

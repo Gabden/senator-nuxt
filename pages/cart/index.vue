@@ -16,20 +16,22 @@
           <p class="green--text text--darken-4 display-1">
             Внимание!
           </p>
-          <p class="green--text text--darken-3">
-            При заказе от
-            <span class="red--text text--accent-4"> 3 ЕДИНИЦ ТОВАРА</span> из
-            категории алкоголь действует скидка
-            <span class="red--text text--accent-4">15%</span>
-          </p>
-          <v-divider class="mx-auto mb-5" style="max-width: 80%"></v-divider>
-          <p class="mb-1 green--text text--darken-3">
-            Скидка активируется автоматически при выполнении условий описанных
-            выше
-          </p>
-          <p class="mb-1 green--text text--darken-3">
-            Дополнительная скидка не применяется на товары по акции
-          </p>
+          <template v-if="!isDiscountBlocked">
+            <p class="green--text text--darken-3">
+              При заказе от
+              <span class="red--text text--accent-4"> 3 ЕДИНИЦ ТОВАРА</span> из
+              категории алкоголь действует скидка
+              <span class="red--text text--accent-4">15%</span>
+            </p>
+            <v-divider class="mx-auto mb-5" style="max-width: 80%"></v-divider>
+            <p class="mb-1 green--text text--darken-3">
+              Скидка активируется автоматически при выполнении условий описанных
+              выше
+            </p>
+            <p class="mb-1 green--text text--darken-3">
+              Дополнительная скидка не применяется на товары по акции
+            </p>
+          </template>
           <p class="ma-0 green--text text--darken-3">
             Зарезервированный товар вы сможете получить в магазине Сенатор
           </p>
@@ -50,11 +52,16 @@
         <v-col cols="12">
           <p
             class="mb-0 ml-5 text-center"
-            style="text-decoration: line-through;"
+            :style="
+              isDiscountBlocked ? 'display-1' : 'text-decoration: line-through;'
+            "
           >
             Итого: {{ $store.getters['localStorage/grandTotal'] }} руб.
           </p>
-          <p class="ml-5 red--text text--accent-4 text-center display-1">
+          <p
+            v-if="!isDiscountBlocked"
+            class="ml-5 red--text text--accent-4 text-center display-1"
+          >
             ИТОГО со скидкой:
             <span
               >{{
@@ -125,6 +132,9 @@ export default {
   computed: {
     alcoQuantity() {
       return this.$store.getters['localStorage/quantityAlcohol']
+    },
+    isDiscountBlocked() {
+      return process.env.DISCOUNT_BLOCKED
     }
   },
   watch: {

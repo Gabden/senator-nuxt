@@ -56,7 +56,8 @@ export default {
       {
         id: 'UA-158832193-1'
       }
-    ]
+    ],
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Nuxt.js modules
