@@ -40,6 +40,7 @@
     >
     <v-card-text class="text-center pt-2">
       <p
+        v-if="!isDiscountBlocked"
         class="ma-0 pink--text text--accent-3 font-weight-bold "
         style="font-size: 1.65rem !important"
       >
@@ -56,7 +57,11 @@
             ? 'gray--text'
             : 'white--text'
         "
-        style="text-decoration: line-through;"
+        :style="
+          isDiscountBlocked
+            ? 'font-size: 1.65rem !important'
+            : 'text-decoration: line-through;'
+        "
       >
         {{ product.productPrice }} руб.
       </p>
@@ -146,6 +151,9 @@ export default {
       ) {
         return 'data:image/jpg;base64,' + this.product.productImage.fileData
       } else return ''
+    },
+    isDiscountBlocked() {
+      return process.env.DISCOUNT_BLOCKED
     }
   },
   methods: {

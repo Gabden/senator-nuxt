@@ -361,11 +361,16 @@
             <p
               v-if="product.discount || product.productSalePrice"
               class="grey--text text--darken-2  mb-0 price-size"
-              style="text-decoration: line-through;"
+              :style="
+                isDiscountBlocked ? null : 'text-decoration: line-through;'
+              "
             >
               {{ product.productPrice }} руб.
             </p>
-            <p class="red--text text--accent-4 price-size">
+            <p
+              v-if="!isDiscountBlocked"
+              class="red--text text--accent-4 price-size"
+            >
               <span v-if="product.discount || product.productSalePrice">{{
                 priceWithSale
               }}</span>
@@ -427,6 +432,9 @@ export default {
     },
     imageSrc() {
       return 'data:image/jpg;base64,' + this.product.productImage.fileData
+    },
+    isDiscountBlocked() {
+      return process.env.DISCOUNT_BLOCKED
     }
   },
   methods: {
