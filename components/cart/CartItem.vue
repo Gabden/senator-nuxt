@@ -44,7 +44,10 @@
         "
       >
         <span class="caption">ЦЕНА: </span>
-        <strong>{{ productItem.product.productPrice }}</strong> руб.
+        <strong v-if="!isReservationBlocked"
+          >{{ productItem.product.productPrice }} руб.</strong
+        >
+        <strong v-else>-</strong>
       </div>
       <template v-if="!isDiscountBlocked">
         <div
@@ -61,7 +64,8 @@
       </template>
       <div class="mb-2">
         <span class="caption">СУММА: </span
-        ><strong>{{ totalPrice }}</strong> руб.
+        ><strong v-if="!isReservationBlocked">{{ totalPrice }} руб.</strong>
+        <strong v-else>-</strong>
       </div>
     </v-col>
     <v-col cols="1" class="d-flex justify-center align-center">
@@ -123,6 +127,9 @@ export default {
     },
     isDiscountBlocked() {
       return process.env.DISCOUNT_BLOCKED
+    },
+    isReservationBlocked() {
+      return process.env.RESERVE_BLOCKED
     }
   },
   created() {

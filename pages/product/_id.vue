@@ -357,26 +357,39 @@
           </div>
           <v-spacer></v-spacer>
           <div>
-            <p class="mb-0 grey--text " style="font-size: 0.85rem">Цена</p>
-            <p
-              v-if="product.discount || product.productSalePrice"
-              class="grey--text text--darken-2  mb-0 price-size"
-              :style="
-                isDiscountBlocked ? null : 'text-decoration: line-through;'
-              "
-            >
-              {{ product.productPrice }} руб.
-            </p>
-            <p
-              v-if="!isDiscountBlocked"
-              class="red--text text--accent-4 price-size"
-            >
-              <span v-if="product.discount || product.productSalePrice">{{
-                priceWithSale
-              }}</span>
-              <span v-else>{{ product.productPrice }}</span>
-              руб.
-            </p>
+            <template v-if="isReservationBlocked">
+              Цену уточняйте по телефону
+              <a
+                class="d-block text-center"
+                text
+                rounded
+                :href="`tel:+74912281937`"
+              >
+                <span>+7(4912)-28-19-37</span>
+              </a>
+            </template>
+            <template v-else>
+              <p class="mb-0 grey--text " style="font-size: 0.85rem">Цена</p>
+              <p
+                v-if="product.discount || product.productSalePrice"
+                class="grey--text text--darken-2  mb-0 price-size"
+                :style="
+                  isDiscountBlocked ? null : 'text-decoration: line-through;'
+                "
+              >
+                {{ product.productPrice }} руб.
+              </p>
+              <p
+                v-if="!isDiscountBlocked"
+                class="red--text text--accent-4 price-size"
+              >
+                <span v-if="product.discount || product.productSalePrice">{{
+                  priceWithSale
+                }}</span>
+                <span v-else>{{ product.productPrice }}</span>
+                руб.
+              </p>
+            </template>
           </div>
         </div>
       </v-col>
@@ -435,6 +448,9 @@ export default {
     },
     isDiscountBlocked() {
       return process.env.DISCOUNT_BLOCKED
+    },
+    isReservationBlocked() {
+      return process.env.RESERVE_BLOCKED
     }
   },
   methods: {

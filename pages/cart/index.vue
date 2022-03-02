@@ -49,7 +49,7 @@
       <div
         class="my-5 font-weight-bold d-flex flex-column justify-center align-center"
       >
-        <v-col cols="12">
+        <v-col v-if="!isReservationBlocked" cols="12">
           <p
             class="mb-0 ml-5 text-center"
             :style="

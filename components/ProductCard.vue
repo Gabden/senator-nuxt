@@ -39,32 +39,41 @@
       }}</v-card-subtitle
     >
     <v-card-text class="text-center pt-2">
-      <p
-        v-if="!isDiscountBlocked"
-        class="ma-0 pink--text text--accent-3 font-weight-bold "
-        style="font-size: 1.65rem !important"
-      >
-        <span v-if="product.discount || product.productSalePrice">{{
-          priceWithSale
-        }}</span>
-        <span v-else>{{ product.productPrice }}</span>
-        руб.
-      </p>
-      <p
-        class="ma-0 font-weight-bold "
-        :class="
-          product.discount || product.productSalePrice
-            ? 'gray--text'
-            : 'white--text'
-        "
-        :style="
-          isDiscountBlocked
-            ? 'font-size: 1.65rem !important'
-            : 'text-decoration: line-through;'
-        "
-      >
-        {{ product.productPrice }} руб.
-      </p>
+      <template v-if="isReservationBlocked">
+        Цену уточняйте по телефону
+        <a class="d-block text-center" text rounded :href="`tel:+74912281937`">
+          <span>+7(4912)-28-19-37</span>
+        </a>
+      </template>
+
+      <template v-else>
+        <p
+          v-if="!isDiscountBlocked"
+          class="ma-0 pink--text text--accent-3 font-weight-bold "
+          style="font-size: 1.65rem !important"
+        >
+          <span v-if="product.discount || product.productSalePrice">{{
+            priceWithSale
+          }}</span>
+          <span v-else>{{ product.productPrice }}</span>
+          руб.
+        </p>
+        <p
+          class="ma-0 font-weight-bold "
+          :class="
+            product.discount || product.productSalePrice
+              ? 'gray--text'
+              : 'white--text'
+          "
+          :style="
+            isDiscountBlocked
+              ? 'font-size: 1.65rem !important'
+              : 'text-decoration: line-through;'
+          "
+        >
+          {{ product.productPrice }} руб.
+        </p>
+      </template>
     </v-card-text>
     <v-card-actions
       v-if="product.productDetails.productUnitInStock > 0"
@@ -154,6 +163,9 @@ export default {
     },
     isDiscountBlocked() {
       return process.env.DISCOUNT_BLOCKED
+    },
+    isReservationBlocked() {
+      return process.env.RESERVE_BLOCKED
     }
   },
   methods: {
