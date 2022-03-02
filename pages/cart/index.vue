@@ -82,7 +82,28 @@
               >Внимание</v-card-title
             >
 
-            <v-card-text class="text-center">
+            <v-card-text
+              v-if="isReservationBlocked"
+              class="text-center text-justify"
+            >
+              <span style="font-size: 1.2rem">
+                В настоящее время онлайн резерв товара недоступен
+              </span>
+              <br />
+              <span style="font-size: 1.2rem">
+                Резерв осуществляется по телефону<a
+                  class="d-block text-center"
+                  text
+                  rounded
+                  :href="`tel:+74912281937`"
+                >
+                  <span>+7(4912)-28-19-37</span>
+                </a>
+                либо в магазине "Сенатор Лучшие Вина Мира" по адресу г.Рязань
+                ул.Свободы д.24а
+              </span>
+            </v-card-text>
+            <v-card-text v-else class="text-center">
               <span style="font-size: 1.2rem">
                 Зарезирвированные товары вы сможете забрать в магазине "Сенатор
                 Лучшие Вина Мира" по адресу г.Рязань ул.Свободы д.24а
@@ -101,7 +122,10 @@
               >
             </v-card-text>
 
-            <v-card-actions class="d-flex justify-center">
+            <v-card-actions
+              v-if="!isReservationBlocked"
+              class="d-flex justify-center"
+            >
               <v-btn
                 color="red accent-4"
                 class="mb-5"
@@ -135,6 +159,9 @@ export default {
     },
     isDiscountBlocked() {
       return process.env.DISCOUNT_BLOCKED
+    },
+    isReservationBlocked() {
+      return process.env.RESERVE_BLOCKED
     }
   },
   watch: {
