@@ -14,7 +14,7 @@
             Мы в социальных сетях
           </p>
           <p class="white--text text-center">
-            <a href="https://www.facebook.com/senator24/">
+            <!-- <a href="https://www.facebook.com/senator24/">
               <v-icon class="blue--text social">mdi-facebook</v-icon>
             </a>
             <a
@@ -22,7 +22,7 @@
               href="https://www.instagram.com/senatorwine24/?igshid=1vk88vyuoxkq"
             >
               <v-icon class="pink--text social">mdi-instagram</v-icon>
-            </a>
+            </a> -->
             <a href="https://wa.me/79209551894">
               <v-icon class="green--text social">mdi-whatsapp</v-icon>
             </a>
