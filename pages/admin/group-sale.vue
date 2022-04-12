@@ -3,6 +3,27 @@
     <h1 class="text-center my-5">
       Здесь вы можете редактировать размер скидки на группу товаров
     </h1>
+    <h3 class="text-center my-5">Изменить цену на % всех товаров</h3>
+    <v-row>
+      <v-text-field
+        v-model="allGoods.percent"
+        type="number"
+        min="-100"
+        max="100"
+        label="Процент изменения"
+        append-icon="mdi-percent"
+        class="pt-5 ml-auto"
+      ></v-text-field>
+      <v-btn
+        tile
+        outlined
+        color="green darken-1"
+        class="ma-5"
+        @click="acceptAllGoodsChange"
+      >
+        Применить
+      </v-btn>
+    </v-row>
     <h3 class="text-center my-5">Категория</h3>
     <v-row>
       <v-select
@@ -228,6 +249,9 @@ export default {
         name: '',
         value: '',
         percent: 10
+      },
+      allGoods: {
+        percent: 10
       }
     }
   },
@@ -250,6 +274,10 @@ export default {
     },
     acceptCountrySale() {
       const url = `/api/admin/group-sale/edit/country?country=${this.country.name}&discount=${this.country.percent}`
+      this.sendRequest(url)
+    },
+    acceptAllGoodsChange() {
+      const url = `/api/admin/group-sale/edit/all?discount=${this.allGoods.percent}`
       this.sendRequest(url)
     },
     sendRequest(url) {
