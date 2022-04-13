@@ -16,7 +16,7 @@
           <p class="green--text text--darken-4 display-1">
             Внимание!
           </p>
-          <template v-if="!isDiscountBlocked">
+          <template v-if="!isDiscountBlocked && !isOnlyFirstLevelDiscount">
             <p class="green--text text--darken-3">
               При заказе от
               <span class="red--text text--accent-4"> 3 ЕДИНИЦ ТОВАРА</span> из
@@ -168,6 +168,9 @@ export default {
     },
     isReservationBlocked() {
       return process.env.RESERVE_BLOCKED
+    },
+    isOnlyFirstLevelDiscount() {
+      return process.env.DISCOUNT_ONLY_FIRST_LEVEL
     }
   },
   watch: {

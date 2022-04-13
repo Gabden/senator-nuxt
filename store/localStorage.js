@@ -59,8 +59,9 @@ export const mutations = {
     }
 
     if (
-      quantityAlco > 0 &&
-      quantityAlco < process.env.DISCOUNT_FIRST_LEVEL_QUANTITY
+      (quantityAlco > 0 &&
+        quantityAlco < process.env.DISCOUNT_FIRST_LEVEL_QUANTITY) ||
+      process.env.DISCOUNT_ONLY_FIRST_LEVEL
     ) {
       state.cart.cartItems.forEach((item) => {
         item.discount = item.product.discount
@@ -75,7 +76,10 @@ export const mutations = {
       })
     }
 
-    if (quantityAlco >= process.env.DISCOUNT_FIRST_LEVEL_QUANTITY) {
+    if (
+      quantityAlco >= process.env.DISCOUNT_FIRST_LEVEL_QUANTITY &&
+      !process.env.DISCOUNT_ONLY_FIRST_LEVEL
+    ) {
       state.cart.cartItems.forEach((item) => {
         if (
           item.discount < process.env.DISCOUNT_FIRST_LEVEL &&
