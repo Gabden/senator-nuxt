@@ -22,7 +22,7 @@
     </v-carousel>
 
     <v-row
-      :class="$vuetify.breakpoint.mdAndDown ? null : 'mt-5'"
+      :class="$vuetify.breakpoint.smAndDown ? null : 'mt-5'"
       style="max-height: 650px"
     >
       <v-col

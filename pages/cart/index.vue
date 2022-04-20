@@ -110,9 +110,7 @@
               </span>
               <v-divider class="my-5"></v-divider>
               <span style="font-size: 1.2rem">
-                Все цены на сайте носят информационный характер. Окончательная
-                цена товара будет озвучена вам менеджером по звонку или при
-                личном визите
+                {{ infoPriceChanging }}
               </span>
               <v-divider class="my-5"></v-divider>
               <span class="text-justify" style="font-size: 0.8rem"
@@ -143,6 +141,30 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <v-dialog v-model="confirmPriceChanging" max-width="400">
+          <v-card class="text-justify">
+            <v-card-title class="headline d-flex justify-center"
+              >Внимание</v-card-title
+            >
+
+            <v-card-text class="text-center">
+              <span style="font-size: 1.2rem">
+                {{ infoPriceChanging }}
+              </span>
+            </v-card-text>
+
+            <v-card-actions class="d-flex justify-center">
+              <v-btn
+                color="red accent-4"
+                class="mb-5"
+                dark
+                @click="confirmPriceChanging = false"
+              >
+                ок
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </div>
     </div>
   </v-container>
@@ -156,7 +178,8 @@ export default {
   },
   data() {
     return {
-      confirmDialog: false
+      confirmDialog: false,
+      confirmPriceChanging: true
     }
   },
   computed: {
@@ -182,6 +205,8 @@ export default {
     }
   },
   created() {
+    this.infoPriceChanging =
+      'Все цены на сайте носят информационный характер. Окончательная цена товара будет озвучена вам менеджером по звонку или при личном визите'
     this.$store.commit(
       'localStorage/CALC_DISCOUNT',
       this.$store.getters['localStorage/quantityAlcohol']
