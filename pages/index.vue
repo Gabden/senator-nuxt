@@ -21,10 +21,7 @@
       </v-carousel-item>
     </v-carousel>
 
-    <v-row
-      :class="$vuetify.breakpoint.smAndDown ? null : 'mt-5'"
-      style="max-height: 650px"
-    >
+    <v-row :class="$vuetify.breakpoint.smAndDown ? null : 'mt-5'">
       <v-col
         :cols="$vuetify.breakpoint.smAndDown ? 12 : 6"
         :class="$vuetify.breakpoint.mdAndDown ? null : 'my-5'"
@@ -57,13 +54,25 @@
           class="mt-1"
         />
       </v-col>
-      <v-col cols="6" class="hidden-sm-and-down">
-        <img
-          v-lazy-load
-          src="../assets/faceSenator.jpg"
-          alt="Senator shop enter"
-          style="width: 100%; height: 80%"
-        />
+      <v-col cols="12" md="6" class="mb-5">
+        <div class="my-5">
+          <a
+            href="https://yandex.ru/maps/org/senator/1013126408/?utm_medium=mapframe&utm_source=maps"
+            style="color:#eee;font-size:12px;position:absolute;top:0px;"
+            >Сенатор</a
+          ><a
+            href="https://yandex.ru/maps/11/ryazan/category/liquor_store/184107899/?utm_medium=mapframe&utm_source=maps"
+            style="color:#eee;font-size:12px;position:absolute;top:14px;"
+            >Магазин алкогольных напитков в Рязани</a
+          ><iframe
+            src="https://yandex.ru/map-widget/v1/-/CCUN5SDdOB"
+            width="560"
+            height="400"
+            frameborder="1"
+            allowfullscreen="true"
+            style="width: 100%"
+          ></iframe>
+        </div>
       </v-col>
     </v-row>
     <v-row>
