@@ -34,7 +34,7 @@
       <p class="grey--text">Всего найдено: {{ productsInfo.totalElements }}</p>
     </div>
     <div
-      v-for="product in productsInfo.content"
+      v-for="product in sortedProducts"
       :key="product.productId"
       class="my-5"
     >
@@ -76,6 +76,20 @@ export default {
     return {
       IdForFind: '',
       textForFind: ''
+    }
+  },
+  computed: {
+    sortedProducts() {
+      return (
+        this.productsInfo?.content?.reduce((acc, product) => {
+          if (product.productDetails.productUnitInStock < 1) {
+            acc.push(product)
+          } else {
+            acc.unshift(product)
+          }
+          return acc
+        }, []) || []
+      )
     }
   },
   watch: {

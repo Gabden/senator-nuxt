@@ -17,8 +17,8 @@
 
         <v-row>
           <v-col
-            v-for="(product, index) in products.content"
-            :key="index"
+            v-for="product in sortedProducts"
+            :key="product.id"
             cols="10"
             sm="6"
             md="4"
@@ -60,6 +60,22 @@ export default {
     return {
       page: 1,
       filterCriteria: null
+    }
+  },
+  computed: {
+    sortedProducts() {
+      return (
+        this.products?.content?.reduce((acc, product) => {
+          if (product.productDetails.productUnitInStock < 1) {
+            console.log('in push=> ', product)
+            acc.push(product)
+          } else {
+            console.log('in unshift=> ', product)
+            acc.unshift(product)
+          }
+          return acc
+        }, []) || []
+      )
     }
   },
   methods: {

@@ -46,6 +46,10 @@
         </a>
       </template>
 
+      <template v-if="!$auth.loggedIn">
+        <v-btn color="blue-grey darken-1" dark to="/login">Узнать цену</v-btn>
+      </template>
+
       <template v-else>
         <p
           v-if="!isDiscountBlocked"

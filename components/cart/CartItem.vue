@@ -34,39 +34,41 @@
         style="max-width: 70%"
         @input="changeQuantity"
       ></v-select>
-      <div
-        class="mb-2"
-        :class="
-          (productItem.product.productSalePrice || productItem.discount) &&
-          !isDiscountBlocked
-            ? 'linethrough'
-            : null
-        "
-      >
-        <span class="caption">ЦЕНА: </span>
-        <strong v-if="!isReservationBlocked"
-          >{{ productItem.product.productPrice }} руб.</strong
-        >
-        <strong v-else>-</strong>
-      </div>
-      <template v-if="!isDiscountBlocked">
+      <template v-if="$auth.loggedIn">
         <div
-          v-if="!productItem.product.productSalePrice && productItem.discount"
-          class="mb-2 red--text text--darken-4"
+          class="mb-2"
+          :class="
+            (productItem.product.productSalePrice || productItem.discount) &&
+            !isDiscountBlocked
+              ? 'linethrough'
+              : null
+          "
         >
-          <span class="caption">СКИДКА: </span>
-          <strong>{{ productItem.discount }}%</strong>
+          <span class="caption">ЦЕНА: </span>
+          <strong v-if="!isReservationBlocked"
+            >{{ productItem.product.productPrice }} руб.</strong
+          >
+          <strong v-else>-</strong>
         </div>
-        <div class="mb-2 red--text text--darken-4">
-          <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
-          <strong>{{ priceWithSale }}</strong> руб.
+        <template v-if="!isDiscountBlocked">
+          <div
+            v-if="!productItem.product.productSalePrice && productItem.discount"
+            class="mb-2 red--text text--darken-4"
+          >
+            <span class="caption">СКИДКА: </span>
+            <strong>{{ productItem.discount }}%</strong>
+          </div>
+          <div class="mb-2 red--text text--darken-4">
+            <span class="caption">ЦЕНА СО СКИДКОЙ: </span>
+            <strong>{{ priceWithSale }}</strong> руб.
+          </div>
+        </template>
+        <div class="mb-2">
+          <span class="caption">СУММА: </span
+          ><strong v-if="!isReservationBlocked">{{ totalPrice }} руб.</strong>
+          <strong v-else>-</strong>
         </div>
       </template>
-      <div class="mb-2">
-        <span class="caption">СУММА: </span
-        ><strong v-if="!isReservationBlocked">{{ totalPrice }} руб.</strong>
-        <strong v-else>-</strong>
-      </div>
     </v-col>
     <v-col cols="1" class="d-flex justify-center align-center">
       <v-btn icon link to="#" class="mr-3" @click="deleteFromCart">

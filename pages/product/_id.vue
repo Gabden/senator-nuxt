@@ -368,6 +368,11 @@
                 <span>+7(4912)-28-19-37</span>
               </a>
             </template>
+            <template v-if="!$auth.loggedIn">
+              <v-btn color="blue-grey darken-1" dark to="/login"
+                >Узнать цену</v-btn
+              >
+            </template>
             <template v-else>
               <p class="mb-0 grey--text " style="font-size: 0.85rem">Цена</p>
               <p
