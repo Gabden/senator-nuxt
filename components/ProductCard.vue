@@ -1,9 +1,15 @@
 <template>
   <v-card max-width="400">
     <div class="d-flex">
-      <v-btn fab small dark color="pink darken-1" class="ma-3">{{
-        discountOrSale
-      }}</v-btn>
+      <v-btn
+        fab
+        small
+        dark
+        color="pink darken-1"
+        class="ma-3"
+        :class="{ 'zero-opacity': !$auth.loggedIn }"
+        >{{ discountOrSale }}</v-btn
+      >
       <v-spacer></v-spacer>
     </div>
     <nuxt-link :to="'/product/' + product.productId">
@@ -208,5 +214,9 @@ export default {
 }
 .empty {
   cursor: not-allowed;
+}
+.zero-opacity {
+  opacity: 0;
+  cursor: initial;
 }
 </style>

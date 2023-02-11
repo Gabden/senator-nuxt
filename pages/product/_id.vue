@@ -8,7 +8,7 @@
     </h3>
     <v-row class="my-5">
       <v-col cols="12" md="4">
-        <div class="d-flex">
+        <div v-if="$auth.loggedIn" class="d-flex">
           <v-btn fab small dark color="pink darken-1" class="ma-3">{{
             discountOrSale
           }}</v-btn>
