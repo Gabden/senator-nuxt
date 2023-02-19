@@ -96,7 +96,7 @@ export default {
     },
     changePageByQuery() {
       const { page } = this.$route.query
-      if (page !== this.page) {
+      if (page && page !== this.page) {
         this.page = +page
         this.$emit('changePage', page)
       }
