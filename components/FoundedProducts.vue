@@ -67,10 +67,8 @@ export default {
       return (
         this.products?.content?.reduce((acc, product) => {
           if (product.productDetails.productUnitInStock < 1) {
-            console.log('in push=> ', product)
             acc.push(product)
           } else {
-            console.log('in unshift=> ', product)
             acc.unshift(product)
           }
           return acc
@@ -78,14 +76,30 @@ export default {
       )
     }
   },
+  watch: {
+    '$route.query'() {
+      this.changePageByQuery()
+    }
+  },
+  created() {
+    this.changePageByQuery()
+  },
   methods: {
     changePage() {
       this.$emit('changePage', this.page)
+      this.$router.push({ query: { page: this.page } })
     },
     filterProducts(payload) {
       this.page = 1
       this.filterCriteria = payload
       this.$emit('filtered', this.filterCriteria)
+    },
+    changePageByQuery() {
+      const { page } = this.$route.query
+      if (page !== this.page) {
+        this.page = +page
+        this.$emit('changePage', page)
+      }
     }
   }
 }
