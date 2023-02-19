@@ -159,20 +159,18 @@
               Сорт
             </p>
             <v-btn
+              v-for="type in alcoTypes"
+              :key="type"
               color="red"
               text
               nuxt
-              :to="
-                `/search/sort?value=${
-                  product.productDetails.productAlcoholSort.split(',')[0]
-                }`
-              "
+              :to="`/search/sort?value=${type}`"
               class="text-truncate"
               ><span
                 class="d-inline-block text-truncate"
                 style="max-width: 160px;"
               >
-                {{ product.productDetails.productAlcoholSort }}</span
+                {{ type }}</span
               ></v-btn
             >
           </v-col>
@@ -456,6 +454,9 @@ export default {
     },
     isReservationBlocked() {
       return process.env.RESERVE_BLOCKED
+    },
+    alcoTypes() {
+      return this.product?.productDetails?.productAlcoholSort?.split(',') || []
     }
   },
   methods: {
