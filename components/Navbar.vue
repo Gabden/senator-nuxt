@@ -132,26 +132,26 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-expansion-panels flat class="grey lighten-4 pl-5">
+        <v-expansion-panels flat class="grey lighten-4 px-0">
           <v-expansion-panel color="grey lighten-4">
             <v-expansion-panel-header color="grey lighten-4" class="pl-4"
-              >Все товары</v-expansion-panel-header
+              ><span class="pl-5">Все товары</span></v-expansion-panel-header
             >
             <v-expansion-panel-content class="grey lighten-5 px-0">
               <v-divider></v-divider>
               <div
-                v-for="item in allGoods"
-                :key="`${item.title} + key`"
+                v-for="{ title, url, icon } in categories"
+                :key="`${title} + key`"
                 class="grey lighten-5 px-0"
               >
-                <v-list-item link :to="item.url" class="grey lighten-5">
+                <v-list-item link :to="url" class="grey lighten-5">
                   <v-list-item-content class="grey lighten-5">
                     <v-list-item-title
                       class="text-left ml-5"
                       color="grey lighten-5"
                     >
-                      <v-icon color="red">{{ item.icon }}</v-icon>
-                      {{ item.title }}</v-list-item-title
+                      <v-icon color="red">{{ icon }}</v-icon>
+                      {{ title }}</v-list-item-title
                     >
                   </v-list-item-content>
                 </v-list-item>
@@ -241,6 +241,8 @@
 <script>
 import requestsService from '../services/requestsService'
 import SenatorLogo from './SenatorLogo.vue'
+import { CATEGORIES } from '@/constants/categories'
+
 export default {
   components: {
     'senator-logo': SenatorLogo
@@ -249,28 +251,7 @@ export default {
     return {
       searchDialog: false,
       searchText: '',
-      drawer: false,
-      accountItems: [
-        { title: 'Home', icon: 'mdi-dashboard' },
-        { title: 'About', icon: 'mdi-question-answer' }
-      ],
-      allGoods: [
-        { title: 'Акции', url: '/sales', icon: 'mdi-percent-outline' },
-        { title: 'Новинки', url: '/new-products', icon: 'mdi-glass-cocktail' },
-        { title: 'Алкоголь', url: '/alcohol', icon: 'mdi-bottle-wine-outline' },
-        { title: 'Напитки', url: '/drinks', icon: 'mdi-water-outline' },
-        {
-          title: 'Оливковое масло',
-          url: '/oils',
-          icon: 'mdi-bottle-tonic-plus-outline'
-        },
-        {
-          title: 'Посуда и аксессуары',
-          url: '/dishes',
-          icon: 'mdi-glass-tulip'
-        },
-        { title: 'Подарки', url: '/gifts', icon: 'mdi-gift-outline' }
-      ]
+      drawer: false
     }
   },
   computed: {
@@ -292,6 +273,13 @@ export default {
       }
       return this.$store.state.localStorage.newOrders
     }
+  },
+  created() {
+    this.categories = CATEGORIES
+    this.accountItems = [
+      { title: 'Home', icon: 'mdi-dashboard' },
+      { title: 'About', icon: 'mdi-question-answer' }
+    ]
   },
   async mounted() {
     await this.pollOrdersQuantity()

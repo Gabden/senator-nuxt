@@ -11,7 +11,7 @@
         :rules="nameRules"
         required
       ></v-text-field>
-      <v-row class="ml-1">
+      <v-row class="ml-1 mb-3">
         <div
           dark
           class="blue-grey white--text px-5 d-flex flex-column justify-center"
@@ -21,29 +21,13 @@
 
         <v-col>
           <v-checkbox
+            v-for="{ title, code } in categories"
+            :key="code"
             v-model="cats"
-            label="Алкоголь"
-            value="alcohol"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="cats"
-            label="Напитки"
-            value="drinks"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="cats"
-            label="Оливковое масло"
-            value="oil"
+            :label="title"
+            :value="code"
           ></v-checkbox>
         </v-col>
-        <v-col>
-          <v-checkbox v-model="cats" label="Посуда" value="dishes"></v-checkbox>
-          <v-checkbox v-model="cats" label="Подарки" value="gifts"></v-checkbox>
-          <v-checkbox v-model="cats" label="Акции" value="sales"></v-checkbox>
-        </v-col>
-        <v-col
-          ><v-checkbox v-model="cats" label="Новинка" value="new"></v-checkbox
-        ></v-col>
       </v-row>
       <v-text-field
         v-model="product.productDetails.productType"
@@ -146,6 +130,8 @@
 </template>
 
 <script>
+import { CATEGORIES } from '@/constants/categories'
+
 export default {
   middleware: 'auth-admin',
   asyncData(context) {
@@ -173,6 +159,7 @@ export default {
     }
   },
   created() {
+    this.categories = CATEGORIES
     this.cats = this.product.productCategory.split(',')
   },
   methods: {

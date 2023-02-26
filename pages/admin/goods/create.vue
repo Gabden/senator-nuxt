@@ -11,7 +11,7 @@
         :rules="nameRules"
         required
       ></v-text-field>
-      <v-row class="ml-1">
+      <v-row class="ml-1 mb-3">
         <div
           dark
           class="blue-grey white--text px-5 d-flex flex-column justify-center"
@@ -21,45 +21,13 @@
 
         <v-col>
           <v-checkbox
+            v-for="{ title, code } in categories"
+            :key="code"
             v-model="product.productCategory"
-            label="Алкоголь"
-            value="alcohol"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="product.productCategory"
-            label="Напитки"
-            value="drinks"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="product.productCategory"
-            label="Оливковое масло"
-            value="oil"
+            :label="title"
+            :value="code"
           ></v-checkbox>
         </v-col>
-        <v-col>
-          <v-checkbox
-            v-model="product.productCategory"
-            label="Посуда"
-            value="dishes"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="product.productCategory"
-            label="Подарки"
-            value="gifts"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="product.productCategory"
-            label="Акции"
-            value="sales"
-          ></v-checkbox>
-        </v-col>
-        <v-col
-          ><v-checkbox
-            v-model="product.productCategory"
-            label="Новинка"
-            value="new"
-          ></v-checkbox
-        ></v-col>
       </v-row>
       <v-text-field
         v-model="product.productDetails.productType"
@@ -162,6 +130,8 @@
 </template>
 
 <script>
+import { CATEGORIES } from '@/constants/categories'
+
 export default {
   middleware: 'auth-admin',
   data() {
@@ -193,6 +163,9 @@ export default {
       formValidity: false,
       nameRules: [(value) => !!value || 'Необходимо заполнить поле']
     }
+  },
+  created() {
+    this.categories = CATEGORIES
   },
   methods: {
     async createProduct() {
