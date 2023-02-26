@@ -157,6 +157,7 @@
                 label="Отчество"
                 prepend-icon="mdi-account"
               ></v-text-field>
+              <birth-picker v-model="user.birthDate" />
             </v-card-text>
             <v-card-actions>
               <v-btn
@@ -211,10 +212,14 @@
 
 <script>
 import ListOrders from '@/components/ListOrders.vue'
+import BirthPicker from '@/components/birth-picker'
+
 export default {
   middleware: 'auth',
+  name: 'Account',
   components: {
-    ListOrders
+    ListOrders,
+    BirthPicker
   },
   asyncData(context) {
     context.store.commit('SWITCH_LOADER', true)
@@ -242,7 +247,8 @@ export default {
         phone: '',
         newPassword: '',
         oldPassword: '',
-        secondPassword: ''
+        secondPassword: '',
+        birthDate: ''
       },
       orderPage: 1,
       formValidityPass: false,
@@ -313,19 +319,15 @@ export default {
     }
   },
   created() {
-    this.user.phone = this.$auth.user
-      ? this.$auth.user.userDetailsDescription.phone
-      : ''
-    this.user.fiofirst = this.$auth.user
-      ? this.$auth.user.userDetailsDescription.fiofirst
-      : ''
-    this.user.fiomiddle = this.$auth.user
-      ? this.$auth.user.userDetailsDescription.fiomiddle
-      : ''
-    this.user.fiolast = this.$auth.user
-      ? this.$auth.user.userDetailsDescription.fiolast
-      : ''
-    this.user.username = this.$auth.user ? this.$auth.user.username : ''
+    if (!this.$auth.user) {
+      return
+    }
+
+    const { userDetailsDescription } = this.$auth.user
+    this.user = {
+      ...userDetailsDescription,
+      username: this.$auth.user.username
+    }
   },
   methods: {
     async changePhone(newPhone) {

@@ -106,6 +106,7 @@
                 label="Отчество"
                 prepend-icon="mdi-account"
               ></v-text-field>
+              <birth-picker v-model="userModel.birthDate" />
             </v-card-text>
             <v-card-actions>
               <v-btn
@@ -160,10 +161,13 @@
 
 <script>
 import ListOrders from '@/components/ListOrders.vue'
+import BirthPicker from '@/components/birth-picker'
+
 export default {
   middleware: 'auth-admin',
   components: {
-    ListOrders
+    ListOrders,
+    BirthPicker
   },
   async asyncData(context) {
     context.store.commit('SWITCH_LOADER', true)
@@ -203,7 +207,8 @@ export default {
         phone: '',
         newPassword: '',
         oldPassword: '',
-        secondPassword: ''
+        secondPassword: '',
+        birthDate: ''
       },
       orderPage: 1,
       formValidityFIO: false,
@@ -239,11 +244,11 @@ export default {
     },
     fullName() {
       return this.user
-        ? this.user.userDetailsDescription.fiolast +
+        ? (this.user.userDetailsDescription.fiolast || '') +
             ' ' +
             this.user.userDetailsDescription.fiofirst +
             ' ' +
-            this.user.userDetailsDescription.fiomiddle
+            (this.user.userDetailsDescription.fiomiddle || '')
         : ''
     }
   },
@@ -268,19 +273,11 @@ export default {
     }
   },
   created() {
-    this.userModel.phone = this.user
-      ? this.user.userDetailsDescription.phone
-      : ''
-    this.userModel.fiofirst = this.user
-      ? this.user.userDetailsDescription.fiofirst
-      : ''
-    this.userModel.fiomiddle = this.user
-      ? this.user.userDetailsDescription.fiomiddle
-      : ''
-    this.userModel.fiolast = this.user
-      ? this.user.userDetailsDescription.fiolast
-      : ''
-    this.userModel.username = this.user ? this.user.username : ''
+    if (!this.user) {
+      return
+    }
+    const { userDetailsDescription } = this.user
+    this.userModel = { ...userDetailsDescription, username: this.user.username }
   },
   methods: {
     changePhone(newPhone) {

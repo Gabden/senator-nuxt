@@ -72,6 +72,7 @@
                 label="Отчество"
                 prepend-icon="mdi-account"
               ></v-text-field>
+              <birth-picker v-model="user.userDetailsDescription.birthDate" />
             </v-col>
           </v-row>
           <v-row>
@@ -111,7 +112,12 @@
 </template>
 
 <script>
+import BirthPicker from '@/components/birth-picker'
+
 export default {
+  components: {
+    BirthPicker
+  },
   data() {
     return {
       user: {
@@ -121,7 +127,8 @@ export default {
           phone: '',
           FIOfirst: '',
           FIOmiddle: '',
-          FIOlast: ''
+          FIOlast: '',
+          birthDate: ''
         }
       },
       formValidity: false,
