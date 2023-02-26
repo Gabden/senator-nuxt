@@ -155,6 +155,13 @@ export const getters = {
   },
   grandTotalWithSale(state) {
     const gtSale = state.cart.cartItems.reduce((total, item) => {
+      if (
+        item.product.productName
+          ?.toLowerCase()
+          .includes('подарочный сертификат')
+      ) {
+        return (total += +item.cartItemPrice * item.quantity)
+      }
       if (item.product.productSalePrice) {
         total += item.product.productSalePrice * item.quantity
       } else {

@@ -69,6 +69,7 @@
           руб.
         </p>
         <p
+          v-if="!isCertificate"
           class="ma-0 font-weight-bold "
           :class="
             product.discount || product.productSalePrice
@@ -149,6 +150,10 @@ export default {
   },
   computed: {
     priceWithSale() {
+      if (this.isCertificate) {
+        return this.product.productPrice
+      }
+
       if (this.product.productSalePrice) {
         return this.product.productSalePrice
       }
@@ -182,6 +187,10 @@ export default {
     },
     isProductQuantityExist() {
       return this.product?.productDetails?.productUnitInStock > 0
+    },
+    isCertificate() {
+      const certificate = 'подарочный сертификат'
+      return this.product?.productName?.toLowerCase().includes(certificate)
     }
   },
   methods: {

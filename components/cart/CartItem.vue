@@ -39,7 +39,8 @@
           class="mb-2"
           :class="
             (productItem.product.productSalePrice || productItem.discount) &&
-            !isDiscountBlocked
+            !isDiscountBlocked &&
+            !isCertificate
               ? 'linethrough'
               : null
           "
@@ -50,7 +51,7 @@
           >
           <strong v-else>-</strong>
         </div>
-        <template v-if="!isDiscountBlocked">
+        <template v-if="!isDiscountBlocked && !isCertificate">
           <div
             v-if="!productItem.product.productSalePrice && productItem.discount"
             class="mb-2 red--text text--darken-4"
@@ -108,14 +109,18 @@ export default {
       } else return ''
     },
     priceWithSale() {
+      if (this.isCertificate) {
+        return this.productItem.product.productPrice
+      }
+
       if (this.productItem.product.productSalePrice) {
         return this.productItem.product.productSalePrice
-      } else {
-        return Math.ceil(
-          this.productItem.cartItemPrice *
-            ((100 - this.productItem.discount) / 100)
-        )
       }
+
+      return Math.ceil(
+        this.productItem.cartItemPrice *
+          ((100 - this.productItem.discount) / 100)
+      )
     },
     totalPrice() {
       return this.priceWithSale * this.productItem.quantity
@@ -132,6 +137,10 @@ export default {
     },
     isReservationBlocked() {
       return process.env.RESERVE_BLOCKED
+    },
+    isCertificate() {
+      const certificate = 'Подарочный Сертификат'
+      return this.productItem.product?.productName?.includes(certificate)
     }
   },
   created() {

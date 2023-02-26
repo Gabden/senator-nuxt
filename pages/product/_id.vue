@@ -374,7 +374,10 @@
             <template v-else>
               <p class="mb-0 grey--text " style="font-size: 0.85rem">Цена</p>
               <p
-                v-if="product.discount || product.productSalePrice"
+                v-if="
+                  (product.discount || product.productSalePrice) &&
+                    !isCertificate
+                "
                 class="grey--text text--darken-2  mb-0 price-size"
                 :style="
                   isDiscountBlocked ? null : 'text-decoration: line-through;'
@@ -430,6 +433,10 @@ export default {
   },
   computed: {
     priceWithSale() {
+      if (this.isCertificate) {
+        return this.product.productPrice
+      }
+
       if (this.product.productSalePrice) {
         return this.product.productSalePrice
       }
@@ -457,6 +464,10 @@ export default {
     },
     alcoTypes() {
       return this.product?.productDetails?.productAlcoholSort?.split(',') || []
+    },
+    isCertificate() {
+      const certificate = 'подарочный сертификат'
+      return this.product?.productName?.toLowerCase().includes(certificate)
     }
   },
   methods: {
