@@ -85,9 +85,11 @@ export default {
     this.changePageByQuery()
   },
   methods: {
-    changePage() {
+    async changePage() {
+      await this.$router.push({
+        query: { ...this.$route.query, page: this.page }
+      })
       this.$emit('changePage', this.page)
-      this.$router.push({ query: { page: this.page } })
     },
     filterProducts(payload) {
       this.page = 1

@@ -52,7 +52,7 @@
         </a>
       </template>
 
-      <template v-if="!$auth.loggedIn">
+      <template v-if="isProductQuantityExist && !$auth.loggedIn">
         <v-btn color="blue-grey darken-1" dark to="/login">Узнать цену</v-btn>
       </template>
 
@@ -86,7 +86,7 @@
       </template>
     </v-card-text>
     <v-card-actions
-      v-if="product.productDetails.productUnitInStock > 0"
+      v-if="isProductQuantityExist"
       class="d-flex justify-center mb-5 pb-8"
     >
       <v-btn
@@ -119,7 +119,10 @@
         <v-icon>mdi-cart</v-icon>
       </v-btn>
     </v-card-actions>
-    <v-card-actions v-else class="d-flex justify-center mb-5 pb-8">
+    <v-card-actions
+      v-if="!isProductQuantityExist"
+      class="d-flex justify-center mb-5 pb-8"
+    >
       <v-btn class="mx-2 empty" color="error" large outlined>
         товар отсутствует
       </v-btn>
@@ -176,6 +179,9 @@ export default {
     },
     isReservationBlocked() {
       return process.env.RESERVE_BLOCKED
+    },
+    isProductQuantityExist() {
+      return this.product?.productDetails?.productUnitInStock > 0
     }
   },
   methods: {
