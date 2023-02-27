@@ -52,7 +52,7 @@
         </a>
       </template>
 
-      <template v-if="isProductQuantityExist && !$auth.loggedIn">
+      <template v-if="!$auth.loggedIn">
         <v-btn color="blue-grey darken-1" dark to="/login">Узнать цену</v-btn>
       </template>
 
