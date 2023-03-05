@@ -12,7 +12,7 @@
         <nuxt-link :to="banner.bannerUrl">
           <v-img
             v-lazy-load
-            :src="'data:image/jpg;base64,' + banner.fileData"
+            :src="`/api/home/banners/${banner.id}`"
             contain
             :max-height="heightSize"
             style="background-size: 100% 100%;"

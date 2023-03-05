@@ -60,9 +60,10 @@ export default {
       return this.$vuetify.breakpoint.smAndDown
     },
     imageSrc() {
-      if (this.banner) {
-        return 'data:image/jpg;base64,' + this.banner.fileData
-      } else return ''
+      if (!this.banner) {
+        return ''
+      }
+      return `/api/home/banners/${this.banner.id}`
     }
   },
   methods: {
