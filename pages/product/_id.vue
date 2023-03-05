@@ -454,7 +454,10 @@ export default {
       return this.product.discount + '%'
     },
     imageSrc() {
-      return 'data:image/jpg;base64,' + this.product.productImage.fileData
+      if (!this.product) {
+        return ''
+      }
+      return `/api/product/image/${this.product.productId}`
     },
     isDiscountBlocked() {
       return process.env.DISCOUNT_BLOCKED

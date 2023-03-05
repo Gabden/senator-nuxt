@@ -97,16 +97,10 @@ export default {
       return this.$vuetify.breakpoint.smAndDown
     },
     imageSrc() {
-      if (
-        this.productItem.product &&
-        this.productItem.product.productImage &&
-        this.productItem.product.productImage.fileData
-      ) {
-        return (
-          'data:image/jpg;base64,' +
-          this.productItem.product.productImage.fileData
-        )
-      } else return ''
+      if (!this.productItem?.product) {
+        return ''
+      }
+      return `/api/product/image/${this.productItem.product.productId}`
     },
     priceWithSale() {
       if (this.isCertificate) {

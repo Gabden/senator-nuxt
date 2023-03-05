@@ -46,15 +46,10 @@ export default {
       return this.$vuetify.breakpoint.smAndDown
     },
     imageSrc() {
-      if (
-        this.item.product &&
-        this.item.product.productImage &&
-        this.item.product.productImage.fileData
-      ) {
-        return (
-          'data:image/jpg;base64,' + this.item.product.productImage.fileData
-        )
-      } else return ''
+      if (!this.item?.product) {
+        return ''
+      }
+      return `/api/product/image/${this.item.product.productId}`
     }
   }
 }

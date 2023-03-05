@@ -91,10 +91,10 @@ export default {
       return this.$vuetify.breakpoint.smAndDown
     },
     imageSrc() {
-      if (this.product.productImage) {
-        return 'data:image/jpg;base64,' + this.product.productImage.fileData
+      if (!this.product) {
+        return ''
       }
-      return ''
+      return `/api/product/image/${this.product.productId}`
     },
     priceWithSale() {
       if (this.product.productSalePrice) {

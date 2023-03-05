@@ -171,13 +171,10 @@ export default {
       return this.product.discount + '%'
     },
     imageSrc() {
-      if (
-        this.product &&
-        this.product.productImage &&
-        this.product.productImage.fileData
-      ) {
-        return 'data:image/jpg;base64,' + this.product.productImage.fileData
-      } else return ''
+      if (!this.product) {
+        return ''
+      }
+      return `/api/product/image/${this.product.productId}`
     },
     isDiscountBlocked() {
       return process.env.DISCOUNT_BLOCKED

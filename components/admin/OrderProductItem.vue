@@ -76,7 +76,10 @@ export default {
       return this.$vuetify.breakpoint.smAndDown
     },
     imageSrc() {
-      return 'data:image/jpg;base64,' + this.item.product.productImage.fileData
+      if (!this.item?.product) {
+        return ''
+      }
+      return `/api/product/image/${this.item.product.productId}`
     }
   },
   created() {
