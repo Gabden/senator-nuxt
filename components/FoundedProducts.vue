@@ -97,8 +97,9 @@ export default {
       this.$emit('filtered', this.filterCriteria)
     },
     changePageByQuery() {
-      const { page } = this.$route.query
-      if (page && page !== this.page) {
+      let { page } = this.$route.query
+      page = page || 1
+      if (page !== this.page) {
         this.page = +page
         this.$emit('changePage', page)
       }

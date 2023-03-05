@@ -32,7 +32,7 @@ export const CATEGORIES = [
   },
   { title: 'Подарки', url: '/gifts', icon: 'mdi-gift-outline', code: 'gifts' },
   {
-    title: 'Шоколад',
+    title: 'Шоколад и Конфеты',
     url: '/chocolate',
     icon: 'mdi-candycane',
     code: 'chocolate'

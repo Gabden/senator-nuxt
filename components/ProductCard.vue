@@ -165,7 +165,7 @@ export default {
       if (this.product.productSalePrice) {
         return 'Sale'
       }
-      if (!this.product.discount) {
+      if (!this.product.discount || this.isCertificate) {
         return '!'
       }
       return this.product.discount + '%'
