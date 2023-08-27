@@ -168,7 +168,7 @@ export default {
       await this.$axios
         .post('/api/admin/product/create', this.product)
         .then((response) => {
-          this.$toasted.success('Данные успешно изменены!').goAway(2000)
+          this.$toasted.success('Данные товара успешно изменены!').goAway(2000)
         })
         .catch((e) => {
           this.$toasted
@@ -185,7 +185,7 @@ export default {
             formData
           )
           .then((response) => {
-            this.$toasted.success('Данные успешно изменены!').goAway(2000)
+            this.$toasted.success('Изображениe успешно добавлено!').goAway(2000)
           })
           .catch((e) => {
             this.$toasted

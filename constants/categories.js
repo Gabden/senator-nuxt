@@ -1,40 +1,95 @@
 export const CATEGORIES = [
-  { title: 'Акции', url: '/sales', icon: 'mdi-percent-outline', code: 'sales' },
+  {
+    title: 'Акции',
+    url: '/sales',
+    icon: 'mdi-percent-outline',
+    code: 'sales',
+    seo: {
+      title: '«СЕНАТОР» - скидки на алкоголь в бутике senator-wine.ru',
+      content:
+        'Скидки на алкоголь в магазине «СЕНАТОР»! Полный ассортимент, подробное описание, цены и скидки ☎ +7(4912)-28-19-37.'
+    }
+  },
   {
     title: 'Новинки',
-    url: '/new-products',
+    url: '/new',
     icon: 'mdi-glass-cocktail',
-    code: 'new'
+    code: 'new',
+    seo: {
+      title:
+        '«СЕНАТОР» - новинки в ассортименте алкоголя и подарков в бутике senator-wine.ru',
+      content:
+        'Новинки в ассортименте в магазине «СЕНАТОР»! Полный ассортимент, подробное описание, цены и скидки ☎ +7(4912)-28-19-37.'
+    }
   },
   {
     title: 'Алкоголь',
     url: '/alcohol',
     icon: 'mdi-bottle-wine-outline',
-    code: 'alcohol'
+    code: 'alcohol',
+    seo: {
+      title:
+        '«СЕНАТОР» - купить премиум алкоголь и подарки в бутике senator-wine.ru',
+      content:
+        'Скидки на премиум алкоголь в магазине «СЕНАТОР»! Полный ассортимент, подробное описание, цены и скидки ☎ +7(4912)-28-19-37.'
+    }
   },
   {
     title: 'Напитки',
     url: '/drinks',
     icon: 'mdi-water-outline',
-    code: 'drinks'
+    code: 'drinks',
+    seo: {
+      title:
+        '«СЕНАТОР» - купить безалкогольные напитки в бутике senator-wine.ru',
+      content:
+        'Безалкогольные напитки в магазине «СЕНАТОР»! Полный ассортимент, подробное описание, цены и скидки ☎ +7(4912)-28-19-37.'
+    }
   },
   {
     title: 'Оливковое масло',
-    url: '/oils',
+    url: '/oil',
     icon: 'mdi-bottle-tonic-plus-outline',
-    code: 'oil'
+    code: 'oil',
+    seo: {
+      title:
+        '«СЕНАТОР» - купить оливковые и растительные масла в бутике senator-wine.ru',
+      content:
+        'Оливковые и растительные масла в магазине «СЕНАТОР»! Полный ассортимент, подробное описание, цены и скидки ☎ +7(4912)-28-19-37.'
+    }
   },
   {
     title: 'Посуда и аксессуары',
     url: '/dishes',
     icon: 'mdi-glass-tulip',
-    code: 'dishes'
+    code: 'dishes',
+    seo: {
+      title: '«СЕНАТОР» - купить посуду и аксессуары в бутике senator-wine.ru',
+      content:
+        'Премиум посуда и аксессуары магазине «СЕНАТОР»! Полный ассортимент, подробное описание, цены и скидки ☎ +7(4912)-28-19-37.'
+    }
   },
-  { title: 'Подарки', url: '/gifts', icon: 'mdi-gift-outline', code: 'gifts' },
+  {
+    title: 'Подарки',
+    url: '/gifts',
+    icon: 'mdi-gift-outline',
+    code: 'gifts',
+    seo: {
+      title: '«СЕНАТОР» - купить подарки в бутике senator-wine.ru',
+      content:
+        'Премиум подарки в магазине «СЕНАТОР»! Полный ассортимент, подробное описание, цены и скидки ☎ +7(4912)-28-19-37.'
+    }
+  },
   {
     title: 'Шоколад и Конфеты',
     url: '/chocolate',
     icon: 'mdi-candycane',
-    code: 'chocolate'
+    code: 'chocolate',
+    seo: {
+      title:
+        '«СЕНАТОР» - купить элитный шоколад и конфеты в бутике senator-wine.ru',
+      content:
+        'Элитный шоколад и конфеты в бутике «СЕНАТОР»! Полный ассортимент, подробное описание, цены и скидки ☎ +7(4912)-28-19-37.'
+    }
   }
 ]
