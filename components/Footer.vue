@@ -13,7 +13,7 @@
           <p class="white--text text-center">
             Мы в социальных сетях
           </p>
-          <p class="white--text text-center">
+          <p class="white--text social-block">
             <!-- <a href="https://www.facebook.com/senator24/">
               <v-icon class="blue--text social">mdi-facebook</v-icon>
             </a>
@@ -25,6 +25,14 @@
             </a> -->
             <a href="https://wa.me/79209551894">
               <v-icon class="green--text social">mdi-whatsapp</v-icon>
+            </a>
+            <a href="https://t.me/+79209551894">
+              <img
+                v-lazy-load
+                alt="Telegram link"
+                src="~assets/telegram.svg"
+                class="social telegram-social"
+              />
             </a>
           </p>
           <div class="pt-2 mt-2 text-center">
@@ -195,6 +203,19 @@ a span {
 .app-store {
   width: 35vw;
   height: 60px;
+}
+
+.social-block {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.telegram-social {
+  display: block;
+  padding-top: 4px;
+  width: 38px;
+  height: 38px;
 }
 
 @media (min-width: 600px) {

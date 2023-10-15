@@ -84,7 +84,7 @@ export default {
     '/api': {
       target: 'http://localhost:8098',
       pathRewrite: {
-        '^/api': '/'
+        '^/api': ''
       }
     }
   },

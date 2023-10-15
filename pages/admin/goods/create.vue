@@ -114,6 +114,7 @@
         show-size
         label="Изображение"
         required
+        :rules="fileRules"
       ></v-file-input>
       <v-btn
         type="submit"
@@ -161,7 +162,10 @@ export default {
         }
       },
       formValidity: false,
-      nameRules: [(value) => !!value || 'Необходимо заполнить поле']
+      nameRules: [(value) => !!value || 'Необходимо заполнить поле'],
+      fileRules: [
+        (file) => file?.size < 200000 || 'Размер файла не может превышать 200кб'
+      ]
     }
   },
   created() {
